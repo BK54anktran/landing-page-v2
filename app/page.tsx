@@ -1,6 +1,7 @@
 import {
     Applications,
     CTA,
+    FAQ,
     Feature,
     Footer,
     Hero,
@@ -18,8 +19,8 @@ export default function Home() {
             <Applications></Applications>
             <Preview></Preview>
             <SocialProof></SocialProof>
+            <FAQ />
             <CTA></CTA>
-            <Footer></Footer>
         </>
     );
 }
