@@ -3,7 +3,7 @@
 import { APPURL } from '@/utils/constants';
 import React, { useState } from 'react';
 import { Modal } from '../popup';
-import { loggedin, logout } from '@/api/auth';
+import { logout } from '@/api/auth';
 
 export const StateProvider = ({ children }: { children: React.ReactNode }) => {
     const [popup, setPopup] = useState<string>('close');
@@ -18,7 +18,7 @@ export const StateProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 export const Header = ({ openLogin }: { openLogin?: () => void }) => {
-    const loggedIn = loggedin();
+    const loggedIn = true;
     return (
         <header>
             <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
