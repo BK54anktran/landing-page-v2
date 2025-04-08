@@ -1,16 +1,17 @@
-import { Suspense } from "react";
-import { LoginModal } from "./login";
+import { LoginModal } from './login';
 
+const Modals = [
+    {
+        name: 'login',
+        component: LoginModal
+    }
+];
 
-
-const Modals = [{
-    name: 'login',
-    component: LoginModal
-}]
-
-export const Modal = ({type}:{type:string}) => {
-    const RenderTarget = () => Modals.find(x => x.name == type)?.component()
-    return <>
-        <RenderTarget/>
-    </>
-}
+export const Modal = ({ type }: { type?: string }) => {
+    const RenderTarget = () => Modals.find((x) => x.name == type)?.component();
+    return (
+        <>
+            <RenderTarget />
+        </>
+    );
+};

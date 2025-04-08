@@ -19,7 +19,6 @@ export const metadata: Metadata = {
         'Work and game on cloud PC - no need to download anything, games on any devices, work from anywhere'
 };
 
-
 export default function RootLayout({
     children
 }: Readonly<{
@@ -30,9 +29,7 @@ export default function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
-                <StateProvider>
-                    {children}
-                </StateProvider>
+                <StateProvider>{children}</StateProvider>
             </body>
         </html>
     );

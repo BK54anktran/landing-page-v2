@@ -1,19 +1,15 @@
-import { POCKETBASE } from ".";
-
-
+import { POCKETBASE } from '.';
 
 export const loggedin = async () => {
-    return (await POCKETBASE().collection('users').getFullList()).length > 0
-}
+    return (await POCKETBASE().collection('users').getFullList()).length > 0;
+};
 
-export const login = (
-    provider: 'google' | 'facebook' | 'discord',
-) => {
+export const login = (provider: 'google' | 'facebook' | 'discord') => {
     const originalurl = new URL(window.location.href);
     window.oncontextmenu = (ev) => ev.preventDefault();
 
     const w = window.open();
-    if (w == null) return
+    if (w == null) return;
 
     POCKETBASE()
         .collection('users')
@@ -38,5 +34,5 @@ export const login = (
                             : POCKETBASE().authStore.model?.metadata.reference
                     }
                 });
-        })
+        });
 };

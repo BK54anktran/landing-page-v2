@@ -1,1 +1,1 @@
-export const APPURL = '/play/index.html'
+export const APPURL = '/play/index.html';

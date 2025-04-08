@@ -1,10 +1,8 @@
-'use client'
-import { POCKETBASE } from "@/api";
-import { login } from "@/api/auth";
+'use client';
+import { login } from '@/api/auth';
 
 export function LoginModal() {
-    const proceed = login
-    const logout = () => POCKETBASE().authStore.clear()
+    const proceed = login;
 
     return (
         <div

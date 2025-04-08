@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack && cd webapp && npm run build",
-    "format": "prettier --write \"./app/**/*.{jsx,ts,js,tsx}\"",
+    "format": "prettier --write \"./**/*.{jsx,ts,js,tsx}\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
