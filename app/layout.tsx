@@ -14,7 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
     title: 'Thinkmay Cloud PC',
-    description: 'Work and game on cloud PC - no need to download anything, games on any devices, work from anywhere'
+    description:
+        'Work and game on cloud PC - no need to download anything, games on any devices, work from anywhere'
 };
 
 export default function RootLayout({

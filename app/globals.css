@@ -26,3 +26,11 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@theme {
+  --color-mica: #202020 radial-gradient(#3556e8 25%, #202020 100%) no-repeat fixed;
+}
+
+
+
+

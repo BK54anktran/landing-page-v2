@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function Home() {
     return (
         <>
@@ -6,6 +8,7 @@ export default function Home() {
             <Feature></Feature>
             <Pricing></Pricing>
             <Applications></Applications>
+            <Preview></Preview>
             <SocialProof></SocialProof>
             <CTA></CTA>
             <Footer></Footer>
@@ -359,7 +362,7 @@ const Header = () => {
 
 const Hero = () => {
     return (
-        <section className="bg-white dark:bg-gray-900">
+        <section className="bg-white dark:bg-mica ">
             <div className="max-w-screen-xl px-4 pt-8 mx-auto text-center lg:pt-16 lg:px-12">
                 <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
                     We invest in the world’s potential
@@ -407,8 +410,8 @@ const Hero = () => {
                 />
             </div>
             <div className="pt-48 lg:pb-16 pb-8 -mt-48 bg-gray-50 sm:pt-80 sm:-mt-80 dark:bg-gray-800 z-2">
-                <div className="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
-                    <div className="flex flex-wrap items-center justify-center mt-8 text-gray-500 sm:justify-between">
+                <div className="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36 ">
+                    <div className="flex flex-wrap items-center justify-center mt-8 text-gray-500 sm:justify-between  mb-[128px]">
                         <a
                             href="#"
                             className="mb-5 mr-5 lg:mb-0 hover:text-gray-900 dark:hover:text-gray-400"
@@ -518,7 +521,7 @@ const Hero = () => {
 
 const Feature = () => {
     return (
-        <section className="bg-white dark:bg-gray-900">
+        <section className="bg-white dark:bg-mica   mb-[256px]">
             <div className="py-8 px-4 mx-auto max-w-screen-xl text-center sm:py-16 lg:px-6">
                 <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
                     Designed for business teams like yours
@@ -604,7 +607,7 @@ const Feature = () => {
 
 const Pricing = () => {
     return (
-        <section className="bg-white dark:bg-gray-900">
+        <section className="bg-white dark:bg-mica   mb-[256px]">
             <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 ">
                 <div className="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
                     <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
@@ -1544,7 +1547,7 @@ const Pricing = () => {
 
 const Applications = () => {
     return (
-        <section className="bg-white dark:bg-gray-900 antialiased">
+        <section className="bg-white dark:bg-mica antialiased mb-[512px]">
             <div className="max-w-screen-xl px-4 py-8 mx-auto lg:px-6 sm:py-16 lg:py-24">
                 <div className="max-w-2xl mx-auto text-center">
                     <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-4xl dark:text-white">
@@ -1555,7 +1558,6 @@ const Applications = () => {
                         communities of people who share your interests.
                     </p>
                 </div>
-
                 <div className="grid grid-cols-1 gap-12 mt-12 sm:gap-8 lg:gap-16 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
                     <div>
                         <img
@@ -1605,7 +1607,6 @@ const Applications = () => {
                             >
                                 Case study
                             </a>
-
                             <a
                                 href="#"
                                 title=""
@@ -1626,7 +1627,6 @@ const Applications = () => {
                             </a>
                         </div>
                     </div>
-
                     <div>
                         <img
                             className="object-cover w-full rounded-lg shadow-lg dark:hidden mb-6"
@@ -1675,7 +1675,6 @@ const Applications = () => {
                             >
                                 Case study
                             </a>
-
                             <a
                                 href="#"
                                 title=""
@@ -1696,7 +1695,6 @@ const Applications = () => {
                             </a>
                         </div>
                     </div>
-
                     <div>
                         <img
                             className="object-cover w-full rounded-lg shadow-lg dark:hidden mb-6"
@@ -1745,7 +1743,6 @@ const Applications = () => {
                             >
                                 Case study
                             </a>
-
                             <a
                                 href="#"
                                 title=""
@@ -1766,7 +1763,6 @@ const Applications = () => {
                             </a>
                         </div>
                     </div>
-
                     <div>
                         <img
                             className="object-cover w-full rounded-lg shadow-lg mb-6 dark:hidden"
@@ -1815,7 +1811,6 @@ const Applications = () => {
                             >
                                 Case study
                             </a>
-
                             <a
                                 href="#"
                                 title=""
@@ -1836,7 +1831,6 @@ const Applications = () => {
                             </a>
                         </div>
                     </div>
-
                     <div>
                         <img
                             className="object-cover w-full rounded-lg shadow-lg dark:hidden mb-6"
@@ -1885,7 +1879,6 @@ const Applications = () => {
                             >
                                 Case study
                             </a>
-
                             <a
                                 href="#"
                                 title=""
@@ -1906,7 +1899,6 @@ const Applications = () => {
                             </a>
                         </div>
                     </div>
-
                     <div>
                         <img
                             className="object-cover w-full rounded-lg shadow-lg dark:hidden mb-6"
@@ -1955,7 +1947,6 @@ const Applications = () => {
                             >
                                 Case study
                             </a>
-
                             <a
                                 href="#"
                                 title=""
@@ -1982,9 +1973,23 @@ const Applications = () => {
     );
 };
 
+
+
+const Preview = () => {
+    return (
+        <Image
+            width={1440}
+            height={1080}
+            className="w-full mb-[256px] hidden sm:block"
+            alt="img-mockup"
+            src={'/img/macbook_mockup.png'}
+        ></Image>
+    );
+};
+
 const SocialProof = () => {
     return (
-        <section className="bg-white dark:bg-gray-900">
+        <section className="bg-white dark:bg-mica">
             <div className="items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-4 lg:gap-16 xl:gap-24 lg:py-16 lg:px-6">
                 <div className="col-span-2 mb-8">
                     <p className="text-lg font-medium text-primary-600 dark:text-primary-500">
@@ -2122,7 +2127,7 @@ const SocialProof = () => {
 
 const CTA = () => {
     return (
-        <section className="bg-white dark:bg-gray-900">
+        <section className="bg-white dark:bg-mica">
             <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
                 <img
                     className="w-full dark:hidden"
