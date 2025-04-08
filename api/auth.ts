@@ -1,23 +1,18 @@
 import { POCKETBASE } from '.';
 
-export const loggedin = async () => {
-    return (await POCKETBASE().collection('users').getFullList()).length > 0;
-};
+export const loggedin = () => POCKETBASE().authStore.isValid;
 
-export const login = (provider: 'google' | 'facebook' | 'discord') => {
-    const originalurl = new URL(window.location.href);
-    window.oncontextmenu = (ev) => ev.preventDefault();
-
-    const w = window.open();
-    if (w == null) return;
-
+export const logout = () => POCKETBASE().authStore.clear();
+export const login = (
+    provider: 'google' | 'facebook' | 'discord',
+    redirectTo: (_: string) => void,
+    ref?: string
+) => {
     POCKETBASE()
         .collection('users')
         .authWithOAuth2({
             provider: provider,
-            urlCallback: (url) => {
-                w.location.href = url;
-            }
+            urlCallback: (url) => redirectTo(url)
         })
         .then(() => {
             const isNewUser =
@@ -30,7 +25,7 @@ export const login = (provider: 'google' | 'facebook' | 'discord') => {
                 .update(POCKETBASE().authStore.model?.id, {
                     metadata: {
                         reference: isNewUser
-                            ? originalurl.searchParams.get('ref')
+                            ? (ref ?? 'landingPage')
                             : POCKETBASE().authStore.model?.metadata.reference
                     }
                 });

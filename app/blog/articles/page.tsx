@@ -580,7 +580,6 @@ export default function Article() {
                                 </a>
                                 on{' '}
                                 <time
-                                    
                                     className="uppercase"
                                     dateTime="2022-02-08"
                                     title="February 8th, 2022"
@@ -1240,7 +1239,6 @@ export default function Article() {
                                                     <span>Bonnie Green</span>
                                                     <time
                                                         className="text-sm font-normal text-gray-600 dark:text-gray-400 md:ml-2"
-                                                        
                                                         dateTime="2022-03-15"
                                                         title="March 15th, 2022"
                                                     >
@@ -1365,7 +1363,6 @@ export default function Article() {
                                                     <span>Jese Leos</span>
                                                     <time
                                                         className="text-sm font-normal text-gray-600 dark:text-gray-400 md:ml-2"
-                                                        
                                                         dateTime="2022-02-12"
                                                         title="February 12th, 2022"
                                                     >
@@ -1488,7 +1485,6 @@ export default function Article() {
                                                     <span>Danny Hart</span>
                                                     <time
                                                         className="text-sm font-normal text-gray-600 dark:text-gray-400 md:ml-2"
-                                                        
                                                         dateTime="2022-02-08"
                                                         title="February 8th, 2022"
                                                     >
@@ -1616,7 +1612,6 @@ export default function Article() {
                                                     <span>Bonnie Green</span>
                                                     <time
                                                         className="text-sm font-normal text-gray-600 dark:text-gray-400 md:ml-2"
-                                                        
                                                         dateTime="2022-03-15"
                                                         title="March 15th, 2022"
                                                     >
@@ -1741,7 +1736,6 @@ export default function Article() {
                                                     <span>Helene Engels</span>
                                                     <time
                                                         className="text-sm font-normal text-gray-600 dark:text-gray-400 md:ml-2"
-                                                        
                                                         dateTime="2022-06-23"
                                                         title="June 23rd, 2022"
                                                     >

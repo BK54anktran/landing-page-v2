@@ -3,6 +3,7 @@
 import { APPURL } from '@/utils/constants';
 import React, { useState } from 'react';
 import { Modal } from '../popup';
+import { loggedin, logout } from '@/api/auth';
 
 export const StateProvider = ({ children }: { children: React.ReactNode }) => {
     const [popup, setPopup] = useState<string>('close');
@@ -10,13 +11,14 @@ export const StateProvider = ({ children }: { children: React.ReactNode }) => {
     return (
         <div>
             <Header openLogin={() => setPopup('login')}></Header>
-            <Modal type={popup}></Modal>
+            <Modal type={popup} action={() => setPopup('close')}></Modal>
             {children}
         </div>
     );
 };
 
 export const Header = ({ openLogin }: { openLogin?: () => void }) => {
+    const loggedIn = loggedin();
     return (
         <header>
             <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
@@ -32,12 +34,29 @@ export const Header = ({ openLogin }: { openLogin?: () => void }) => {
                         </span>
                     </a>
                     <div className="flex items-center lg:order-2">
-                        <a
-                            className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
-                            onClick={openLogin}
-                        >
-                            Login
-                        </a>
+                        {loggedIn ? (
+                            <>
+                                <a
+                                    className="text-white hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 focus:outline-none cursor-pointer"
+                                    onClick={logout}
+                                >
+                                    Logout
+                                </a>
+                                <a
+                                    className="text-white font-bold bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 cursor-pointer"
+                                    href="/play/index.html"
+                                >
+                                    Play now
+                                </a>
+                            </>
+                        ) : (
+                            <a
+                                className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 cursor-pointer"
+                                onClick={openLogin}
+                            >
+                                Login
+                            </a>
+                        )}
                         <button
                             data-collapse-toggle="mobile-menu-2"
                             type="button"

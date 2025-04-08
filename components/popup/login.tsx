@@ -1,8 +1,21 @@
 'use client';
 import { login } from '@/api/auth';
+import { useSearchParams } from 'next/navigation';
 
-export function LoginModal() {
-    const proceed = login;
+export function LoginModal({ action: close }: { action: () => void }) {
+    const params = useSearchParams();
+    const proceed = (provider: 'google' | 'facebook' | 'discord') => {
+        close();
+        const w = window.open();
+        if (w == null) {
+            return;
+        }
+        login(
+            provider,
+            (url) => (w.location.href = url),
+            params.get('ref') ?? undefined
+        );
+    };
 
     return (
         <div
