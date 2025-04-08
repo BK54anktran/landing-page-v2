@@ -1,16 +1,11 @@
 'use client'
-import { loggedin, login } from "@/api/auth";
-import { useEffect, useState } from "react";
+import { POCKETBASE } from "@/api";
+import { login } from "@/api/auth";
 
 export function LoginModal() {
-    const [enable,setEnable] = useState(false)
     const proceed = login
+    const logout = () => POCKETBASE().authStore.clear()
 
-    useEffect(() => {
-        // loggedin().then(loggedIn => setEnable(!loggedIn))
-    },[])
-
-    if (!enable) return null
     return (
         <div
             id="auth-pop-up"
