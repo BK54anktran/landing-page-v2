@@ -18,6 +18,7 @@ export const metadata: Metadata = {
         'Work and game on cloud PC - no need to download anything, games on any devices, work from anywhere'
 };
 
+
 export default function RootLayout({
     children
 }: Readonly<{
