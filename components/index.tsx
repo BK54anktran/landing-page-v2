@@ -1627,7 +1627,7 @@ export const Preview = () => {
 
 export const SocialProof = () => {
     return (
-        <section className="bg-white dark:bg-mica mb-[256px]">
+        <section className="bg-white dark:bg-mica mb-[256px] mt-[256px]">
             <div className="items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-4 lg:gap-16 xl:gap-24 lg:py-16 lg:px-6">
                 <div className="col-span-2 mb-8">
                     <p className="text-lg font-medium text-primary-600 dark:text-primary-500">
@@ -1769,12 +1769,12 @@ export const CTA = () => {
             <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
                 <img
                     className="w-full dark:hidden"
-                    src="/img/screenshoot_empty.png"
+                    src="/img/macbook_empty.png"
                     alt="dashboard image"
                 />
                 <img
                     className="w-full hidden dark:block"
-                    src="/img/screenshoot_empty.png"
+                    src="/img/macbook_empty.png"
                     alt="dashboard image"
                 />
                 <div className="mt-4 md:mt-0">
