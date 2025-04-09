@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, ReactNode } from 'react';
 import { Modal } from '../popup';
 import { loggedin, logout } from '@/api/auth';
 import { usePathname } from 'next/navigation';
 
-export const StateProvider = ({ children }: { children: React.ReactNode }) => {
+export const StateProvider = ({ children }: { children: ReactNode }) => {
     const [popup, setPopup] = useState<string>('close');
 
     return (
@@ -18,17 +18,17 @@ export const StateProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 export const Header = ({ openLogin }: { openLogin?: () => void }) => {
-    const [loggedIn,setLoggedIn] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
     const route = usePathname();
 
     useEffect(() => {
         const i = setInterval(() => {
-            setLoggedIn(loggedin())
+            setLoggedIn(loggedin());
         }, 100);
         return () => {
-            clearInterval(i)
-        }
-    },[])
+            clearInterval(i);
+        };
+    }, []);
 
     type Route = {
         url: string;
@@ -46,7 +46,7 @@ export const Header = ({ openLogin }: { openLogin?: () => void }) => {
         },
         {
             url: '/faq',
-            title: 'Faq'
+            title: 'Questions'
         },
         {
             url: '/blog',

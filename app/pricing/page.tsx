@@ -1,5 +1,5 @@
 import { SocialProof } from '@/components';
-import { Pricing } from '@/components/ssr/pricing';
+import { Pricing } from '@/components/cache/pricing';
 
 export default async function Home() {
     'use cache';

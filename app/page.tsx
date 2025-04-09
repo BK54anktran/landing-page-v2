@@ -1,6 +1,6 @@
 import { CTA, FAQ, Feature, Hero, Preview, SocialProof } from '@/components';
-import { Applications } from '@/components/ssr/apps';
-import { Pricing } from '@/components/ssr/pricing';
+import { Applications } from '@/components/cache/apps';
+import { Pricing } from '@/components/cache/pricing';
 
 export default function Home() {
     return (
