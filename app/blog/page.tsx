@@ -1,5 +1,3 @@
-import { Footer } from '@/components';
-
 export default function Blog() {
     return (
         <>
@@ -269,12 +267,11 @@ export default function Blog() {
                         </label>
                         <select
                             id="category"
+                            defaultValue=""
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         >
                             <option>Select a category</option>
-                            <option value="" selected>
-                                All categories
-                            </option>
+                            <option value="">All categories</option>
                             <option value="">Video</option>
                             <option value="">Interview</option>
                             <option value="">Marketing</option>
