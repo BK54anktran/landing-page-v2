@@ -1,4 +1,5 @@
-import { Footer, Pricing, SocialProof } from '@/components';
+import { Footer, SocialProof } from '@/components';
+import { Pricing } from '@/components/ssr/pricing';
 
 export default function Home() {
     return (

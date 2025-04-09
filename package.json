@@ -11,8 +11,9 @@
     "postinstall": "flowbite-react patch"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.49.4",
     "flowbite-react": "^0.11.7",
-    "next": "15.2.4",
+    "next": "^15.3.0-canary.45",
     "pocketbase": "^0.21.1",
     "prettier": "^3.5.3",
     "react": "^19.0.0",
