@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal } from '../popup';
-import { logout } from '@/api/auth';
+import { loggedin, logout } from '@/api/auth';
 import { usePathname } from 'next/navigation';
 
 export const StateProvider = ({ children }: { children: React.ReactNode }) => {
@@ -18,8 +18,17 @@ export const StateProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 export const Header = ({ openLogin }: { openLogin?: () => void }) => {
-    const loggedIn = true;
+    const [loggedIn,setLoggedIn] = useState(false);
     const route = usePathname();
+
+    useEffect(() => {
+        const i = setInterval(() => {
+            setLoggedIn(loggedin())
+        }, 100);
+        return () => {
+            clearInterval(i)
+        }
+    },[])
 
     type Route = {
         url: string;
