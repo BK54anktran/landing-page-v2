@@ -1,0 +1,1151 @@
+'use client';
+
+export default function Page() {
+    return <RefundConfirm />;
+}
+
+export function RefundStatus() {
+    return (
+        <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+            <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+                <div className="mx-auto max-w-lg md:max-w-5xl">
+                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
+                        Track the refund of order{' '}
+                        <a href="#" className="hover:underline">
+                            #957684673
+                        </a>
+                    </h2>
+
+                    <div className="mt-6 grid grid-cols-1 gap-6 sm:mt-8 sm:gap-8 md:grid-cols-2 xl:mt-12">
+                        <div>
+                            <ol className="relative ms-3 border-s border-dashed border-gray-200 dark:border-gray-700">
+                                <li className="mb-10 ms-6">
+                                    <span className="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full bg-white ring-4 ring-white dark:bg-gray-900 dark:ring-gray-900">
+                                        <svg
+                                            className="h-5 w-5 text-gray-500 dark:text-gray-400"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke="currentColor"
+                                                strokeLinecap="round"
+                                                strokeWidth="2"
+                                                d="M8 7V6a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1M3 18v-7a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Zm8-3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                                            />
+                                        </svg>
+                                    </span>
+                                    <h3 className="mb-0.5 flex items-center pt-1 text-base font-semibold text-gray-900 dark:text-white">
+                                        Refund the amount
+                                    </h3>
+                                    <time className="mb-2 block text-gray-500 dark:text-gray-400">
+                                        {' '}
+                                        Estimated time will be 22 September
+                                        2024{' '}
+                                    </time>
+                                    <p className="text-gray-500 dark:text-gray-400">
+                                        We will return the amount depending on
+                                        the option chosen.
+                                    </p>
+                                </li>
+
+                                <li className="mb-10 ms-6">
+                                    <span className="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full bg-white ring-4 ring-white dark:bg-gray-900 dark:ring-gray-900">
+                                        <svg
+                                            className="h-5 w-5 text-gray-500 dark:text-gray-400"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke="currentColor"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
+                                                d="M10 3v4a1 1 0 0 1-1 1H5m8 7.5 2.5 2.5M19 4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Zm-5 9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
+                                            />
+                                        </svg>
+                                    </span>
+                                    <h3 className="mb-0.5 flex items-center pt-1 text-base font-semibold text-gray-900 dark:text-white">
+                                        Product check
+                                    </h3>
+                                    <time className="mb-2 block text-gray-500 dark:text-gray-400">
+                                        {' '}
+                                        Estimated time will be 22 September
+                                        2024{' '}
+                                    </time>
+                                    <p className="text-gray-500 dark:text-gray-400">
+                                        We will carefully check the product and
+                                        inform you as soon as possible if you
+                                        are eligible for a refund.
+                                    </p>
+                                </li>
+
+                                <li className="mb-10 ms-6">
+                                    <span className="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full bg-white ring-4 ring-white dark:bg-gray-900 dark:ring-gray-900">
+                                        <svg
+                                            className="h-5 w-5 text-gray-500 dark:text-gray-400"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke="currentColor"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
+                                                d="M6 4h12M6 4v16M6 4H5m13 0v16m0-16h1m-1 16H6m12 0h1M6 20H5M9 7h1v1H9V7Zm5 0h1v1h-1V7Zm-5 4h1v1H9v-1Zm5 0h1v1h-1v-1Zm-3 4h2a1 1 0 0 1 1 1v4h-4v-4a1 1 0 0 1 1-1Z"
+                                            />
+                                        </svg>
+                                    </span>
+                                    <h3 className="mb-0.5 flex items-center pt-1 text-base font-semibold text-gray-900 dark:text-white">
+                                        Products in the courier’s warehouse
+                                    </h3>
+                                    <time className="mb-2 block text-gray-500 dark:text-gray-400">
+                                        {' '}
+                                        Estimated time will be 20 September
+                                        2024{' '}
+                                    </time>
+                                    <p className="text-gray-500 dark:text-gray-400">
+                                        The products have arrived at the
+                                        courier's headquarters and are ready to
+                                        be shipped to the seller.
+                                    </p>
+                                </li>
+
+                                <li className="mb-10 ms-6">
+                                    <span className="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full bg-white ring-4 ring-white dark:bg-gray-900 dark:ring-gray-900">
+                                        <svg
+                                            className="h-5 w-5 text-gray-500 dark:text-gray-400"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke="currentColor"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
+                                                d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
+                                            />
+                                        </svg>
+                                    </span>
+                                    <h3 className="mb-0.5 flex items-center pt-1 text-base font-semibold text-gray-900 dark:text-white">
+                                        Pick up product from the address
+                                    </h3>
+                                    <time className="mb-2 block text-gray-500 dark:text-gray-400">
+                                        {' '}
+                                        16-17 September 2024{' '}
+                                    </time>
+                                    <p className="text-gray-500 dark:text-gray-400">
+                                        Estimated time will be 2-3 business
+                                        days.
+                                    </p>
+                                </li>
+
+                                <li className="mb-10 ms-6">
+                                    <span className="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full bg-white ring-4 ring-white dark:bg-gray-900 dark:ring-gray-900">
+                                        <svg
+                                            className="h-5 w-5 text-green-500"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke="currentColor"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
+                                                d="M10 3v4a1 1 0 0 1-1 1H5m4 6 2 2 4-4m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z"
+                                            />
+                                        </svg>
+                                    </span>
+                                    <h3 className="mb-0.5 flex items-center pt-1 text-base font-semibold text-gray-900 dark:text-white">
+                                        Refund accepted
+                                    </h3>
+                                    <time className="mb-2 block text-gray-500 dark:text-gray-400">
+                                        {' '}
+                                        13 September 2024 at 12:07{' '}
+                                    </time>
+                                </li>
+
+                                <li className="ms-6">
+                                    <span className="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full bg-white ring-4 ring-white dark:bg-gray-900 dark:ring-gray-900">
+                                        <svg
+                                            className="h-5 w-5 text-green-500"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke="currentColor"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
+                                                d="M10 3v4a1 1 0 0 1-1 1H5m4 8h6m-6-4h6m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z"
+                                            />
+                                        </svg>
+                                    </span>
+                                    <h3 className="mb-0.5 flex items-center pt-1 text-base font-semibold text-gray-900 dark:text-white">
+                                        Order placed
+                                    </h3>
+                                    <time className="mb-2 block text-gray-500 dark:text-gray-400">
+                                        {' '}
+                                        12 September 2024 at 10:45{' '}
+                                    </time>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div className="space-y-4">
+                            <div className="space-y-4 rounded-lg border border-gray-200 bg-gray-50 p-4 lg:p-6 dark:border-gray-700 dark:bg-gray-800">
+                                <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                    Details of the refund
+                                </h4>
+                                <dl className="space-y-1">
+                                    <dt className="font-medium text-gray-900 dark:text-white">
+                                        Refund reason
+                                    </dt>
+                                    <dd className="font-normal text-gray-500 dark:text-gray-400">
+                                        The product received is broken,
+                                        malfunctioning, or damaged, making it
+                                        unusable.
+                                    </dd>
+                                </dl>
+                                <dl className="space-y-1">
+                                    <dt className="font-medium text-gray-900 dark:text-white">
+                                        Due date
+                                    </dt>
+                                    <dd className="flex items-center font-medium text-gray-500 dark:text-gray-400">
+                                        <svg
+                                            className="me-1 h-5 w-5"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke="currentColor"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
+                                                d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"
+                                            />
+                                        </svg>
+                                        12 September 2024
+                                    </dd>
+                                </dl>
+                                <dl className="space-y-1">
+                                    <dt className="font-medium text-gray-900 dark:text-white">
+                                        Package condition
+                                    </dt>
+                                    <dd className="font-normal text-gray-500 dark:text-gray-400">
+                                        I want to return a non-functional but
+                                        unsealed product.
+                                    </dd>
+                                </dl>
+                            </div>
+
+                            <div className="space-y-4 rounded-lg border border-gray-200 bg-gray-50 p-4 lg:p-6 dark:border-gray-700 dark:bg-gray-800">
+                                <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                    The amount to be refunded
+                                </h4>
+                                <dl className="space-y-1">
+                                    <dt className="sr-only">Amount</dt>
+                                    <dd className="font-bold text-gray-900 dark:text-white">
+                                        $7,191.00
+                                    </dd>
+                                </dl>
+                            </div>
+
+                            <div className="space-y-4 rounded-lg border border-gray-200 bg-gray-50 p-4 lg:p-6 dark:border-gray-700 dark:bg-gray-800">
+                                <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                    The chosen refund method
+                                </h4>
+                                <dl className="space-y-1">
+                                    <dt className="font-medium text-gray-900 dark:text-white">
+                                        Bank transfer refund
+                                    </dt>
+                                    <dd className="font-normal text-gray-500 dark:text-gray-400">
+                                        The refund is processed by transferring
+                                        the funds directly to your bank account.
+                                    </dd>
+                                </dl>
+                                <div
+                                    className="flex items-start rounded-lg bg-primary-50 px-4 py-2 text-sm text-primary-800 dark:bg-gray-700 dark:text-primary-300"
+                                    role="alert"
+                                >
+                                    <svg
+                                        className="me-2 mt-0.5 h-3.5 w-3.5 shrink-0"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke="currentColor"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            d="M12 13V8m0 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                                        />
+                                    </svg>
+                                    <p>
+                                        Refunds may take up to 3 - 4 additional
+                                        business days to reflect in your bank
+                                        account from the date of initiating it.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="mt-6 md:mt-8 items-center space-y-4 sm:flex sm:space-x-4 sm:space-y-0">
+                        <a
+                            href="#"
+                            title=""
+                            className="me-2 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto"
+                            role="button"
+                        >
+                            <svg
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke="currentColor"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M5 12h14M5 12l4-4m-4 4 4 4"
+                                />
+                            </svg>
+                            Back to your account
+                        </a>
+                        <button
+                            id="cancelRefundButton"
+                            data-modal-target="cancelRefundModal"
+                            data-modal-toggle="cancelRefundModal"
+                            type="button"
+                            className="flex w-full items-center justify-center rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 sm:w-auto"
+                        >
+                            <svg
+                                className="-ms-2 me-2 h-5 w-5"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke="currentColor"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M6 18 17.94 6M18 18 6.06 6"
+                                />
+                            </svg>
+                            Cancel the refund
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div
+                id="cancelRefundModal"
+                tabIndex={-1}
+                aria-hidden="true"
+                className="fixed left-0 right-0 top-0 z-50 hidden h-modal w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0 md:h-full"
+            >
+                <div className="relative h-full w-full max-w-md p-4 md:h-auto">
+                    <div className="relative rounded-lg bg-white p-4 text-center shadow dark:bg-gray-800 sm:p-5">
+                        <button
+                            type="button"
+                            className="absolute right-2.5 top-2.5 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
+                            data-modal-toggle="cancelRefundModal"
+                        >
+                            <svg
+                                aria-hidden="true"
+                                className="h-5 w-5"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clipRule="evenodd"
+                                ></path>
+                            </svg>
+                            <span className="sr-only">Close modal</span>
+                        </button>
+                        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gray-100 p-2 dark:bg-gray-700">
+                            <svg
+                                className="h-8 w-8 text-gray-500 dark:text-gray-400"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke="currentColor"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"
+                                />
+                            </svg>
+                            <span className="sr-only">Danger icon</span>
+                        </div>
+                        <p className="mb-3.5 text-gray-900 dark:text-white">
+                            Are you sure you want to cancel the refund?
+                        </p>
+                        <div className="flex items-center justify-center space-x-4">
+                            <button
+                                data-modal-toggle="cancelRefundModal"
+                                type="button"
+                                className="py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                            >
+                                No, cancel
+                            </button>
+                            <button
+                                type="submit"
+                                className="rounded-lg bg-red-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                            >
+                                Yes, delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function StatusBar() {
+    return (
+        <div className="space-y-6 sm:space-y-8">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
+                Product return form
+            </h2>
+
+            <ol className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800 sm:justify-center md:flex-row md:items-center lg:gap-6">
+                <li className="flex items-center gap-2 md:flex-1 md:flex-col md:gap-1.5 lg:flex-none">
+                    <svg
+                        className="h-5 w-5 text-primary-700 dark:text-primary-500"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                        />
+                    </svg>
+                    <p className="text-sm font-medium leading-tight text-primary-700 dark:text-primary-500">
+                        Return reason
+                    </p>
+                </li>
+
+                <div className="hidden h-px w-4 shrink-0 bg-gray-200 dark:bg-gray-700 md:block lg:w-16"></div>
+
+                <li className="flex items-center gap-2 md:flex-1 md:flex-col md:gap-1.5 lg:flex-none">
+                    <svg
+                        className="h-5 w-5 text-gray-500 dark:text-gray-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                        />
+                    </svg>
+                    <p className="text-sm font-medium leading-tight text-gray-500 dark:text-gray-400">
+                        Delivery option
+                    </p>
+                </li>
+
+                <div className="hidden h-px w-4 shrink-0 bg-gray-200 dark:bg-gray-700 md:block lg:w-16"></div>
+
+                <li className="flex items-center gap-2 md:flex-1 md:flex-col md:gap-1.5 lg:flex-none">
+                    <svg
+                        className="h-5 w-5 text-gray-500 dark:text-gray-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                        />
+                    </svg>
+                    <p className="text-sm font-medium leading-tight text-gray-500 dark:text-gray-400">
+                        Confirmation
+                    </p>
+                </li>
+            </ol>
+        </div>
+    );
+}
+
+function RefundReason() {
+    return (
+        <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+            <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+                <form
+                    action="#"
+                    className="mx-auto max-w-5xl space-y-6 lg:space-y-8"
+                >
+                    <StatusBar />
+
+                    <div className="space-y-6">
+                        <div className="space-y-1">
+                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                                2. Select the reason for returning:
+                            </h3>
+                            <p className="text-base font-normal text-gray-500 dark:text-gray-400">
+                                To help us solve your request as quickly as
+                                possible, please answer the following questions.
+                            </p>
+                        </div>
+
+                        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-800">
+                            <div className="gap-14 p-6 md:flex md:items-center">
+                                <div className="min-w-0 max-w-2xl flex-1 gap-6 sm:flex sm:items-center">
+                                    <a
+                                        href="#"
+                                        className="mb-4 flex aspect-square h-14 w-14 shrink-0 items-center sm:mb-0"
+                                    >
+                                        <img
+                                            className="h-auto max-h-full w-full dark:hidden"
+                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg"
+                                            alt="imac image"
+                                        />
+                                        <img
+                                            className="hidden h-auto max-h-full w-full dark:block"
+                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg"
+                                            alt="imac image"
+                                        />
+                                    </a>
+                                    <a
+                                        href="#"
+                                        className="mt-4 font-medium text-gray-900 hover:underline dark:text-white sm:mt-0"
+                                    >
+                                        PC system All in One APPLE iMac (2023)
+                                        mqrq3ro/a, Apple M3, 24" Retina 4.5K,
+                                        8GB, SSD 256GB, 10-core GPU, Silver
+                                    </a>
+                                </div>
+
+                                <div className="mt-4 flex shrink-0 flex-col gap-2 sm:flex-row sm:items-center sm:justify-between md:mt-0 md:flex-col md:items-start">
+                                    <dl className="flex items-center gap-2.5">
+                                        <dt className="text-base font-normal text-gray-500 dark:text-gray-400 lg:w-36">
+                                            Order Number:
+                                        </dt>
+                                        <dd className="text-base font-normal text-gray-500 dark:text-gray-400">
+                                            <a
+                                                href="#"
+                                                className="hover:underline"
+                                            >
+                                                #737423642
+                                            </a>
+                                        </dd>
+                                    </dl>
+
+                                    <dl className="flex items-center gap-2.5">
+                                        <dt className="text-base font-normal text-gray-500 dark:text-gray-400 lg:w-36">
+                                            Return Term:
+                                        </dt>
+                                        <dd className="text-base font-normal text-gray-500 dark:text-gray-400">
+                                            21.07.2023
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                            <div className="space-y-6 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-8">
+                                <p className="text-base font-medium text-gray-900 dark:text-white">
+                                    What is the condition of the product?
+                                </p>
+
+                                <div className="space-y-4">
+                                    <div className="mb-4 flex items-center">
+                                        <input
+                                            id="condition-1"
+                                            type="radio"
+                                            value=""
+                                            name="product-condition"
+                                            className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                                        />
+                                        <label
+                                            htmlFor="condition-1"
+                                            className="ms-2 text-gray-500 dark:text-gray-400"
+                                        >
+                                            {' '}
+                                            I want to return a sealed
+                                            product{' '}
+                                        </label>
+                                    </div>
+
+                                    <div className="flex items-center">
+                                        <input
+                                            checked
+                                            id="condition-2"
+                                            type="radio"
+                                            value=""
+                                            name="product-condition"
+                                            className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                                        />
+                                        <label
+                                            htmlFor="condition-2"
+                                            className="ms-2 text-gray-500 dark:text-gray-400"
+                                        >
+                                            {' '}
+                                            I want to return an mistaken
+                                            order{' '}
+                                        </label>
+                                    </div>
+
+                                    <div className="mb-4 flex items-center">
+                                        <input
+                                            id="condition-3"
+                                            type="radio"
+                                            value=""
+                                            name="product-condition"
+                                            className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                                        />
+                                        <label
+                                            htmlFor="condition-3"
+                                            className="ms-2 text-gray-500 dark:text-gray-400"
+                                        >
+                                            {' '}
+                                            I want to return a functional but
+                                            unsealed product{' '}
+                                        </label>
+                                    </div>
+
+                                    <div className="mb-4 flex items-center">
+                                        <input
+                                            id="condition-4"
+                                            type="radio"
+                                            value=""
+                                            name="product-condition"
+                                            className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                                        />
+                                        <label
+                                            htmlFor="condition-4"
+                                            className="ms-2 text-gray-500 dark:text-gray-400"
+                                        >
+                                            {' '}
+                                            I want to return a non-functional
+                                            but unsealed product{' '}
+                                        </label>
+                                    </div>
+
+                                    <div className="mb-4 flex items-center">
+                                        <input
+                                            id="condition-5"
+                                            type="radio"
+                                            value=""
+                                            name="product-condition"
+                                            className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                                        />
+                                        <label
+                                            htmlFor="condition-5"
+                                            className="ms-2 text-gray-500 dark:text-gray-400"
+                                        >
+                                            {' '}
+                                            The product was not delivered{' '}
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <button
+                                    type="button"
+                                    id="productConditionButton"
+                                    data-modal-target="productConditionModal"
+                                    data-modal-toggle="productConditionModal"
+                                    className="w-full rounded-lg  border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto"
+                                >
+                                    Other condition
+                                </button>
+                                <div
+                                    id="productConditionModal"
+                                    tabIndex={-1}
+                                    aria-hidden="true"
+                                    className="fixed left-0 right-0 top-0 z-50 hidden h-modal w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0 md:h-full"
+                                >
+                                    <div className="relative h-full w-full max-w-md p-4 md:h-auto">
+                                        <div className="relative rounded-lg bg-white p-4 shadow dark:bg-gray-800 sm:p-5">
+                                            <label
+                                                htmlFor="reason-message"
+                                                className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                                            >
+                                                Write here the condition of the
+                                                product
+                                            </label>
+                                            <textarea
+                                                id="reason-message"
+                                                rows={4}
+                                                className="mb-4 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:mb-5"
+                                                placeholder="e.g. I used the product for 10 months and it has fine scratches"
+                                            ></textarea>
+                                            <div className="flex items-center justify-center space-x-4">
+                                                <button
+                                                    type="button"
+                                                    className="flex w-full items-center justify-center rounded-lg border border-primary-700 bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:border-primary-800 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:border-primary-600 dark:bg-primary-600 dark:hover:border-primary-700  dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                                >
+                                                    Add condition
+                                                </button>
+                                                <button
+                                                    data-modal-toggle="productConditionModal"
+                                                    type="button"
+                                                    className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
+                                                >
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="space-y-6 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-8">
+                                <p className="font-medium text-gray-900 dark:text-white">
+                                    What is the main reason for returning the
+                                    product?
+                                </p>
+
+                                <div className="space-y-4">
+                                    <div className="mb-4 flex items-center">
+                                        <input
+                                            id="reason-1"
+                                            type="checkbox"
+                                            value=""
+                                            className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                                        />
+                                        <label
+                                            htmlFor="reason-1"
+                                            className="ms-2 text-gray-500 dark:text-gray-400"
+                                        >
+                                            {' '}
+                                            Defective or Damaged Product{' '}
+                                        </label>
+                                    </div>
+
+                                    <div className="flex items-center">
+                                        <input
+                                            checked
+                                            id="reason-2"
+                                            type="checkbox"
+                                            value=""
+                                            className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                                        />
+                                        <label
+                                            htmlFor="reason-2"
+                                            className="ms-2 text-gray-500 dark:text-gray-400"
+                                        >
+                                            {' '}
+                                            Incorrect Product Received{' '}
+                                        </label>
+                                    </div>
+
+                                    <div className="flex items-center">
+                                        <input
+                                            checked
+                                            id="reason-3"
+                                            type="checkbox"
+                                            value=""
+                                            className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                                        />
+                                        <label
+                                            htmlFor="reason-3"
+                                            className="ms-2 text-gray-500 dark:text-gray-400"
+                                        >
+                                            {' '}
+                                            Unsatisfactory Quality{' '}
+                                        </label>
+                                    </div>
+
+                                    <div className="flex items-center">
+                                        <input
+                                            id="reason-4"
+                                            type="checkbox"
+                                            value=""
+                                            className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                                        />
+                                        <label
+                                            htmlFor="reason-4"
+                                            className="ms-2 text-gray-500 dark:text-gray-400"
+                                        >
+                                            {' '}
+                                            Changed Mind/Not as Expected{' '}
+                                        </label>
+                                    </div>
+
+                                    <div className="flex items-center">
+                                        <input
+                                            id="reason-5"
+                                            type="checkbox"
+                                            value=""
+                                            className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                                        />
+                                        <label
+                                            htmlFor="reason-5"
+                                            className="ms-2 text-gray-500 dark:text-gray-400"
+                                        >
+                                            {' '}
+                                            Misleading Product Information{' '}
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <button
+                                    id="refundReasonButton"
+                                    data-modal-target="refundReasonModal"
+                                    data-modal-toggle="refundReasonModal"
+                                    type="button"
+                                    className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto"
+                                >
+                                    <svg
+                                        className="h-4 w-4"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        fill="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M8 7V2.221a2 2 0 0 0-.5.365L3.586 6.5a2 2 0 0 0-.365.5H8Zm2 0V2h7a2 2 0 0 1 2 2v.126a5.087 5.087 0 0 0-4.74 1.368v.001l-6.642 6.642a3 3 0 0 0-.82 1.532l-.74 3.692a3 3 0 0 0 3.53 3.53l3.694-.738a3 3 0 0 0 1.532-.82L19 15.149V20a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9h5a2 2 0 0 0 2-2Z"
+                                            clipRule="evenodd"
+                                        />
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M17.447 8.08a1.087 1.087 0 0 1 1.187.238l.002.001a1.088 1.088 0 0 1 0 1.539l-.377.377-1.54-1.542.373-.374.002-.001c.1-.102.22-.182.353-.237Zm-2.143 2.027-4.644 4.644-.385 1.924 1.925-.385 4.644-4.642-1.54-1.54Zm2.56-4.11a3.087 3.087 0 0 0-2.187.909l-6.645 6.645a1 1 0 0 0-.274.51l-.739 3.693a1 1 0 0 0 1.177 1.176l3.693-.738a1 1 0 0 0 .51-.274l6.65-6.646a3.088 3.088 0 0 0-2.185-5.275Z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                    I have another reason
+                                </button>
+                            </div>
+                            <div
+                                id="refundReasonModal"
+                                tabIndex={-1}
+                                aria-hidden="true"
+                                className="fixed left-0 right-0 top-0 z-50 hidden h-modal w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0 md:h-full"
+                            >
+                                <div className="relative h-full w-full max-w-md p-4 md:h-auto">
+                                    <div className="relative rounded-lg bg-white p-4 shadow dark:bg-gray-800 sm:p-5">
+                                        <label
+                                            htmlFor="reason-message"
+                                            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                                        >
+                                            Write the reason why you want the
+                                            refund
+                                        </label>
+                                        <textarea
+                                            id="reason-message"
+                                            rows={4}
+                                            className="mb-4 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:mb-5"
+                                            placeholder="e.g. Product malfunction"
+                                        ></textarea>
+                                        <div className="flex items-center justify-center space-x-4">
+                                            <button
+                                                type="button"
+                                                className="flex w-full items-center justify-center rounded-lg border border-primary-700 bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:border-primary-800 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:border-primary-600 dark:bg-primary-600 dark:hover:border-primary-700  dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                            >
+                                                Add your reason
+                                            </button>
+                                            <button
+                                                data-modal-toggle="refundReasonModal"
+                                                type="button"
+                                                className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
+                                            >
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            className="mb-4 rounded-lg bg-primary-50 p-4 text-sm text-primary-800 dark:bg-gray-800 dark:text-primary-400 sm:text-base"
+                            role="alert"
+                        >
+                            Kindly select your reasons for returning the product
+                            thoughtfully, as this will aid us in expediting your
+                            request resolution and ensuring your utmost
+                            satisfaction with the overall purchase experience.
+                        </div>
+
+                        <div className="gap-4 sm:flex sm:items-center">
+                            <button
+                                type="button"
+                                className="w-full rounded-lg  border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto"
+                            >
+                                Prev: Choose the product
+                            </button>
+                            <button
+                                type="submit"
+                                className="mt-4 flex w-full items-center justify-center rounded-lg border border-primary-700 bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:border-primary-800 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:border-primary-600 dark:bg-primary-600 dark:hover:border-primary-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:mt-0 sm:w-auto"
+                            >
+                                Next: Delivery method
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    );
+}
+
+function RefundMethod() {
+    return (
+        <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+            <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+                <div className="mx-auto max-w-5xl space-y-6 lg:space-y-8">
+                    <StatusBar />
+
+                    <div className="space-y-6">
+                        <div className="space-y-1">
+                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                                4. Select the money back option:
+                            </h3>
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+                            <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
+                                <div className="flex items-start">
+                                    <div className="flex h-5 items-center">
+                                        <input
+                                            id="shopping-voucher"
+                                            aria-describedby="shopping-voucher-text"
+                                            type="radio"
+                                            name="delivery-method"
+                                            value=""
+                                            className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                                            checked
+                                        />
+                                    </div>
+
+                                    <div className="ms-4 text-sm">
+                                        <label
+                                            htmlFor="shopping-voucher"
+                                            className="font-medium leading-none text-gray-900 dark:text-white"
+                                        >
+                                            {' '}
+                                            I want a Shopping Voucher{' '}
+                                        </label>
+                                        <p
+                                            id="shopping-voucher-text"
+                                            className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
+                                        >
+                                            Receive an instant voucher that you
+                                            can use for new orders.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
+                                <div className="flex items-start">
+                                    <div className="flex h-5 items-center">
+                                        <input
+                                            id="money-back"
+                                            aria-describedby="money-back-text"
+                                            type="radio"
+                                            name="delivery-method"
+                                            value=""
+                                            className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                                        />
+                                    </div>
+
+                                    <div className="ms-4 text-sm">
+                                        <label
+                                            htmlFor="money-back"
+                                            className="font-medium leading-none text-gray-900 dark:text-white"
+                                        >
+                                            {' '}
+                                            I want my money back{' '}
+                                        </label>
+                                        <p
+                                            id="money-back-text"
+                                            className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
+                                        >
+                                            We will transfer the money to your
+                                            account. This can take up to 5 days.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
+                                <div className="flex items-start">
+                                    <div className="flex h-5 items-center">
+                                        <input
+                                            id="another-product"
+                                            aria-describedby="another-product-text"
+                                            type="radio"
+                                            name="delivery-method"
+                                            value=""
+                                            className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                                        />
+                                    </div>
+
+                                    <div className="ms-4 text-sm">
+                                        <label
+                                            htmlFor="another-product"
+                                            className="font-medium leading-none text-gray-900 dark:text-white"
+                                        >
+                                            {' '}
+                                            I want another product{' '}
+                                        </label>
+                                        <p
+                                            id="another-product-text"
+                                            className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
+                                        >
+                                            We will replace your product with a
+                                            new one or one close to the one you
+                                            returned
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="gap-4 sm:flex sm:items-center">
+                            <button
+                                type="button"
+                                className="w-full rounded-lg  border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto"
+                            >
+                                Prev: Delivery
+                            </button>
+                            <button
+                                type="submit"
+                                className="mt-4 flex w-full items-center justify-center rounded-lg border border-primary-700 bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:border-primary-800 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:border-primary-600 dark:bg-primary-600 dark:hover:border-primary-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:mt-0 sm:w-auto"
+                            >
+                                Next: Confirmation
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function RefundConfirm() {
+    return (
+        <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+            <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+                <div className="mx-auto max-w-5xl space-y-6 lg:space-y-8">
+                    <StatusBar />
+
+                    <div className="space-y-6">
+                        <svg
+                            className="h-8 w-8 text-green-500"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M5 11.917 9.724 16.5 19 7.5"
+                            />
+                        </svg>
+
+                        <div>
+                            <h3 className="mb-2.5 text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">
+                                Your request has been successfully registered
+                            </h3>
+                            <p className="text-base font-normal text-gray-500 dark:text-gray-400">
+                                I have successfully received your request to
+                                return this product, until we resolve this case
+                                you can track the status of your order.
+                            </p>
+                        </div>
+
+                        <a
+                            href="#"
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto"
+                        >
+                            <svg
+                                className="h-4 w-4"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+                                    clipRule="evenodd"
+                                />
+                            </svg>
+                            View status
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
