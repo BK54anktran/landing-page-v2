@@ -1,7 +1,8 @@
-import { Footer, SocialProof } from '@/components';
+import { SocialProof } from '@/components';
 import { Pricing } from '@/components/ssr/pricing';
 
-export default function Home() {
+export default async function Home() {
+    'use cache';
     return (
         <>
             <Pricing></Pricing>

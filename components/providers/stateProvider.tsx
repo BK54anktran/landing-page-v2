@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Modal } from '../popup';
 import { logout } from '@/api/auth';
+import { usePathname } from 'next/navigation';
 
 export const StateProvider = ({ children }: { children: React.ReactNode }) => {
     const [popup, setPopup] = useState<string>('close');
@@ -18,6 +19,48 @@ export const StateProvider = ({ children }: { children: React.ReactNode }) => {
 
 export const Header = ({ openLogin }: { openLogin?: () => void }) => {
     const loggedIn = true;
+    const route = usePathname();
+
+    type Route = {
+        url: string;
+        title: string;
+    };
+
+    const routes: Route[] = [
+        {
+            url: '/',
+            title: 'Home'
+        },
+        {
+            url: '/pricing',
+            title: 'Pricing'
+        },
+        {
+            url: '/faq',
+            title: 'Faq'
+        },
+        {
+            url: '/blog',
+            title: 'Blog'
+        },
+        {
+            url: '/legal',
+            title: 'Legal'
+        }
+    ];
+
+    const renderRoute = (item: Route, index: number) => (
+        <li key={index}>
+            <a
+                href={item.url}
+                className={`block py-2 pr-4 pl-3 border-b border-gray-100 ${route == item.url ? 'text-primary-600' : ''} hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-400 lg:p-0 lg:dark:hover:text-primary-500 dark:hover:bg-gray-700 dark:hover:text-primary-500 lg:dark:hover:bg-transparent dark:border-gray-700`}
+                aria-current="page"
+            >
+                {item.title}
+            </a>
+        </li>
+    );
+
     return (
         <header>
             <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
@@ -95,47 +138,7 @@ export const Header = ({ openLogin }: { openLogin?: () => void }) => {
                         id="mobile-menu-2"
                     >
                         <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                            <li>
-                                <a
-                                    href="/"
-                                    className="block py-2 pr-4 pl-3 border-b border-gray-100 text-primary-600 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-600 lg:p-0 dark:text-primary-500 lg:dark:hover:text-primary-500 dark:hover:bg-gray-700 dark:hover:text-primary-500 lg:dark:hover:bg-transparent dark:border-gray-700"
-                                    aria-current="page"
-                                >
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="/pricing"
-                                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-600 lg:p-0 dark:text-gray-400 lg:dark:hover:text-primary-500 dark:hover:bg-gray-700 dark:hover:text-primary-500 lg:dark:hover:bg-transparent dark:border-gray-700"
-                                >
-                                    Pricing
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="/faq"
-                                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-600 lg:p-0 dark:text-gray-400 lg:dark:hover:text-primary-500 dark:hover:bg-gray-700 dark:hover:text-primary-500 lg:dark:hover:bg-transparent dark:border-gray-700"
-                                >
-                                    Faq
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="/blog"
-                                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-600 lg:p-0 dark:text-gray-400 lg:dark:hover:text-primary-500 dark:hover:bg-gray-700 dark:hover:text-primary-500 lg:dark:hover:bg-transparent dark:border-gray-700"
-                                >
-                                    Blog
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="/legal"
-                                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-600 lg:p-0 dark:text-gray-400 lg:dark:hover:text-primary-500 dark:hover:bg-gray-700 dark:hover:text-primary-500 lg:dark:hover:bg-transparent dark:border-gray-700"
-                                >
-                                    Legal
-                                </a>
-                            </li>
+                            {routes.map(renderRoute)}
                         </ul>
                     </div>
                 </div>

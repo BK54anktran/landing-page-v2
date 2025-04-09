@@ -8,7 +8,8 @@ export const Hero = () => {
                     Thinkmay CloudPC
                 </h1>
                 <p className="mb-8 font-light text-gray-500 md:text-lg lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
-                    Chơi tất cả các game cấu hình cao, đồ họa đẹp trên mọi thiết bị, chỉ với kết nối internet
+                    Chơi tất cả các game cấu hình cao, đồ họa đẹp trên mọi thiết
+                    bị, chỉ với kết nối internet
                 </p>
                 <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
                     <a
