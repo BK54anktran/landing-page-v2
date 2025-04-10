@@ -10,6 +10,8 @@ export const Hero = () => {
                 <p className="mb-8 font-light text-gray-500 md:text-lg lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
                     Chơi tất cả các game cấu hình cao, đồ họa đẹp trên mọi thiết
                     bị, chỉ với kết nối internet
+                    <br />
+                    Sử dụng hoàn toàn trên trình duyệt
                 </p>
                 <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
                     <a
@@ -19,7 +21,7 @@ export const Hero = () => {
                         Sử dụng ngay
                     </a>
                     <a
-                        href="#"
+                        href="/pricing"
                         className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
                     >
                         Pricing & FAQ
@@ -163,12 +165,10 @@ export const Feature = () => {
         <section className="bg-white dark:bg-mica   mb-[256px]">
             <div className="py-8 px-4 mx-auto max-w-screen-xl text-center sm:py-16 lg:px-6">
                 <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-                    Designed for business teams like yours
+                    Tương lai của chơi game là chơi game trên "mây"
                 </h2>
                 <p className="text-gray-500 sm:text-xl dark:text-gray-400 lg:px-48">
-                    Here we focus on markets where technology, innovation, and
-                    capital can unlock long-term value and drive economic
-                    growth.
+                    Tại sao phải mua gaming PC trong khi bạn có thể chơi game...
                 </p>
                 <div className="mt-8 lg:mt-16 mb-8 space-y-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0">
                     <div>
@@ -184,13 +184,14 @@ export const Feature = () => {
                             </svg>
                         </div>
                         <h3 className="mb-4 text-2xl font-bold dark:text-white">
-                            Just the right balance for growth
+                            Mọi lúc, mọi nơi, mọi thiết bị
                         </h3>
                         <p className="mb-4 text-gray-500 dark:text-gray-400">
-                            Enterprise tools cost more, are difficult to use,
-                            and take longer to implement. According to G2,
-                            Flowbite is the easiest-to-use tool, with the
-                            fastest time to ROI.
+                            Từ từ đã, cái gì, chơi game AAA trên điện thoại và
+                            laptop á?
+                            <br />
+                            Thế bây giờ ngồi cafe, nằm trên giường cũng chơi
+                            được game AAA?
                         </p>
                     </div>
                     <div>
@@ -209,22 +210,23 @@ export const Feature = () => {
                             </svg>
                         </div>
                         <h3 className="mb-4 text-2xl font-bold dark:text-white">
-                            Just the right balance for growth
+                            Tối ưu từ A-Z, không chờ đợi, bật là chơi
                         </h3>
                         <p className="mb-4 text-gray-500 dark:text-gray-400">
-                            Enterprise tools cost more, are difficult to use,
-                            and take longer to implement. According to G2,
-                            Flowbite is the easiest-to-use tool, with the
-                            fastest time to ROI.
+                            Lại còn có game được tải sẵn luôn? Không cần phải đi
+                            mày mò cài Việt Hóa?
+                            <br />
+                            Xong rồi cũng không cần phải đi mày mò setting, tất
+                            cả đã được tối ưu sẵn?
                         </p>
                     </div>
                 </div>
                 <p className="text-center">
                     <a
-                        href="#"
+                        href="/faq"
                         className="inline-flex items-center font-medium text-primary-600 hover:text-primary-700 dark:text-primary-500 dark:hover:text-primary-400"
                     >
-                        Learn what makes Flowbite different{' '}
+                        Tìm hiểu sâu hơn về CloudPC
                         <svg
                             className="ml-1 w-5 h-5"
                             fill="currentColor"
@@ -262,15 +264,13 @@ export const SocialProof = () => {
             <div className="items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-4 lg:gap-16 xl:gap-24 lg:py-16 lg:px-6">
                 <div className="col-span-2 mb-8">
                     <p className="text-lg font-medium text-primary-600 dark:text-primary-500">
-                        Trusted Worldwide
+                        Sản phẩm được tin dùng
                     </p>
-                    <h2 className="mt-3 mb-4 text-3xl tracking-tight font-extrabold tracking-tight text-gray-900 md:text-4xl dark:text-white">
-                        Trusted by over 600 million users and 10,000 teams
+                    <h2 className="mt-3 mb-4 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl dark:text-white">
+                        Thinkmay CloudPC được tin dùng bởi người dùng
                     </h2>
                     <p className="font-light text-gray-500 sm:text-xl dark:text-gray-400">
-                        Our rigorous security and compliance standards are at
-                        the heart of all we do. We work tirelessly to protect
-                        you and your customers.
+
                     </p>
                     <div className="pt-6 mt-6 space-y-4 border-t border-gray-200 dark:border-gray-700">
                         <div>
@@ -330,10 +330,10 @@ export const SocialProof = () => {
                             ></path>
                         </svg>
                         <h3 className="mb-2 text-2xl font-bold dark:text-white">
-                            99.99% uptime
+                            Hạ tầng luôn sẵn sàng
                         </h3>
                         <p className="font-light text-gray-500 dark:text-gray-400">
-                            For Flowbite, with zero maintenance downtime
+                            Server ổn định, độ trễ đạt dưới 100ms, kết nối nhanh chóng
                         </p>
                     </div>
                     <div>
@@ -346,10 +346,10 @@ export const SocialProof = () => {
                             <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
                         </svg>
                         <h3 className="mb-2 text-2xl font-bold dark:text-white">
-                            600M+ Users
+                            60K+ người dùng
                         </h3>
                         <p className="font-light text-gray-500 dark:text-gray-400">
-                            Trusted by over 600 milion users around the world
+                            Đã có hơn 60 ngàn người đăng kí dịch vụ
                         </p>
                     </div>
                     <div>
@@ -366,10 +366,10 @@ export const SocialProof = () => {
                             ></path>
                         </svg>
                         <h3 className="mb-2 text-2xl font-bold dark:text-white">
-                            100+ countries
+                            Độ phủ rộng
                         </h3>
                         <p className="font-light text-gray-500 dark:text-gray-400">
-                            Have used Flowbite to create functional websites
+                            Thinkmay CloudPC có hệ thống server ở cả miền bắc và miền nam
                         </p>
                     </div>
                     <div>
@@ -382,10 +382,10 @@ export const SocialProof = () => {
                             <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
                         </svg>
                         <h3 className="mb-2 text-2xl font-bold dark:text-white">
-                            5+ Million
+                            Cam kết hoàn tiền
                         </h3>
                         <p className="font-light text-gray-500 dark:text-gray-400">
-                            Transactions per day
+                            Lên tới 5 ngày đầu tiên, nếu sản phẩm không đáp ứng được yêu cầu.
                         </p>
                     </div>
                 </div>

@@ -146,7 +146,7 @@ export default function Page() {
                                 className="flex items-center rounded px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-600"
                             >
                                 <img
-                                    src="https://flowbite.com/docs/images/logo.svg"
+                                    src="/logo.png"
                                     className="mr-3 h-8 w-8 rounded"
                                     alt="Michael avatar"
                                 />

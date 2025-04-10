@@ -62,7 +62,7 @@ const fetchApps = async (): Promise<App[]> => {
     );
     const { data, error } = await supabase
         .from('stores')
-        .select('code_name,name,metadata')
+        .select('code_name,name,metadata,management->>kickey')
         .not('metadata', 'is', null)
         .eq('management->>landingpage', 'true')
         .limit(9);
@@ -71,7 +71,7 @@ const fetchApps = async (): Promise<App[]> => {
     return data.map((x) => ({
         ...x,
         tag: {
-            hasaccount: false
+            hasaccount: x.kickey == 'true'
         }
     }));
 };
