@@ -99,11 +99,11 @@ const fetchDomain = async (): Promise<Domain[]> => {
     else return domains_v3;
 };
 
-const PaymentButton = ({plan}:{plan: string}) => {
-    const defaultServer = 'v4.thinkmay.net'
-    const href=`/play/index.html?plan=${plan}&server=${defaultServer}`;
+const PaymentButton = ({ plan }: { plan: string }) => {
+    const defaultServer = 'v4.thinkmay.net';
+    const href = `/play/index.html?plan=${plan}&server=${defaultServer}`;
     return (
-        <div  className="flex gap-2">
+        <div className="flex gap-2">
             <a
                 href={href}
                 type="button"
