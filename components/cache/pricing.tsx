@@ -125,7 +125,7 @@ const DomainSelection = async () => {
             </label>
             <select
                 id="countries"
-                className="h-12 border bg-gray-900 border-gray-300 text-white text-base rounded-lg block w-50 py-2.5 px-4 focus:outline-none justify-self-center cursor-pointer"
+                className="h-12 border bg-gray-200 dark:bg-gray-900 border-gray-300 dark:text-white text-black text-base rounded-lg block w-50 py-2.5 px-4 focus:outline-none justify-self-center cursor-pointer"
             >
                 {domains.map((domain, index) => (
                     <option key={index} value={domain.domain}>
@@ -143,7 +143,7 @@ export const Pricing = async () => {
         return (
             <div
                 key={index}
-                className="flex flex-col p-6 mx-auto max-w-xl text-center bg-white rounded-lg border shadow xl:max-w-lg border-primary-600 dark:bg-gray-800 xl:p-8"
+                className="flex flex-col p-6 mx-auto max-w-xl text-center  rounded-lg border shadow xl:max-w-lg border-primary-600 bg-gray-200 dark:bg-gray-800 xl:p-8"
             >
                 {plan.highlight ? (
                     <div className="mb-2">

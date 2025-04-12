@@ -72,14 +72,17 @@ export const Header = ({ openLogin }: { openLogin?: () => void }) => {
 
     return (
         <header>
-            <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+            <nav className="bg-slate-300 border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                     <a href="/play/index.html" className="flex items-center">
                         <img
                             src="/img/logo_white.png"
-                            className="mr-3 h-6 sm:h-9"
-                            alt="Flowbite Logo"
-                        />
+                            className="mr-3 h-6 sm:h-9 hidden dark:!hidden"
+                        ></img>
+                        <img
+                            src="/img/logo.png"
+                            className="mr-3 h-6 sm:h-9 dark:hidden"
+                        ></img>
                         <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
                             Thinkmay
                         </span>
@@ -88,7 +91,7 @@ export const Header = ({ openLogin }: { openLogin?: () => void }) => {
                         {loggedIn ? (
                             <>
                                 <a
-                                    className="text-white hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 focus:outline-none cursor-pointer"
+                                    className="text-black dark:text-white hover:bg-blue-800 hover:text-white focus:ring-4 font-medium rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 focus:outline-none cursor-pointer"
                                     onClick={logout}
                                 >
                                     Logout
