@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: 'Thinkmay Cloud PC',
+    title: 'Thinkmay Cloud PC - chơi game trên mây',
     description:
         'Work and game on cloud PC - no need to download anything, games on any devices, work from anywhere'
 };

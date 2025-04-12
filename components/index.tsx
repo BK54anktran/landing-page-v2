@@ -5,7 +5,7 @@ export const Hero = () => {
         <section className="bg-white dark:bg-mica ">
             <div className="max-w-screen-xl px-4 pt-8 mx-auto text-center lg:pt-16 lg:px-12">
                 <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-                    Thinkmay CloudPC
+                    Thinkmay CloudPC - chơi game trên mây
                 </h1>
                 <p className="mb-8 font-light text-gray-500 md:text-lg lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
                     Chơi tất cả các game cấu hình cao, đồ họa đẹp trên mọi thiết
