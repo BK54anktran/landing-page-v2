@@ -99,16 +99,18 @@ const fetchDomain = async (): Promise<Domain[]> => {
     else return domains_v3;
 };
 
-const PaymentButton = () => {
+const PaymentButton = ({plan}:{plan: string}) => {
+    const defaultServer = 'v4.thinkmay.net'
+    const href=`/play/index.html?plan=${plan}&server=${defaultServer}`;
     return (
-        <div className="flex gap-2">
-            <button
-                // onClick={onChooseSub}
+        <div  className="flex gap-2">
+            <a
+                href={href}
                 type="button"
-                className="py-2.5 px-5 bg-blue-600 shadow-sm rounded-full transition-all duration-500 text-base text-white font-semibold text-center w-fit block mx-auto hover:bg-blue-700"
+                className="py-2.5 px-5 bg-blue-600 shadow-sm rounded-full transition-all duration-500 text-base text-white font-semibold text-center w-fit block mx-auto hover:bg-blue-700  cursor-pointer"
             >
-                {'Đăng kí'}
-            </button>
+                Đăng kí
+            </a>
         </div>
     );
 };
@@ -137,7 +139,6 @@ const DomainSelection = async () => {
 
 export const Pricing = async () => {
     const plans = await FetchPricing();
-
     const renderPlan = (plan: Plan, index: number) => {
         return (
             <div
@@ -159,8 +160,7 @@ export const Pricing = async () => {
                 <span className="text-5xl font-extrabold text-gray-900 dark:text-white mb-6">
                     {plan.amount / 1000}k
                 </span>
-                <PaymentButton />
-
+                <PaymentButton plan={plan.name} />
                 <ul
                     role="list"
                     className="space-y-4 text-left text-gray-900 dark:text-gray-400 mt-12"
