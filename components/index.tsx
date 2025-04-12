@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 export const Hero = () => {
     return (
         <section className="bg-white dark:bg-mica ">
@@ -248,13 +246,11 @@ export const Feature = () => {
 
 export const Preview = () => {
     return (
-        <Image
-            width={1440}
-            height={1080}
+        <img
             className="w-full mb-[256px] hidden sm:block"
             alt="img-mockup"
-            src={'/img/macbook_mockup.png'}
-        ></Image>
+            src="/img/macbook_mockup.png"
+        ></img>
     );
 };
 
