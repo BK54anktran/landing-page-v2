@@ -15,7 +15,7 @@ export const Hero = () => {
                 </p>
                 <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
                     <a
-                        href="#"
+                        href="/play/index.html"
                         className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
                     >
                         Sử dụng ngay
@@ -54,7 +54,7 @@ export const Hero = () => {
                 <div className="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36 ">
                     <div className="flex flex-wrap items-center justify-center mt-8 text-gray-500 sm:justify-between  mb-[128px]">
                         <a
-                            href="#"
+                            href="/play/index.html"
                             className="mb-5 mr-5 lg:mb-0 hover:text-gray-900 dark:hover:text-gray-400"
                         >
                             <svg
@@ -102,7 +102,7 @@ export const Hero = () => {
                             </svg>
                         </a>
                         <a
-                            href="#"
+                            href="/play/index.html"
                             className="mb-5 mr-5 lg:mb-0 hover:text-gray-900 dark:hover:text-gray-400"
                         >
                             <svg
@@ -126,7 +126,7 @@ export const Hero = () => {
                             </svg>
                         </a>
                         <a
-                            href="#"
+                            href="/play/index.html"
                             className="mb-5 mr-5 lg:mb-0 hover:text-gray-900 dark:hover:text-gray-400"
                         >
                             <svg
@@ -269,13 +269,11 @@ export const SocialProof = () => {
                     <h2 className="mt-3 mb-4 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl dark:text-white">
                         Thinkmay CloudPC được tin dùng bởi người dùng
                     </h2>
-                    <p className="font-light text-gray-500 sm:text-xl dark:text-gray-400">
-
-                    </p>
+                    <p className="font-light text-gray-500 sm:text-xl dark:text-gray-400"></p>
                     <div className="pt-6 mt-6 space-y-4 border-t border-gray-200 dark:border-gray-700">
                         <div>
                             <a
-                                href="#"
+                                href="/play/index.html"
                                 className="inline-flex items-center text-base font-medium text-primary-600 hover:text-primary-800 dark:text-primary-500 dark:hover:text-primary-700"
                             >
                                 Explore Legality Guide
@@ -295,7 +293,7 @@ export const SocialProof = () => {
                         </div>
                         <div>
                             <a
-                                href="#"
+                                href="/play/index.html"
                                 className="inline-flex items-center text-base font-medium text-primary-600 hover:text-primary-800 dark:text-primary-500 dark:hover:text-primary-700"
                             >
                                 Visit the Trust Center
@@ -333,7 +331,8 @@ export const SocialProof = () => {
                             Hạ tầng luôn sẵn sàng
                         </h3>
                         <p className="font-light text-gray-500 dark:text-gray-400">
-                            Server ổn định, độ trễ đạt dưới 100ms, kết nối nhanh chóng
+                            Server ổn định, độ trễ đạt dưới 100ms, kết nối nhanh
+                            chóng
                         </p>
                     </div>
                     <div>
@@ -369,7 +368,8 @@ export const SocialProof = () => {
                             Độ phủ rộng
                         </h3>
                         <p className="font-light text-gray-500 dark:text-gray-400">
-                            Thinkmay CloudPC có hệ thống server ở cả miền bắc và miền nam
+                            Thinkmay CloudPC có hệ thống server ở cả miền bắc và
+                            miền nam
                         </p>
                     </div>
                     <div>
@@ -385,7 +385,8 @@ export const SocialProof = () => {
                             Cam kết hoàn tiền
                         </h3>
                         <p className="font-light text-gray-500 dark:text-gray-400">
-                            Lên tới 5 ngày đầu tiên, nếu sản phẩm không đáp ứng được yêu cầu.
+                            Lên tới 5 ngày đầu tiên, nếu sản phẩm không đáp ứng
+                            được yêu cầu.
                         </p>
                     </div>
                 </div>
@@ -410,20 +411,16 @@ export const CTA = () => {
                 />
                 <div className="mt-4 md:mt-0">
                     <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-                        Lets create more tools and ideas that brings us
-                        together.
+                        Bắt đầu sử dụng Thinkmay CloudPC ngay bây giờ
                     </h2>
                     <p className="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">
-                        Flowbite helps you connect with friends and communities
-                        of people who share your interests. Connecting with your
-                        friends and family as well as discovering new ones is
-                        easy with features like Groups.
+                        Hoặc nhắn tin hỗ trợ để được trải nghiệm miễn phí
                     </p>
                     <a
-                        href="#"
+                        href="/play/index.html"
                         className="inline-flex items-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900"
                     >
-                        Get started
+                        Sử dụng ngay
                         <svg
                             className="ml-2 -mr-1 w-5 h-5"
                             fill="currentColor"
@@ -450,7 +447,7 @@ export const Footer = () => {
                 <div className="grid grid-cols-2 gap-8 lg:grid-cols-6">
                     <div className="col-span-2">
                         <a
-                            href="#"
+                            href="/play/index.html"
                             className="flex items-center mb-2 text-2xl font-semibold text-gray-900 sm:mb-0 dark:text-white"
                         >
                             <svg
@@ -607,7 +604,7 @@ export const Footer = () => {
                         <ul className="flex mt-5 space-x-6">
                             <li>
                                 <a
-                                    href="#"
+                                    href="/play/index.html"
                                     className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
@@ -626,7 +623,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#"
+                                    href="/play/index.html"
                                     className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
@@ -645,7 +642,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#"
+                                    href="/play/index.html"
                                     className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
@@ -660,7 +657,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#"
+                                    href="/play/index.html"
                                     className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
@@ -679,7 +676,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#"
+                                    href="/play/index.html"
                                     className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
@@ -704,22 +701,34 @@ export const Footer = () => {
                         </h2>
                         <ul className="text-gray-500 dark:text-gray-400">
                             <li className="mb-4">
-                                <a href="#" className=" hover:underline">
+                                <a
+                                    href="/play/index.html"
+                                    className=" hover:underline"
+                                >
                                     About
                                 </a>
                             </li>
                             <li className="mb-4">
-                                <a href="#" className="hover:underline">
+                                <a
+                                    href="/play/index.html"
+                                    className="hover:underline"
+                                >
                                     Careers
                                 </a>
                             </li>
                             <li className="mb-4">
-                                <a href="#" className="hover:underline">
+                                <a
+                                    href="/play/index.html"
+                                    className="hover:underline"
+                                >
                                     Brand Center
                                 </a>
                             </li>
                             <li className="mb-4">
-                                <a href="#" className="hover:underline">
+                                <a
+                                    href="/play/index.html"
+                                    className="hover:underline"
+                                >
                                     Blog
                                 </a>
                             </li>
@@ -731,22 +740,34 @@ export const Footer = () => {
                         </h2>
                         <ul className="text-gray-500 dark:text-gray-400">
                             <li className="mb-4">
-                                <a href="#" className="hover:underline">
+                                <a
+                                    href="/play/index.html"
+                                    className="hover:underline"
+                                >
                                     Discord Server
                                 </a>
                             </li>
                             <li className="mb-4">
-                                <a href="#" className="hover:underline">
+                                <a
+                                    href="/play/index.html"
+                                    className="hover:underline"
+                                >
                                     Twitter
                                 </a>
                             </li>
                             <li className="mb-4">
-                                <a href="#" className="hover:underline">
+                                <a
+                                    href="/play/index.html"
+                                    className="hover:underline"
+                                >
                                     Facebook
                                 </a>
                             </li>
                             <li className="mb-4">
-                                <a href="#" className="hover:underline">
+                                <a
+                                    href="/play/index.html"
+                                    className="hover:underline"
+                                >
                                     Contact Us
                                 </a>
                             </li>
@@ -758,17 +779,26 @@ export const Footer = () => {
                         </h2>
                         <ul className="text-gray-500 dark:text-gray-400">
                             <li className="mb-4">
-                                <a href="#" className="hover:underline">
+                                <a
+                                    href="/play/index.html"
+                                    className="hover:underline"
+                                >
                                     Privacy Policy
                                 </a>
                             </li>
                             <li className="mb-4">
-                                <a href="#" className="hover:underline">
+                                <a
+                                    href="/play/index.html"
+                                    className="hover:underline"
+                                >
                                     Licensing
                                 </a>
                             </li>
                             <li className="mb-4">
-                                <a href="#" className="hover:underline">
+                                <a
+                                    href="/play/index.html"
+                                    className="hover:underline"
+                                >
                                     Terms
                                 </a>
                             </li>
@@ -780,22 +810,34 @@ export const Footer = () => {
                         </h2>
                         <ul className="text-gray-500 dark:text-gray-400">
                             <li className="mb-4">
-                                <a href="#" className="hover:underline">
+                                <a
+                                    href="/play/index.html"
+                                    className="hover:underline"
+                                >
                                     iOS
                                 </a>
                             </li>
                             <li className="mb-4">
-                                <a href="#" className="hover:underline">
+                                <a
+                                    href="/play/index.html"
+                                    className="hover:underline"
+                                >
                                     Android
                                 </a>
                             </li>
                             <li className="mb-4">
-                                <a href="#" className="hover:underline">
+                                <a
+                                    href="/play/index.html"
+                                    className="hover:underline"
+                                >
                                     Windows
                                 </a>
                             </li>
                             <li className="mb-4">
-                                <a href="#" className="hover:underline">
+                                <a
+                                    href="/play/index.html"
+                                    className="hover:underline"
+                                >
                                     MacOS
                                 </a>
                             </li>
@@ -805,7 +847,7 @@ export const Footer = () => {
                 <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
                 <span className="block text-sm text-center text-gray-500 dark:text-gray-400">
                     © 2021-2022{' '}
-                    <a href="#" className="hover:underline">
+                    <a href="/play/index.html" className="hover:underline">
                         Flowbite™
                     </a>
                     . All Rights Reserved.
@@ -864,7 +906,7 @@ export const FAQ = () => (
                         <p className="mb-4 text-gray-500 dark:text-gray-400">
                             Feel free to{' '}
                             <a
-                                href="#"
+                                href="/play/index.html"
                                 className="font-medium underline text-primary-600 dark:text-primary-500 hover:no-underline"
                                 target="_blank"
                                 rel="noreferrer"
@@ -890,7 +932,7 @@ export const FAQ = () => (
                         <p className="mb-4 text-gray-500 dark:text-gray-400">
                             Find out more information by{' '}
                             <a
-                                href="#"
+                                href="/play/index.html"
                                 className="font-medium underline text-primary-600 dark:text-primary-500 hover:no-underline"
                             >
                                 reading the license
@@ -908,7 +950,7 @@ export const FAQ = () => (
                             The free updates that will be provided is based on
                             the{' '}
                             <a
-                                href="#"
+                                href="/play/index.html"
                                 className="font-medium underline text-primary-600 dark:text-primary-500 hover:no-underline"
                             >
                                 roadmap
@@ -925,7 +967,7 @@ export const FAQ = () => (
                         <p className="mb-4 text-gray-500 dark:text-gray-400">
                             The{' '}
                             <a
-                                href="#"
+                                href="/play/index.html"
                                 className="font-medium underline text-primary-600 dark:text-primary-500 hover:no-underline"
                             >
                                 free version
@@ -975,7 +1017,7 @@ export const FAQ = () => (
                         <p className="mb-4 text-gray-500 dark:text-gray-400">
                             Find out more information by{' '}
                             <a
-                                href="#"
+                                href="/play/index.html"
                                 className="font-medium underline text-primary-600 dark:text-primary-500 hover:no-underline"
                             >
                                 reading the license
@@ -1012,7 +1054,7 @@ export const FAQ = () => (
                         <p className="mb-4 text-gray-500 dark:text-gray-400">
                             If you are unhappy with your purchase, just{' '}
                             <a
-                                href="#"
+                                href="/play/index.html"
                                 className="font-medium underline text-primary-600 dark:text-primary-500 hover:no-underline"
                                 target="_blank"
                                 rel="noreferrer"
