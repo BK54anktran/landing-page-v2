@@ -78,10 +78,12 @@ export const Header = ({ openLogin }: { openLogin?: () => void }) => {
                         <img
                             src="/img/logo_white.png"
                             className="mr-3 h-6 sm:h-9 hidden dark:!hidden"
+                            alt='thinkmay logo'
                         ></img>
                         <img
                             src="/img/logo.png"
                             className="mr-3 h-6 sm:h-9 dark:hidden"
+                            alt='thinkmay logo'
                         ></img>
                         <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
                             Thinkmay

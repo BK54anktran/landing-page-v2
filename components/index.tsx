@@ -47,12 +47,12 @@ export const Hero = () => {
                 <img
                     className="mx-auto mb-5 lg:mb-8 border border-gray-200 rounded-lg shadow-xl dark:border-gray-600 z-1 dark:hidden"
                     src="/img/screenshoot_store.png"
-                    alt="dashboard overview"
+                    alt="demo image for thinkmay"
                 />
                 <img
                     className="mx-auto mb-5 lg:mb-8 border border-gray-200 rounded-lg shadow-xl dark:border-gray-600 hidden dark:block z-1"
                     src="/img/screenshoot_store.png"
-                    alt="dashboard overview dark"
+                    alt="demo image for thinkmay"
                 />
             </div>
             <div className="pt-48 lg:pb-16 pb-8 -mt-48 bg-gray-50 sm:pt-80 sm:-mt-80 dark:bg-gray-800 z-2">
@@ -201,7 +201,7 @@ export const Preview = () => {
     return (
         <img
             className="w-full mb-[256px] hidden sm:block"
-            alt="img-mockup"
+            alt="demo image for thinkmay"
             src="/img/macbook_mockup.png"
         ></img>
     );
@@ -351,12 +351,12 @@ export const CTA = () => {
                 <img
                     className="w-full dark:hidden"
                     src="/img/macbook_empty.png"
-                    alt="dashboard image"
+                    alt="demo image for thinkmay"
                 />
                 <img
                     className="w-full hidden dark:block"
                     src="/img/macbook_empty.png"
-                    alt="dashboard image"
+                    alt="demo image for thinkmay"
                 />
                 <div className="mt-4 md:mt-0">
                     <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">

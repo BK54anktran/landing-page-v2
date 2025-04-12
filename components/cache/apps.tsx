@@ -91,7 +91,7 @@ export const Applications = async () => {
                 <img
                     className="object-cover w-full rounded-lg shadow-lg mb-6"
                     src={background}
-                    alt=""
+                    alt={`image of game ${app.name.toLowerCase()}`}
                 />
                 <div className="space-y-3 mb-6">
                     <span className="bg-indigo-100 text-indigo-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">
