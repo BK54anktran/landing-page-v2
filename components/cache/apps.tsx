@@ -50,6 +50,9 @@ type App = {
         background_raw: string;
         capsule_imagev5: string;
         short_description: string;
+        support_info?: {
+            url?: string;
+        };
     };
 };
 
@@ -82,6 +85,7 @@ export const Applications = async () => {
     const renderApp = (app: App, index: number) => {
         const background = app.metadata.screenshots?.[0]?.path_full;
         if (!background) return null;
+        const href = `/play/index.html?app=${app.code_name}`;
         return (
             <div key={index}>
                 <img
@@ -104,10 +108,10 @@ export const Applications = async () => {
                                 clipRule="evenodd"
                             />
                         </svg>
-                        Thinkmay support
+                        Game mới
                     </span>
                     <h3 className="text-2xl font-bold leading-tight text-gray-900 dark:text-white">
-                        <a href="#" className="hover:underline">
+                        <a href={href} className="hover:underline">
                             {app.name}
                         </a>
                     </h3>
@@ -117,31 +121,34 @@ export const Applications = async () => {
                 </div>
                 <div className="flex items-center gap-4">
                     <a
-                        href="#"
+                        href={href}
                         title=""
                         className="text-white bg-primary-700  hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                         role="button"
                     >
-                        Case study
+                        Chơi ngay
                     </a>
-                    <a
-                        href="#"
-                        title=""
-                        className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-center text-gray-900 bg-white border border-gray-200 rounded-lg shrink-0 focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                        role="button"
-                    >
-                        <svg
-                            aria-hidden="true"
-                            className="w-5 h-5 mr-2 -ml-1"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
+                    {app.metadata?.support_info?.url ? (
+                        <a
+                            href={app.metadata.support_info.url}
+                            target="_blank"
+                            title=""
+                            className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-center text-gray-900 bg-white border border-gray-200 rounded-lg shrink-0 focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                            role="button"
                         >
-                            <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-                            <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
-                        </svg>
-                        Live preview
-                    </a>
+                            <svg
+                                aria-hidden="true"
+                                className="w-5 h-5 mr-2 -ml-1"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                            >
+                                <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                                <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                            </svg>
+                            Nhà phát hành
+                        </a>
+                    ) : null}
                 </div>
             </div>
         );
@@ -155,8 +162,10 @@ export const Applications = async () => {
                         Những game được chơi nhiều trên Thinkmay
                     </h2>
                     <p className="mt-4 text-base font-normal text-gray-500 sm:text-xl dark:text-gray-400">
-                        Flowbite helps you connect with friends, family and
-                        communities of people who share your interests.
+                        Thinkmay CloudPC sở hữu kho game đa dạng và phong phú,
+                        <br />
+                        ngoài ra bạn còn có thể tự tải những tựa game mà mình
+                        yêu thích, hoặc cài đặt thêm các bản mod, tùy biến
                     </p>
                 </div>
 
