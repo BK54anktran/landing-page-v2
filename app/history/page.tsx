@@ -46,7 +46,7 @@ export default function Page() {
     const [loggedIn, setloggedIn] = useState(false);
     const [email, setEmail] = useState(null);
     const [supabase, setSupabase] = useState<SupabaseClient | null>();
-    const [depositHistory,setDepositHistory] = useState<Deposit[]>([])
+    const [depositHistory, setDepositHistory] = useState<Deposit[]>([]);
 
     useEffect(() => {
         setSupabase(
@@ -124,7 +124,7 @@ export default function Page() {
         // const payment_history = await fetch_payment_history(email);
         // const balance = await fetch_pocket_balance(email);
         const deposit_history = await fetch_deposit_history(email);
-        setDepositHistory(deposit_history)
+        setDepositHistory(deposit_history);
     };
 
     useEffect(() => {
@@ -133,7 +133,7 @@ export default function Page() {
     }, [email]);
 
     const renderPayment = (payment: Deposit, index: number) => {
-        console.log(payment)
+        console.log(payment);
         return (
             <div
                 key={index}
@@ -240,7 +240,9 @@ export default function Page() {
                         <dt className="me-2 font-medium text-gray-900 dark:text-white">
                             Order date:
                         </dt>
-                        <dd>{new Date(payment.created_at).toLocaleDateString()}</dd>
+                        <dd>
+                            {new Date(payment.created_at).toLocaleDateString()}
+                        </dd>
                     </dl>
                     <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400 sm:me-8">
                         <dt className="me-2 font-medium text-gray-900 dark:text-white">
@@ -918,7 +920,7 @@ export default function Page() {
                                 </div>
                             </div>
                         </div>
-                        
+
                         {depositHistory.map(renderPayment)}
                     </div>
                 </div>

@@ -7,10 +7,29 @@ export default function Page() {
     const [step, setStep] = useState<string>('not_signed');
 
     useEffect(() => {
-        if (!loggedin()) return;
+        const requested = false
+        if (loggedin() && requested) 
+            setStep('status');
+        else if (loggedin()) 
+            setStep('signed');
+        else
+            setStep('not_signed');
     }, []);
 
     switch (step) {
+        case 'status':
+            return <RefundStatus />;
+        case 'complete':
+            return <RefundConfirm next={() => setStep('status')} />;
+        case 'method':
+            return (
+                <RefundMethod
+                    prev={() => setStep('signed')}
+                    next={() => setStep('complete')}
+                />
+            );
+        case 'signed':
+            return <RefundReason next={() => setStep('method')} />;
         default:
             return <RefundPolicy />;
     }
@@ -546,80 +565,22 @@ function StatusBar() {
     );
 }
 
-function RefundReason() {
+function RefundReason({ next }: { next: () => void }) {
     return (
         <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
             <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-                <form
-                    action="#"
-                    className="mx-auto max-w-5xl space-y-6 lg:space-y-8"
-                >
+                <div className="mx-auto max-w-5xl space-y-6 lg:space-y-8">
                     <StatusBar />
 
                     <div className="space-y-6">
                         <div className="space-y-1">
                             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                2. Select the reason for returning:
+                                1. Vui lòng chọn lý do hoàn tiền
                             </h3>
                             <p className="text-base font-normal text-gray-500 dark:text-gray-400">
-                                To help us solve your request as quickly as
-                                possible, please answer the following questions.
+                                Giúp chúng mình biết cách khắc phục và hoàn
+                                thiện sản phẩm trong tương lai
                             </p>
-                        </div>
-
-                        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-800">
-                            <div className="gap-14 p-6 md:flex md:items-center">
-                                <div className="min-w-0 max-w-2xl flex-1 gap-6 sm:flex sm:items-center">
-                                    <a
-                                        href="#"
-                                        className="mb-4 flex aspect-square h-14 w-14 shrink-0 items-center sm:mb-0"
-                                    >
-                                        <img
-                                            className="h-auto max-h-full w-full dark:hidden"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg"
-                                            alt="imac image"
-                                        />
-                                        <img
-                                            className="hidden h-auto max-h-full w-full dark:block"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg"
-                                            alt="imac image"
-                                        />
-                                    </a>
-                                    <a
-                                        href="#"
-                                        className="mt-4 font-medium text-gray-900 hover:underline dark:text-white sm:mt-0"
-                                    >
-                                        PC system All in One APPLE iMac (2023)
-                                        mqrq3ro/a, Apple M3, 24" Retina 4.5K,
-                                        8GB, SSD 256GB, 10-core GPU, Silver
-                                    </a>
-                                </div>
-
-                                <div className="mt-4 flex shrink-0 flex-col gap-2 sm:flex-row sm:items-center sm:justify-between md:mt-0 md:flex-col md:items-start">
-                                    <dl className="flex items-center gap-2.5">
-                                        <dt className="text-base font-normal text-gray-500 dark:text-gray-400 lg:w-36">
-                                            Order Number:
-                                        </dt>
-                                        <dd className="text-base font-normal text-gray-500 dark:text-gray-400">
-                                            <a
-                                                href="#"
-                                                className="hover:underline"
-                                            >
-                                                #737423642
-                                            </a>
-                                        </dd>
-                                    </dl>
-
-                                    <dl className="flex items-center gap-2.5">
-                                        <dt className="text-base font-normal text-gray-500 dark:text-gray-400 lg:w-36">
-                                            Return Term:
-                                        </dt>
-                                        <dd className="text-base font-normal text-gray-500 dark:text-gray-400">
-                                            21.07.2023
-                                        </dd>
-                                    </dl>
-                                </div>
-                            </div>
                         </div>
 
                         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -943,26 +904,20 @@ function RefundReason() {
 
                         <div className="gap-4 sm:flex sm:items-center">
                             <button
-                                type="button"
-                                className="w-full rounded-lg  border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto"
-                            >
-                                Prev: Choose the product
-                            </button>
-                            <button
-                                type="submit"
+                                onClick={next}
                                 className="mt-4 flex w-full items-center justify-center rounded-lg border border-primary-700 bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:border-primary-800 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:border-primary-600 dark:bg-primary-600 dark:hover:border-primary-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:mt-0 sm:w-auto"
                             >
-                                Next: Delivery method
+                                Next: Phương thức hoàn tiền
                             </button>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </section>
     );
 }
 
-function RefundMethod() {
+function RefundMethod({ next, prev }: { next: () => void; prev: () => void }) {
     return (
         <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
             <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -1079,12 +1034,14 @@ function RefundMethod() {
                         <div className="gap-4 sm:flex sm:items-center">
                             <button
                                 type="button"
+                                onClick={prev}
                                 className="w-full rounded-lg  border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto"
                             >
                                 Prev: Delivery
                             </button>
                             <button
                                 type="submit"
+                                onClick={next}
                                 className="mt-4 flex w-full items-center justify-center rounded-lg border border-primary-700 bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:border-primary-800 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:border-primary-600 dark:bg-primary-600 dark:hover:border-primary-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:mt-0 sm:w-auto"
                             >
                                 Next: Confirmation
@@ -1097,7 +1054,7 @@ function RefundMethod() {
     );
 }
 
-function RefundConfirm() {
+function RefundConfirm({ next }: { next: () => void }) {
     return (
         <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
             <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -1135,7 +1092,7 @@ function RefundConfirm() {
                         </div>
 
                         <a
-                            href="#"
+                            onClick={next}
                             className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto"
                         >
                             <svg
