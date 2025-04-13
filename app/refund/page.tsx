@@ -7,13 +7,10 @@ export default function Page() {
     const [step, setStep] = useState<string>('not_signed');
 
     useEffect(() => {
-        const requested = false
-        if (loggedin() && requested) 
-            setStep('status');
-        else if (loggedin()) 
-            setStep('signed');
-        else
-            setStep('not_signed');
+        const requested = false;
+        if (loggedin() && requested) setStep('status');
+        else if (loggedin()) setStep('signed');
+        else setStep('not_signed');
     }, []);
 
     switch (step) {
