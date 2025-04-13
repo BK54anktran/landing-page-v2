@@ -1,7 +1,7 @@
 import { POCKETBASE } from '.';
 
 export const loggedin = () => POCKETBASE().authStore.isValid;
-
+export const info = () => POCKETBASE().authStore.model;
 export const logout = () => POCKETBASE().authStore.clear();
 export const login = (
     provider: 'google' | 'facebook' | 'discord',

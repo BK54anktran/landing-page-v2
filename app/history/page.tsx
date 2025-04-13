@@ -1,91 +1,306 @@
-import { POCKETBASE } from '@/api';
-import { cookies } from 'next/headers';
-import React from 'react';
+'use client';
+import { info, loggedin } from '@/api/auth';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import React, { useEffect, useState } from 'react';
+
+export type PlanName =
+    | 'month1'
+    | 'month2'
+    | 'week1'
+    | 'week2'
+    | 'ramcpu20'
+    | '50GB'
+    | '100GB'
+    | '200GB';
+
+interface Deposit {
+    amount: number;
+    created_at: string;
+    id: number;
+}
+interface Order {
+    id: string;
+    pay_at: string;
+    plan_name: PlanName;
+}
+
+type RefundRequest = {
+    id: number;
+    created_at: string;
+    amount: string;
+};
+
+interface DepositStatus {
+    created_at: string;
+    amount: number;
+    status: string;
+}
+
+interface PlanStatus {
+    created_at: string;
+    amount: number;
+    plan_name: string;
+}
 
 export default function Page() {
+    const [loggedIn, setloggedIn] = useState(false);
+    const [email, setEmail] = useState(null);
+    const [supabase, setSupabase] = useState<SupabaseClient | null>();
+    const [depositHistory,setDepositHistory] = useState<Deposit[]>([])
+
+    useEffect(() => {
+        setSupabase(
+            createClient(
+                'https://play.2.thinkmay.net:4432',
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE'
+            )
+        );
+
+        const i = setInterval(() => {
+            const loggedIn = loggedin();
+            setloggedIn(loggedIn);
+            if (!loggedIn) return;
+
+            const inf = info();
+            setEmail(inf?.email);
+        }, 500);
+
+        return () => {
+            clearInterval(i);
+        };
+    }, []);
+
+    const fetch_refund_request = async (email: string) => {
+        if (supabase == null) return [];
+        const { data, error: err } = await supabase
+            .from('refund_request')
+            .select('id,created_at,amount')
+            .eq('user', email);
+        if (err) return err;
+        return data;
+    };
+
+    const fetch_payment_pocket = async (email: string) => {
+        if (supabase == null) return [];
+        const { data, error: error } = await supabase.rpc(
+            'get_payment_pocket',
+            {
+                email
+            }
+        );
+        if (error) throw error;
+        return data;
+    };
+
+    const fetch_pocket_balance = async (email: string) => {
+        if (supabase == null) return [];
+        const { error, data } = await supabase.rpc('get_pocket_balance', {
+            email
+        });
+        if (error) throw error;
+        return data;
+    };
+
+    const fetch_deposit_history = async (email: string) => {
+        if (supabase == null) return [];
+        const { error, data } = await supabase.rpc('get_deposit_history', {
+            email: email
+        });
+        if (error) throw error;
+        return data as Deposit[];
+    };
+    const fetch_payment_history = async (email: string) => {
+        if (supabase == null) return [];
+        const { error, data } = await supabase.rpc('get_payment_history', {
+            email: email
+        });
+        if (error) throw error;
+        return data;
+    };
+
+    const fetch_all = async (email: string) => {
+        // const payment_pockets = await fetch_payment_pocket(email);
+        // const refund_requests = await fetch_refund_request(email);
+        // const payment_history = await fetch_payment_history(email);
+        // const balance = await fetch_pocket_balance(email);
+        const deposit_history = await fetch_deposit_history(email);
+        setDepositHistory(deposit_history)
+    };
+
+    useEffect(() => {
+        if (email == null || supabase == null) return;
+        fetch_all(email);
+    }, [email]);
+
+    const renderPayment = (payment: Deposit, index: number) => {
+        console.log(payment)
+        return (
+            <div
+                key={index}
+                className="mb-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+            >
+                <div className="items-start justify-between border-b border-gray-100 pb-4 dark:border-gray-700 md:flex lg:block xl:flex">
+                    <div className="mb-4 justify-between sm:flex sm:items-center md:mb-0 md:block lg:mb-4 lg:flex xl:mb-0 xl:block">
+                        <h3 className="dark:text-gry-400 mb-2 text-gray-500 sm:mb-0 md:mb-2">
+                            Order ID:
+                            <a
+                                href="#"
+                                className="font-medium text-gray-900 hover:underline dark:text-white"
+                            >
+                                #{payment.id}
+                            </a>
+                            <span className="ms-2 inline-flex items-center rounded bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
+                                <svg
+                                    className="me-1 h-3 w-3"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M18.5 4h-13m13 16h-13M8 20v-3.333a2 2 0 0 1 .4-1.2L10 12.6a1 1 0 0 0 0-1.2L8.4 8.533a2 2 0 0 1-.4-1.2V4h8v3.333a2 2 0 0 1-.4 1.2L13.957 11.4a1 1 0 0 0 0 1.2l1.643 2.867a2 2 0 0 1 .4 1.2V20H8Z"
+                                    />
+                                </svg>
+                                Pre-order
+                            </span>
+                        </h3>
+                        <button
+                            type="button"
+                            className="inline-flex items-center font-medium text-primary-700 hover:underline dark:text-primary-500"
+                        >
+                            <svg
+                                className="me-2 h-5 w-5"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke="currentColor"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2m-8 1V4m0 12-4-4m4 4 4-4"
+                                />
+                            </svg>
+                            Download invoice
+                        </button>
+                    </div>
+                    <div className="space-y-4 sm:flex sm:space-x-4 sm:space-y-0">
+                        {/* <button
+                            id="deleteOrderButton4"
+                            data-modal-target="deleteOrderModal2"
+                            data-modal-toggle="deleteOrderModal2"
+                            type="button"
+                            className="w-full rounded-lg bg-red-700 px-3 py-2 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 sm:w-auto"
+                        >
+                            Cancel order
+                        </button> */}
+                        <a
+                            href="#"
+                            className="inline-flex w-full items-center justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:mt-0 sm:w-auto"
+                        >
+                            <svg
+                                className="-ms-0.5 me-1.5 h-4 w-4"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke="currentColor"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 5h6m-6 4h6M10 3v4h4V3h-4Z"
+                                />
+                            </svg>
+                            Track order
+                        </a>
+                        <a
+                            href="#"
+                            className="inline-flex w-full justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:mt-0 sm:w-auto"
+                        >
+                            Order details
+                        </a>
+                    </div>
+                </div>
+                <div className="mb-4 items-center sm:flex sm:flex-wrap xl:flex">
+                    <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400 sm:me-8">
+                        <dt className="me-2 font-medium text-gray-900 dark:text-white">
+                            Order date:
+                        </dt>
+                        <dd>{new Date(payment.created_at).toLocaleDateString()}</dd>
+                    </dl>
+                    <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400 sm:me-8">
+                        <dt className="me-2 font-medium text-gray-900 dark:text-white">
+                            Amount
+                        </dt>
+                        <dd>{payment.amount}k VND</dd>
+                    </dl>
+                    <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400">
+                        <dt className="me-2 font-medium text-gray-900 dark:text-white">
+                            Payment method:
+                        </dt>
+                        <dd className="flex items-center">
+                            {/* <img
+                                className="h-4 w-auto dark:hidden"
+                                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/mastercard.svg"
+                                alt=""
+                            />
+                            <img
+                                className="hidden h-4 w-auto dark:flex"
+                                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/mastercard-dark.svg"
+                                alt=""
+                            /> */}
+                            <span className="ms-1">VietQR</span>
+                        </dd>
+                    </dl>
+                </div>
+                <div
+                    className="flex items-center rounded-lg bg-orange-50 px-4 py-3 text-sm text-orange-800 dark:bg-gray-700 dark:text-orange-300"
+                    role="alert"
+                >
+                    <svg
+                        className="me-2 hidden h-4 w-4 flex-shrink-0 sm:flex"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
+                        />
+                    </svg>
+                    <span className="sr-only">Info</span>
+                    <div>
+                        Expected delivery on{' '}
+                        <span className="font-medium">Monday 16 Jul 2024</span>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     return (
         <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
             <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-                <nav className="mb-4 flex" aria-label="Breadcrumb">
-                    <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
-                        <li className="inline-flex items-center">
-                            <a
-                                href="#"
-                                className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white"
-                            >
-                                <svg
-                                    className="me-2 h-4 w-4"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"
-                                    />
-                                </svg>
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <div className="flex items-center">
-                                <svg
-                                    className="mx-1 h-4 w-4 text-gray-400 rtl:rotate-180"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="m9 5 7 7-7 7"
-                                    />
-                                </svg>
-                                <a
-                                    href="#"
-                                    className="ms-1 text-sm font-medium text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white md:ms-2"
-                                >
-                                    My account
-                                </a>
-                            </div>
-                        </li>
-                        <li aria-current="page">
-                            <div className="flex items-center">
-                                <svg
-                                    className="mx-1 h-4 w-4 text-gray-400 rtl:rotate-180"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="m9 5 7 7-7 7"
-                                    />
-                                </svg>
-                                <span className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400 md:ms-2">
-                                    All orders
-                                </span>
-                            </div>
-                        </li>
-                    </ol>
-                </nav>
                 <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl md:mb-8">
                     My orders
                 </h2>
@@ -110,10 +325,10 @@ export default function Page() {
                                     />
                                     <div className="text-left">
                                         <div className="mb-0.5 font-semibold leading-none text-gray-900 dark:text-white">
-                                            Jese Leos (Personal)
+                                            {email}
                                         </div>
                                         <div className="text-sm text-gray-500 dark:text-gray-400">
-                                            jese@flowbite.com
+                                            {email}
                                         </div>
                                     </div>
                                 </div>
@@ -146,7 +361,7 @@ export default function Page() {
                                 className="flex items-center rounded px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-600"
                             >
                                 <img
-                                    src="/logo.png"
+                                    src="/img/logo.png"
                                     className="mr-3 h-8 w-8 rounded"
                                     alt="Michael avatar"
                                 />
@@ -703,864 +918,8 @@ export default function Page() {
                                 </div>
                             </div>
                         </div>
-                        <div className="mb-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                            <div className="items-start justify-between border-b border-gray-100 pb-4 dark:border-gray-700 md:flex lg:block xl:flex">
-                                <div className="mb-4 justify-between sm:flex sm:items-center md:mb-0 md:block lg:mb-4 lg:flex xl:mb-0 xl:block">
-                                    <h3 className="dark:text-gry-400 mb-2 text-gray-500 sm:mb-0 md:mb-2">
-                                        Order ID:
-                                        <a
-                                            href="#"
-                                            className="font-medium text-gray-900 hover:underline dark:text-white"
-                                        >
-                                            #FWB1273643
-                                        </a>
-                                        <span className="ms-2 inline-flex items-center rounded bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
-                                            <svg
-                                                className="me-1 h-3 w-3"
-                                                aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                width="24"
-                                                height="24"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    stroke="currentColor"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="M18.5 4h-13m13 16h-13M8 20v-3.333a2 2 0 0 1 .4-1.2L10 12.6a1 1 0 0 0 0-1.2L8.4 8.533a2 2 0 0 1-.4-1.2V4h8v3.333a2 2 0 0 1-.4 1.2L13.957 11.4a1 1 0 0 0 0 1.2l1.643 2.867a2 2 0 0 1 .4 1.2V20H8Z"
-                                                />
-                                            </svg>
-                                            Pre-order
-                                        </span>
-                                    </h3>
-                                    <button
-                                        type="button"
-                                        className="inline-flex items-center font-medium text-primary-700 hover:underline dark:text-primary-500"
-                                    >
-                                        <svg
-                                            className="me-2 h-5 w-5"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                stroke="currentColor"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2m-8 1V4m0 12-4-4m4 4 4-4"
-                                            />
-                                        </svg>
-                                        Download invoice
-                                    </button>
-                                </div>
-                                <div className="space-y-4 sm:flex sm:space-x-4 sm:space-y-0">
-                                    <button
-                                        id="deleteOrderButton4"
-                                        data-modal-target="deleteOrderModal2"
-                                        data-modal-toggle="deleteOrderModal2"
-                                        type="button"
-                                        className="w-full rounded-lg bg-red-700 px-3 py-2 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 sm:w-auto"
-                                    >
-                                        Cancel order
-                                    </button>
-                                    <a
-                                        href="#"
-                                        className="inline-flex w-full items-center justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:mt-0 sm:w-auto"
-                                    >
-                                        <svg
-                                            className="-ms-0.5 me-1.5 h-4 w-4"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                stroke="currentColor"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 5h6m-6 4h6M10 3v4h4V3h-4Z"
-                                            />
-                                        </svg>
-                                        Track order
-                                    </a>
-                                    <a
-                                        href="#"
-                                        className="inline-flex w-full justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:mt-0 sm:w-auto"
-                                    >
-                                        Order details
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="mb-4 items-center sm:flex sm:flex-wrap xl:flex">
-                                <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400 sm:me-8">
-                                    <dt className="me-2 font-medium text-gray-900 dark:text-white">
-                                        Order date:
-                                    </dt>
-                                    <dd>24 January 2024</dd>
-                                </dl>
-                                <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400 sm:me-8">
-                                    <dt className="me-2 font-medium text-gray-900 dark:text-white">
-                                        Email:
-                                    </dt>
-                                    <dd>name@example.com</dd>
-                                </dl>
-                                <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400">
-                                    <dt className="me-2 font-medium text-gray-900 dark:text-white">
-                                        Payment method:
-                                    </dt>
-                                    <dd className="flex items-center">
-                                        <img
-                                            className="h-4 w-auto dark:hidden"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/mastercard.svg"
-                                            alt=""
-                                        />
-                                        <img
-                                            className="hidden h-4 w-auto dark:flex"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/mastercard-dark.svg"
-                                            alt=""
-                                        />
-                                        <span className="ms-1">
-                                            Credit card
-                                        </span>
-                                    </dd>
-                                </dl>
-                            </div>
-                            <div
-                                className="flex items-center rounded-lg bg-orange-50 px-4 py-3 text-sm text-orange-800 dark:bg-gray-700 dark:text-orange-300"
-                                role="alert"
-                            >
-                                <svg
-                                    className="me-2 hidden h-4 w-4 flex-shrink-0 sm:flex"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
-                                    />
-                                </svg>
-                                <span className="sr-only">Info</span>
-                                <div>
-                                    Expected delivery on{' '}
-                                    <span className="font-medium">
-                                        Monday 16 Jul 2024
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="mb-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                            <div className="items-start justify-between border-b border-gray-100 pb-4 dark:border-gray-700 md:flex lg:block xl:flex">
-                                <div className="mb-4 justify-between sm:flex sm:items-center md:mb-0 md:block lg:mb-4 lg:flex xl:mb-0 xl:block">
-                                    <h3 className="dark:text-gry-400 mb-2 text-gray-500 sm:mb-0 md:mb-2">
-                                        Order ID:
-                                        <a
-                                            href="#"
-                                            className="font-medium text-gray-900 hover:underline dark:text-white"
-                                        >
-                                            #FWB1273722
-                                        </a>
-                                        <span className="ms-2 mt-1.5 inline-flex items-center rounded bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">
-                                            <svg
-                                                className="me-1 h-3 w-3"
-                                                aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                width="24"
-                                                height="24"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    stroke="currentColor"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
-                                                />
-                                            </svg>
-                                            In transit
-                                        </span>
-                                    </h3>
-                                    <button
-                                        type="button"
-                                        className="inline-flex items-center font-medium text-primary-700 hover:underline dark:text-primary-500"
-                                    >
-                                        <svg
-                                            className="me-2 h-5 w-5"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                stroke="currentColor"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2m-8 1V4m0 12-4-4m4 4 4-4"
-                                            />
-                                        </svg>
-                                        Download invoice
-                                    </button>
-                                </div>
-                                <div className="space-y-4 sm:flex sm:space-x-4 sm:space-y-0">
-                                    <button
-                                        id="deleteOrderButton3"
-                                        data-modal-target="deleteOrderModal2"
-                                        data-modal-toggle="deleteOrderModal2"
-                                        type="button"
-                                        className="w-full rounded-lg bg-red-700 px-3 py-2 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 sm:w-auto"
-                                    >
-                                        Cancel order
-                                    </button>
-                                    <a
-                                        href="#"
-                                        className="inline-flex w-full items-center justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:mt-0 sm:w-auto"
-                                    >
-                                        <svg
-                                            className="-ms-0.5 me-1.5 h-4 w-4"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                stroke="currentColor"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 5h6m-6 4h6M10 3v4h4V3h-4Z"
-                                            />
-                                        </svg>
-                                        Track order
-                                    </a>
-                                    <a
-                                        href="#"
-                                        className="inline-flex w-full justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:mt-0 sm:w-auto"
-                                    >
-                                        Order details
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="mb-4 items-center sm:flex sm:flex-wrap xl:flex">
-                                <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400 sm:me-8">
-                                    <dt className="me-2 font-medium text-gray-900 dark:text-white">
-                                        Order date:
-                                    </dt>
-                                    <dd>01 May 2024</dd>
-                                </dl>
-                                <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400 sm:me-8">
-                                    <dt className="me-2 font-medium text-gray-900 dark:text-white">
-                                        Email:
-                                    </dt>
-                                    <dd>name@example.com</dd>
-                                </dl>
-                                <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400">
-                                    <dt className="me-2 font-medium text-gray-900 dark:text-white">
-                                        Payment method:
-                                    </dt>
-                                    <dd className="flex items-center">
-                                        <img
-                                            className="h-4 w-auto dark:hidden"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/visa.svg"
-                                            alt=""
-                                        />
-                                        <img
-                                            className="hidden h-4 w-auto dark:flex"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/visa-dark.svg"
-                                            alt=""
-                                        />
-                                        <span className="sr-only">Visa</span>
-                                    </dd>
-                                </dl>
-                            </div>
-                            <div
-                                className="flex items-center rounded-lg bg-orange-50 px-4 py-3 text-sm text-orange-800 dark:bg-gray-700 dark:text-orange-300"
-                                role="alert"
-                            >
-                                <svg
-                                    className="me-2 hidden h-4 w-4 flex-shrink-0 sm:flex"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
-                                    />
-                                </svg>
-                                <span className="sr-only">Info</span>
-                                <div>
-                                    Expected delivery{' '}
-                                    <span className="font-medium">Today</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="mb-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                            <div className="items-start justify-between border-b border-gray-100 pb-4 dark:border-gray-700 md:flex lg:block xl:flex">
-                                <div className="mb-4 justify-between sm:flex sm:items-center md:mb-0 md:block lg:mb-4 lg:flex xl:mb-0 xl:block">
-                                    <h3 className="dark:text-gry-400 mb-2 text-gray-500 sm:mb-0 md:mb-2">
-                                        Order ID:
-                                        <a
-                                            href="#"
-                                            className="font-medium text-gray-900 hover:underline dark:text-white"
-                                        >
-                                            #FWB1273756
-                                        </a>
-                                        <span className="ms-2 inline-flex items-center rounded bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
-                                            <svg
-                                                className="me-1 h-3 w-3"
-                                                aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                width="24"
-                                                height="24"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    stroke="currentColor"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="M5 11.917 9.724 16.5 19 7.5"
-                                                />
-                                            </svg>
-                                            Completed
-                                        </span>
-                                    </h3>
-                                    <button
-                                        type="button"
-                                        className="inline-flex items-center font-medium text-primary-700 hover:underline dark:text-primary-500"
-                                    >
-                                        <svg
-                                            className="me-2 h-5 w-5"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                stroke="currentColor"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2m-8 1V4m0 12-4-4m4 4 4-4"
-                                            />
-                                        </svg>
-                                        Download invoice
-                                    </button>
-                                </div>
-                                <div className="space-y-4 sm:flex sm:space-x-4 sm:space-y-0">
-                                    <button
-                                        type="button"
-                                        className="inline-flex w-full items-center justify-center rounded-lg bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:w-auto"
-                                    >
-                                        <svg
-                                            className="-ms-0.5 me-1.5 h-4 w-4"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                stroke="currentColor"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                d="M17.651 7.65a7.131 7.131 0 0 0-12.68 3.15M18.001 4v4h-4m-7.652 8.35a7.13 7.13 0 0 0 12.68-3.15M6 20v-4h4"
-                                            />
-                                        </svg>
-                                        Order again
-                                    </button>
-                                    <a
-                                        href="#"
-                                        className="inline-flex w-full justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:mt-0 sm:w-auto"
-                                    >
-                                        Order details
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="mb-4 items-center sm:flex sm:flex-wrap xl:flex">
-                                <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400 sm:me-8">
-                                    <dt className="me-2 font-medium text-gray-900 dark:text-white">
-                                        Order date:
-                                    </dt>
-                                    <dd>01 May 2024</dd>
-                                </dl>
-                                <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400 sm:me-8">
-                                    <dt className="me-2 font-medium text-gray-900 dark:text-white">
-                                        Email:
-                                    </dt>
-                                    <dd>name@example.com</dd>
-                                </dl>
-                                <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400">
-                                    <dt className="me-2 font-medium text-gray-900 dark:text-white">
-                                        Payment method:
-                                    </dt>
-                                    <dd className="flex items-center">
-                                        <img
-                                            className="h-4 w-auto dark:hidden"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/visa.svg"
-                                            alt=""
-                                        />
-                                        <img
-                                            className="hidden h-4 w-auto dark:flex"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/visa-dark.svg"
-                                            alt=""
-                                        />
-                                        <span className="sr-only">Visa</span>
-                                    </dd>
-                                </dl>
-                            </div>
-                            <div
-                                className="flex items-center rounded-lg bg-gray-50 px-4 py-3 text-sm text-gray-800 dark:bg-gray-700 dark:text-gray-300"
-                                role="alert"
-                            >
-                                <svg
-                                    className="me-2 hidden h-4 w-4 flex-shrink-0 sm:flex"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                                    />
-                                </svg>
-                                <span className="sr-only">Info</span>
-                                <div>
-                                    Delivered on{' '}
-                                    <span className="font-medium">
-                                        Friday 04 May 2024
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="mb-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                            <div className="items-start justify-between border-b border-gray-100 pb-4 dark:border-gray-700 md:flex lg:block xl:flex">
-                                <div className="mb-4 justify-between sm:flex sm:items-center md:mb-0 md:block lg:mb-4 lg:flex xl:mb-0 xl:block">
-                                    <h3 className="dark:text-gry-400 mb-2 text-gray-500 sm:mb-0 md:mb-2">
-                                        Order ID:
-                                        <a
-                                            href="#"
-                                            className="font-medium text-gray-900 hover:underline dark:text-white"
-                                        >
-                                            #FWB1273855
-                                        </a>
-                                        <span className="ms-2 inline-flex items-center rounded bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900 dark:text-red-300">
-                                            <svg
-                                                className="me-1 h-3 w-3"
-                                                aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                width="24"
-                                                height="24"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    stroke="currentColor"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="M6 18 17.94 6M18 18 6.06 6"
-                                                />
-                                            </svg>
-                                            Cancelled
-                                        </span>
-                                    </h3>
-                                    <button
-                                        type="button"
-                                        className="inline-flex items-center font-medium text-primary-700 hover:underline dark:text-primary-500"
-                                    >
-                                        <svg
-                                            className="me-2 h-5 w-5"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                stroke="currentColor"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2m-8 1V4m0 12-4-4m4 4 4-4"
-                                            />
-                                        </svg>
-                                        Download invoice
-                                    </button>
-                                </div>
-                                <div className="space-y-4 sm:flex sm:space-x-4 sm:space-y-0">
-                                    <button
-                                        type="button"
-                                        className="inline-flex w-full items-center justify-center rounded-lg bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:w-auto"
-                                    >
-                                        <svg
-                                            className="-ms-0.5 me-1.5 h-4 w-4"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                stroke="currentColor"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                d="M17.651 7.65a7.131 7.131 0 0 0-12.68 3.15M18.001 4v4h-4m-7.652 8.35a7.13 7.13 0 0 0 12.68-3.15M6 20v-4h4"
-                                            />
-                                        </svg>
-                                        Order again
-                                    </button>
-                                    <a
-                                        href="#"
-                                        className="inline-flex w-full justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:mt-0 sm:w-auto"
-                                    >
-                                        Order details
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="mb-4 items-center sm:flex sm:flex-wrap xl:flex">
-                                <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400 sm:me-8">
-                                    <dt className="me-2 font-medium text-gray-900 dark:text-white">
-                                        Order date:
-                                    </dt>
-                                    <dd>08 March 2024</dd>
-                                </dl>
-                                <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400 sm:me-8">
-                                    <dt className="me-2 font-medium text-gray-900 dark:text-white">
-                                        Email:
-                                    </dt>
-                                    <dd>name@example.com</dd>
-                                </dl>
-                                <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400">
-                                    <dt className="me-2 font-medium text-gray-900 dark:text-white">
-                                        Payment method:
-                                    </dt>
-                                    <dd className="flex items-center">
-                                        <img
-                                            className="h-5 w-auto dark:hidden"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/paypal.svg"
-                                            alt=""
-                                        />
-                                        <img
-                                            className="hidden h-5 w-auto dark:flex"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/paypal-dark.svg"
-                                            alt=""
-                                        />
-                                        <span className="sr-only">paypal</span>
-                                    </dd>
-                                </dl>
-                            </div>
-                            <div
-                                className="flex items-center rounded-lg bg-gray-50 px-4 py-3 text-sm text-gray-800 dark:bg-gray-700 dark:text-gray-300"
-                                role="alert"
-                            >
-                                <svg
-                                    className="me-2 hidden h-4 w-4 flex-shrink-0 sm:flex"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                                    />
-                                </svg>
-                                <span className="sr-only">Info</span>
-                                <div>
-                                    Cancelled on{' '}
-                                    <span className="font-medium">
-                                        Monday 08 March 2024
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                            <div className="items-start justify-between border-b border-gray-100 pb-4 dark:border-gray-700 md:flex lg:block xl:flex">
-                                <div className="mb-4 justify-between sm:flex sm:items-center md:mb-0 md:block lg:mb-4 lg:flex xl:mb-0 xl:block">
-                                    <h3 className="dark:text-gry-400 mb-2 text-gray-500 sm:mb-0 md:mb-2">
-                                        Order ID:
-                                        <a
-                                            href="#"
-                                            className="font-medium text-gray-900 hover:underline dark:text-white"
-                                        >
-                                            #FWB1273444
-                                        </a>
-                                        <span className="ms-2 inline-flex items-center rounded bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
-                                            <svg
-                                                className="me-1 h-3 w-3"
-                                                aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                width="24"
-                                                height="24"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    stroke="currentColor"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="M5 11.917 9.724 16.5 19 7.5"
-                                                />
-                                            </svg>
-                                            Completed
-                                        </span>
-                                    </h3>
-                                    <button
-                                        type="button"
-                                        className="inline-flex items-center font-medium text-primary-700 hover:underline dark:text-primary-500"
-                                    >
-                                        <svg
-                                            className="me-2 h-5 w-5"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                stroke="currentColor"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2m-8 1V4m0 12-4-4m4 4 4-4"
-                                            />
-                                        </svg>
-                                        Download invoice
-                                    </button>
-                                </div>
-                                <div className="space-y-4 sm:flex sm:space-x-4 sm:space-y-0">
-                                    <button
-                                        type="button"
-                                        className="inline-flex w-full items-center justify-center rounded-lg bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:w-auto"
-                                    >
-                                        <svg
-                                            className="-ms-0.5 me-1.5 h-4 w-4"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                stroke="currentColor"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                d="M17.651 7.65a7.131 7.131 0 0 0-12.68 3.15M18.001 4v4h-4m-7.652 8.35a7.13 7.13 0 0 0 12.68-3.15M6 20v-4h4"
-                                            />
-                                        </svg>
-                                        Order again
-                                    </button>
-                                    <a
-                                        href="#"
-                                        className="inline-flex w-full justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:mt-0 sm:w-auto"
-                                    >
-                                        Order details
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="mb-4 items-center sm:flex sm:flex-wrap xl:flex">
-                                <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400 sm:me-8">
-                                    <dt className="me-2 font-medium text-gray-900 dark:text-white">
-                                        Order date:
-                                    </dt>
-                                    <dd>09 February 2024</dd>
-                                </dl>
-                                <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400 sm:me-8">
-                                    <dt className="me-2 font-medium text-gray-900 dark:text-white">
-                                        Email:
-                                    </dt>
-                                    <dd>name@example.com</dd>
-                                </dl>
-                                <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400">
-                                    <dt className="me-2 font-medium text-gray-900 dark:text-white">
-                                        Payment method:
-                                    </dt>
-                                    <dd className="flex items-center">
-                                        <span>Monthly installments</span>
-                                    </dd>
-                                </dl>
-                            </div>
-                            <div
-                                className="flex items-center rounded-lg bg-gray-50 px-4 py-3 text-sm text-gray-800 dark:bg-gray-700 dark:text-gray-300"
-                                role="alert"
-                            >
-                                <svg
-                                    className="me-2 hidden h-4 w-4 flex-shrink-0 sm:flex"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                                    />
-                                </svg>
-                                <span className="sr-only">Info</span>
-                                <div>
-                                    Delivered on{' '}
-                                    <span className="font-medium">
-                                        Thursday 14 Feb 2024
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <nav
-                            className="mt-6 flex items-center justify-center sm:mt-8"
-                            aria-label="Page navigation example"
-                        >
-                            <ul className="flex h-8 items-center -space-x-px text-sm">
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="ms-0 flex h-8 items-center justify-center rounded-s-lg border border-e-0 border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                                    >
-                                        <span className="sr-only">
-                                            Previous
-                                        </span>
-                                        <svg
-                                            className="h-4 w-4 rtl:rotate-180"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                stroke="currentColor"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                d="m15 19-7-7 7-7"
-                                            />
-                                        </svg>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="flex h-8 items-center justify-center border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                                    >
-                                        1
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="flex h-8 items-center justify-center border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                                    >
-                                        2
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        aria-current="page"
-                                        className="z-10 flex h-8 items-center justify-center border border-primary-300 bg-primary-50 px-3 leading-tight text-primary-600 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-                                    >
-                                        3
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="flex h-8 items-center justify-center border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                                    >
-                                        ...
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="flex h-8 items-center justify-center border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                                    >
-                                        100
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="flex h-8 items-center justify-center rounded-e-lg border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                                    >
-                                        <span className="sr-only">Next</span>
-                                        <svg
-                                            className="h-4 w-4 rtl:rotate-180"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                stroke="currentColor"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                d="m9 5 7 7-7 7"
-                                            />
-                                        </svg>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                        
+                        {depositHistory.map(renderPayment)}
                     </div>
                 </div>
                 <div

@@ -1,9 +1,9 @@
 const ExternalURL = {
     facebook: 'https://www.facebook.com/thinkonmay',
-    discord: 'https://discord.com/servers/thinkmay-cloud-pc-1085741898309849128',
-    tiktok: 'https://www.tiktok.com/@thinkmaycloudpcvn',
-
-}
+    discord:
+        'https://discord.com/servers/thinkmay-cloud-pc-1085741898309849128',
+    tiktok: 'https://www.tiktok.com/@thinkmaycloudpcvn'
+};
 
 export const Hero = () => {
     return (
