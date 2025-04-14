@@ -20,7 +20,7 @@ export const Hero = () => {
                 </p>
                 <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
                     <a
-                        href="/play/index.html"
+                        href="/play/index.html?app=null"
                         className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
                     >
                         Sử dụng ngay
@@ -222,7 +222,7 @@ export const SocialProof = () => {
                     <div className="pt-6 mt-6 space-y-4 border-t border-gray-200 dark:border-gray-700">
                         <div>
                             <a
-                                href="/play/index.html"
+                                href="/legal"
                                 className="inline-flex items-center text-base font-medium text-primary-600 hover:text-primary-800 dark:text-primary-500 dark:hover:text-primary-700"
                             >
                                 Explore Legality Guide
@@ -242,7 +242,7 @@ export const SocialProof = () => {
                         </div>
                         <div>
                             <a
-                                href="/play/index.html"
+                                href="/legal"
                                 className="inline-flex items-center text-base font-medium text-primary-600 hover:text-primary-800 dark:text-primary-500 dark:hover:text-primary-700"
                             >
                                 Visit the Trust Center
@@ -366,7 +366,7 @@ export const CTA = () => {
                         Hoặc nhắn tin hỗ trợ để được trải nghiệm miễn phí
                     </p>
                     <a
-                        href="/play/index.html"
+                        href="/play/index.html?app=null&ref=landingpage"
                         className="inline-flex items-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900"
                     >
                         Sử dụng ngay
@@ -396,7 +396,7 @@ export const Footer = () => {
                 <div className="grid grid-cols-2 gap-8 lg:grid-cols-6">
                     <div className="col-span-2">
                         <a
-                            href="/play/index.html"
+                            href="/play/index.html?app=null&ref=landingpage"
                             className="flex items-center mb-2 text-2xl font-semibold text-gray-900 sm:mb-0 dark:text-white"
                         >
                             <img
@@ -414,7 +414,7 @@ export const Footer = () => {
                         <ul className="flex mt-5 space-x-6">
                             <li>
                                 <a
-                                    href="/play/index.html"
+                                    href="/play/index.html?app=null&ref=landingpage"
                                     className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
@@ -433,7 +433,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="/play/index.html"
+                                    href="/play/index.html?app=null&ref=landingpage"
                                     className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
@@ -452,7 +452,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="/play/index.html"
+                                    href="/play/index.html?app=null&ref=landingpage"
                                     className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
@@ -467,7 +467,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="/play/index.html"
+                                    href="/play/index.html?app=null&ref=landingpage"
                                     className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
@@ -486,7 +486,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="/play/index.html"
+                                    href="/play/index.html?app=null&ref=landingpage"
                                     className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
@@ -512,7 +512,7 @@ export const Footer = () => {
                         <ul className="text-gray-500 dark:text-gray-400">
                             <li className="mb-4">
                                 <a
-                                    href="/play/index.html"
+                                    href="/play/index.html?app=null&ref=landingpage"
                                     className=" hover:underline"
                                 >
                                     About
@@ -520,7 +520,7 @@ export const Footer = () => {
                             </li>
                             <li className="mb-4">
                                 <a
-                                    href="/play/index.html"
+                                    href="/play/index.html?app=null&ref=landingpage"
                                     className="hover:underline"
                                 >
                                     Careers
@@ -528,7 +528,7 @@ export const Footer = () => {
                             </li>
                             <li className="mb-4">
                                 <a
-                                    href="/play/index.html"
+                                    href="/play/index.html?app=null&ref=landingpage"
                                     className="hover:underline"
                                 >
                                     Brand Center
@@ -536,7 +536,7 @@ export const Footer = () => {
                             </li>
                             <li className="mb-4">
                                 <a
-                                    href="/play/index.html"
+                                    href="/play/index.html?app=null&ref=landingpage"
                                     className="hover:underline"
                                 >
                                     Blog
@@ -551,7 +551,7 @@ export const Footer = () => {
                         <ul className="text-gray-500 dark:text-gray-400">
                             <li className="mb-4">
                                 <a
-                                    href="/play/index.html"
+                                    href={ExternalURL.discord}
                                     className="hover:underline"
                                 >
                                     Discord Server
@@ -559,15 +559,15 @@ export const Footer = () => {
                             </li>
                             <li className="mb-4">
                                 <a
-                                    href="/play/index.html"
+                                    href={ExternalURL.tiktok}
                                     className="hover:underline"
                                 >
-                                    Twitter
+                                    Tiktok
                                 </a>
                             </li>
                             <li className="mb-4">
                                 <a
-                                    href="/play/index.html"
+                                    href={ExternalURL.facebook}
                                     className="hover:underline"
                                 >
                                     Facebook
@@ -575,7 +575,7 @@ export const Footer = () => {
                             </li>
                             <li className="mb-4">
                                 <a
-                                    href="/play/index.html"
+                                    href={ExternalURL.facebook}
                                     className="hover:underline"
                                 >
                                     Contact Us
@@ -590,7 +590,7 @@ export const Footer = () => {
                         <ul className="text-gray-500 dark:text-gray-400">
                             <li className="mb-4">
                                 <a
-                                    href="/play/index.html"
+                                    href="/legal"
                                     className="hover:underline"
                                 >
                                     Privacy Policy
@@ -598,7 +598,7 @@ export const Footer = () => {
                             </li>
                             <li className="mb-4">
                                 <a
-                                    href="/play/index.html"
+                                    href="/legal"
                                     className="hover:underline"
                                 >
                                     Licensing
@@ -606,49 +606,10 @@ export const Footer = () => {
                             </li>
                             <li className="mb-4">
                                 <a
-                                    href="/play/index.html"
+                                    href="/legal"
                                     className="hover:underline"
                                 >
                                     Terms
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="lg:mx-auto">
-                        <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                            Download
-                        </h2>
-                        <ul className="text-gray-500 dark:text-gray-400">
-                            <li className="mb-4">
-                                <a
-                                    href="/play/index.html"
-                                    className="hover:underline"
-                                >
-                                    iOS
-                                </a>
-                            </li>
-                            <li className="mb-4">
-                                <a
-                                    href="/play/index.html"
-                                    className="hover:underline"
-                                >
-                                    Android
-                                </a>
-                            </li>
-                            <li className="mb-4">
-                                <a
-                                    href="/play/index.html"
-                                    className="hover:underline"
-                                >
-                                    Windows
-                                </a>
-                            </li>
-                            <li className="mb-4">
-                                <a
-                                    href="/play/index.html"
-                                    className="hover:underline"
-                                >
-                                    MacOS
                                 </a>
                             </li>
                         </ul>
@@ -657,7 +618,7 @@ export const Footer = () => {
                 <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
                 <span className="block text-sm text-center text-gray-500 dark:text-gray-400">
                     © 2021-2025
-                    <a href="/play/index.html" className="hover:underline">
+                    <a href="/play/index.html?app=null&ref=landingpage" className="hover:underline">
                         Thinkmay
                     </a>
                     . All Rights Reserved.
