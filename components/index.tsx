@@ -12,7 +12,7 @@ export const Hero = () => {
                 <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
                     Thinkmay CloudPC - chơi game trên mây
                 </h1>
-                <p className="mb-8 font-light text-gray-500 md:text-lg lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
+                <p className="mb-8 text-gray-500 md:text-lg lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400 font-medium">
                     Chơi tất cả các game cấu hình cao, đồ họa đẹp trên mọi thiết
                     bị, chỉ với kết nối internet
                     <br />
