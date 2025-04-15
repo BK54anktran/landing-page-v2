@@ -116,7 +116,7 @@ export const Hero = () => {
 
 export const Feature = () => {
     return (
-        <section className="bg-white dark:bg-mica   mb-[256px]">
+        <section className="bg-white dark:bg-mica mb-[128px]">
             <div className="py-8 px-4 mx-auto max-w-screen-xl text-center sm:py-16 lg:px-6">
                 <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
                     Tương lai của chơi game là chơi game trên "mây"
@@ -164,7 +164,7 @@ export const Feature = () => {
                             </svg>
                         </div>
                         <h3 className="mb-4 text-2xl font-bold dark:text-white">
-                            Tối ưu từ A-Z, không chờ đợi, bật là chơi
+                            Không chờ đợi, bật là chơi, tối ưu từ A-Z
                         </h3>
                         <p className="mb-4 text-gray-500 dark:text-gray-400">
                             Lại còn có game được tải sẵn luôn? Không cần phải đi
@@ -203,7 +203,7 @@ export const Feature = () => {
 export const Preview = () => {
     return (
         <img
-            className="w-full mb-[256px] hidden sm:block"
+            className="w-full mt-[256px] mb-[256px] hidden sm:block"
             alt="demo image for thinkmay"
             src="/img/macbook_mockup.png"
         ></img>
@@ -219,7 +219,7 @@ export const SocialProof = () => {
                         Sản phẩm được tin dùng
                     </p>
                     <h2 className="mt-3 mb-4 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl dark:text-white">
-                        Thinkmay CloudPC được tin dùng bởi người dùng
+                        Thinkmay CloudPC đã có 60k++ người sử dụng
                     </h2>
                     <p className="font-light text-gray-500 sm:text-xl dark:text-gray-400"></p>
                     <div className="pt-6 mt-6 space-y-4 border-t border-gray-200 dark:border-gray-700">
@@ -349,7 +349,7 @@ export const SocialProof = () => {
 
 export const CTA = () => {
     return (
-        <section className="bg-white dark:bg-mica mt-[256px] mb-[256px]">
+        <section className="bg-white dark:bg-mica mt-[128px] mb-[128px]">
             <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
                 <img
                     className="w-full dark:hidden"
