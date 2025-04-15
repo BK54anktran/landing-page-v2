@@ -21,11 +21,11 @@ export const Hero = () => {
                 <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
                     <a
                         href="/play/index.html?app=null"
-                        className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
+                        className="inline-flex items-center justify-center px-5 py-3 text-2xl font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
                     >
                         Sử dụng ngay
                     </a>
-                    <a
+                    {/* <a
                         href="/pricing"
                         className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
                     >
@@ -42,7 +42,7 @@ export const Hero = () => {
                                 clipRule="evenodd"
                             ></path>
                         </svg>
-                    </a>
+                    </a> */}
                 </div>
                 <img
                     className="mx-auto mb-5 lg:mb-8 border border-gray-200 rounded-lg shadow-xl dark:border-gray-600 z-1 dark:hidden"
@@ -57,7 +57,7 @@ export const Hero = () => {
             </div>
             <div className="pt-48 lg:pb-16 pb-8 -mt-48 bg-gray-50 sm:pt-80 sm:-mt-80 dark:bg-gray-800 z-2">
                 <div className="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36 ">
-                    <div className="grid grid-cols-3 gap-40 sm:gap-0 justify-center mt-8 text-gray-500 mb-[128px]">
+                    <div className="grid grid-cols-3 gap-20 sm:gap-0 justify-center mt-8 text-gray-500 mb-[128px]">
                         <a
                             href={ExternalURL.tiktok}
                             className="mb-5 mr-5 max-h-24 lg:mb-0 hover:text-gray-900 dark:hover:text-gray-400"
