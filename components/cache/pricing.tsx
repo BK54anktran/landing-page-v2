@@ -219,7 +219,7 @@ const fetchDomain = async (): Promise<Domain[]> => {
 
 const PaymentButton = ({ plan }: { plan: string }) => {
     const defaultServer = 'v4.thinkmay.net';
-    const href = `/play/index.html?plan=${plan}&server=${defaultServer}`;
+    const href = `/play/index.html?plan=${plan}&server=${defaultServer}&ref=landingpage`;
     return (
         <div className="flex gap-2">
             <a
