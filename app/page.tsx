@@ -7,8 +7,8 @@ export default function Home() {
         <>
             <Hero></Hero>
             <Feature></Feature>
-            <Pricing></Pricing>
             <Applications></Applications>
+            <Pricing></Pricing>
             <Preview></Preview>
             <SocialProof></SocialProof>
             <FAQ />

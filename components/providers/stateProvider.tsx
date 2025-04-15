@@ -77,12 +77,12 @@ export const Header = ({ openLogin }: { openLogin?: () => void }) => {
                     <a href="/play/index.html" className="flex items-center">
                         <img
                             src="/img/logo_white.png"
-                            className="mr-3 h-6 sm:h-9 hidden dark:block"
+                            className="mr-3 h-12 sm:h-20 hidden dark:block"
                             alt="thinkmay logo"
                         ></img>
                         <img
                             src="/img/logo.png"
-                            className="mr-3 h-6 sm:h-9 dark:hidden"
+                            className="mr-3 h-12 sm:h-20 dark:hidden"
                             alt="thinkmay logo"
                         ></img>
                         <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">

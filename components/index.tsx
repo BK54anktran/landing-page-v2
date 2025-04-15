@@ -60,6 +60,7 @@ export const Hero = () => {
                     <div className="grid grid-cols-3 gap-20 sm:gap-0 justify-center mt-8 text-gray-500 mb-[128px]">
                         <a
                             href={ExternalURL.tiktok}
+                            target="_blank"
                             className="mb-5 mr-5 max-h-24 lg:mb-0 hover:text-gray-900 dark:hover:text-gray-400"
                         >
                             <svg
@@ -74,6 +75,7 @@ export const Hero = () => {
                         </a>
                         <a
                             href={ExternalURL.facebook}
+                            target="_blank"
                             className="mb-5 mr-5 max-h-24 lg:mb-0 hover:text-gray-900 dark:hover:text-gray-400"
                         >
                             <svg
@@ -92,6 +94,7 @@ export const Hero = () => {
                         </a>
                         <a
                             href={ExternalURL.discord}
+                            target="_blank"
                             className="mb-5 mr-5 max-h-24 lg:mb-0 hover:text-gray-900 dark:hover:text-gray-400"
                         >
                             <svg
