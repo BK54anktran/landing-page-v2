@@ -589,26 +589,17 @@ export const Footer = () => {
                         </h2>
                         <ul className="text-gray-500 dark:text-gray-400">
                             <li className="mb-4">
-                                <a
-                                    href="/legal"
-                                    className="hover:underline"
-                                >
+                                <a href="/legal" className="hover:underline">
                                     Privacy Policy
                                 </a>
                             </li>
                             <li className="mb-4">
-                                <a
-                                    href="/legal"
-                                    className="hover:underline"
-                                >
+                                <a href="/legal" className="hover:underline">
                                     Licensing
                                 </a>
                             </li>
                             <li className="mb-4">
-                                <a
-                                    href="/legal"
-                                    className="hover:underline"
-                                >
+                                <a href="/legal" className="hover:underline">
                                     Terms
                                 </a>
                             </li>
@@ -618,7 +609,10 @@ export const Footer = () => {
                 <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
                 <span className="block text-sm text-center text-gray-500 dark:text-gray-400">
                     © 2021-2025
-                    <a href="/play/index.html?app=null&ref=landingpage" className="hover:underline">
+                    <a
+                        href="/play/index.html?app=null&ref=landingpage"
+                        className="hover:underline"
+                    >
                         Thinkmay
                     </a>
                     . All Rights Reserved.

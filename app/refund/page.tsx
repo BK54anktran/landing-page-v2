@@ -1,17 +1,52 @@
 'use client';
 
-import { loggedin } from '@/api/auth';
-import { useEffect, useState } from 'react';
+import { info, loggedin } from '@/api/auth';
+import { createClient } from '@supabase/supabase-js';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Page() {
     const [step, setStep] = useState<string>('not_signed');
+    const [refundForm, setRefundForm] = useState<any[]>([]);
+
+    const submit = async () => {
+        const supabase = createClient(
+            'https://play.2.thinkmay.net:4432',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE'
+        );
+
+        await supabase.from('refund_request').insert({
+            user: info()?.email,
+            metadata: {
+                form: refundForm
+            }
+        });
+    };
+
+    const fetch = async () => {
+        const supabase = createClient(
+            'https://play.2.thinkmay.net:4432',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE'
+        );
+
+        const email = info()?.email;
+        const { data, error: err } = await supabase
+            .from('refund_request')
+            .select('id,created_at,amount')
+            .eq('user', email);
+
+        if (err) throw new Error(err.message);
+        else if (data.length > 0) setStep('status');
+    };
 
     useEffect(() => {
-        const requested = false;
-        if (loggedin() && requested) setStep('status');
-        else if (loggedin()) setStep('signed');
+        if (loggedin()) setStep('signed');
         else setStep('not_signed');
     }, []);
+
+    useEffect(() => {
+        if (step == 'complete') submit();
+        else if (step == 'signed') fetch();
+    }, [step]);
 
     switch (step) {
         case 'status':
@@ -22,11 +57,21 @@ export default function Page() {
             return (
                 <RefundMethod
                     prev={() => setStep('signed')}
-                    next={() => setStep('complete')}
+                    next={(method) => {
+                        setRefundForm((old) => [...old, method]);
+                        setStep('complete');
+                    }}
                 />
             );
         case 'signed':
-            return <RefundReason next={() => setStep('method')} />;
+            return (
+                <RefundReason
+                    next={(reason) => {
+                        setRefundForm((old) => [...old, reason]);
+                        setStep('method');
+                    }}
+                />
+            );
         default:
             return <RefundPolicy />;
     }
@@ -562,7 +607,148 @@ function StatusBar() {
     );
 }
 
-function RefundReason({ next }: { next: () => void }) {
+type ReasonCallback = { reason: string[]; feedback: string[] };
+
+function RefundReason({ next }: { next: (_: ReasonCallback) => void }) {
+    const [showOtherReason, setShowOtherReason] = useState(false);
+    const [showOtherFeedback, setShowOtherFeedback] = useState(false);
+    const [reason, setReason] = useState<string[]>([]);
+    const [feedback, setFeedback] = useState<string[]>([]);
+    const oreason = useRef<HTMLTextAreaElement>(null);
+    const ofeedback = useRef<HTMLTextAreaElement>(null);
+    const nextw = () =>
+        next({
+            reason: [
+                ...reason,
+                ...(oreason.current?.value != undefined
+                    ? [oreason.current?.value]
+                    : [])
+            ],
+            feedback: [
+                ...feedback,
+                ...(ofeedback.current?.value != undefined
+                    ? [ofeedback.current?.value]
+                    : [])
+            ]
+        });
+
+    const feedbacks = [
+        'Đây là lần đầu tiên tôi biết tới công nghệ cloud gaming',
+        'Tôi đã nghe qua công nghệ cloud gaming',
+        'Tôi đã sử dụng qua các sản phẩm cloud gaming khác',
+        'Tôi đã sử dụng thinkmay được một thời gian'
+    ];
+
+    const renderFeedback = (val: string, index: number) => {
+        return (
+            <div key={index} className="mb-4 flex items-center">
+                <input
+                    onChange={(e) =>
+                        setFeedback((old) =>
+                            e.target.checked
+                                ? [...old, val]
+                                : old.filter((x) => x != val)
+                        )
+                    }
+                    id="condition-1"
+                    type="checkbox"
+                    value=""
+                    name="product-condition"
+                    className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                />
+                <label
+                    htmlFor="condition-1"
+                    className="ms-2 text-gray-500 dark:text-gray-400"
+                >
+                    {val}
+                </label>
+            </div>
+        );
+    };
+
+    const reasons = [
+        'Tôi không thể sử dụng Thinkmay do vấn đề giật lagg',
+        'Tôi không không thể chơi game mình muốn trên Thinkmay',
+        'Tôi không hài lòng với cách hỗ trợ người dùng của Thinkmay',
+        'Tôi không biết cách dùng Thinkmay'
+    ];
+
+    const renderReason = (val: string, index: number) => {
+        return (
+            <div key={index} className="mb-4 flex items-center">
+                <input
+                    id="reason-1"
+                    onChange={(e) =>
+                        setReason((old) =>
+                            e.target.checked
+                                ? [...old, val]
+                                : old.filter((x) => x != val)
+                        )
+                    }
+                    type="checkbox"
+                    value=""
+                    className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                />
+                <label
+                    htmlFor="reason-1"
+                    className="ms-2 text-gray-500 dark:text-gray-400"
+                >
+                    {val}
+                </label>
+            </div>
+        );
+    };
+
+    const OtherFeedback = () => (
+        <div
+            id="productConditionModal"
+            className="left-0 right-0 top-0 z-50 h-modal w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0 md:h-full"
+        >
+            <div className="relative h-full w-full max-w-md p-4 md:h-auto">
+                <div className="relative rounded-lg bg-white p-4 shadow dark:bg-gray-800 sm:p-5">
+                    <label
+                        htmlFor="reason-message"
+                        className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                        Write here the condition of the product
+                    </label>
+                    <textarea
+                        id="reason-message"
+                        rows={4}
+                        className="mb-4 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:mb-5"
+                        placeholder="e.g. I used the product for 10 months and it has fine scratches"
+                        ref={ofeedback}
+                    ></textarea>
+                </div>
+            </div>
+        </div>
+    );
+
+    const OtherReason = () => (
+        <div
+            id="refundReasonModal"
+            className="left-0 right-0 top-0 z-50 h-modal w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0 md:h-full"
+        >
+            <div className="relative h-full w-full max-w-md p-4 md:h-auto">
+                <div className="relative rounded-lg bg-white p-4 shadow dark:bg-gray-800 sm:p-5">
+                    <label
+                        htmlFor="reason-message"
+                        className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                        Write the reason why you want the refund
+                    </label>
+                    <textarea
+                        id="reason-message"
+                        rows={4}
+                        className="mb-4 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:mb-5"
+                        placeholder="e.g. Product malfunction"
+                        ref={oreason}
+                    ></textarea>
+                </div>
+            </div>
+        </div>
+    );
+
     return (
         <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
             <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -587,95 +773,7 @@ function RefundReason({ next }: { next: () => void }) {
                                 </p>
 
                                 <div className="space-y-4">
-                                    <div className="mb-4 flex items-center">
-                                        <input
-                                            id="condition-1"
-                                            type="radio"
-                                            value=""
-                                            name="product-condition"
-                                            className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                                        />
-                                        <label
-                                            htmlFor="condition-1"
-                                            className="ms-2 text-gray-500 dark:text-gray-400"
-                                        >
-                                            {' '}
-                                            I want to return a sealed
-                                            product{' '}
-                                        </label>
-                                    </div>
-
-                                    <div className="flex items-center">
-                                        <input
-                                            checked
-                                            id="condition-2"
-                                            type="radio"
-                                            value=""
-                                            name="product-condition"
-                                            className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                                        />
-                                        <label
-                                            htmlFor="condition-2"
-                                            className="ms-2 text-gray-500 dark:text-gray-400"
-                                        >
-                                            {' '}
-                                            I want to return an mistaken
-                                            order{' '}
-                                        </label>
-                                    </div>
-
-                                    <div className="mb-4 flex items-center">
-                                        <input
-                                            id="condition-3"
-                                            type="radio"
-                                            value=""
-                                            name="product-condition"
-                                            className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                                        />
-                                        <label
-                                            htmlFor="condition-3"
-                                            className="ms-2 text-gray-500 dark:text-gray-400"
-                                        >
-                                            {' '}
-                                            I want to return a functional but
-                                            unsealed product{' '}
-                                        </label>
-                                    </div>
-
-                                    <div className="mb-4 flex items-center">
-                                        <input
-                                            id="condition-4"
-                                            type="radio"
-                                            value=""
-                                            name="product-condition"
-                                            className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                                        />
-                                        <label
-                                            htmlFor="condition-4"
-                                            className="ms-2 text-gray-500 dark:text-gray-400"
-                                        >
-                                            {' '}
-                                            I want to return a non-functional
-                                            but unsealed product{' '}
-                                        </label>
-                                    </div>
-
-                                    <div className="mb-4 flex items-center">
-                                        <input
-                                            id="condition-5"
-                                            type="radio"
-                                            value=""
-                                            name="product-condition"
-                                            className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                                        />
-                                        <label
-                                            htmlFor="condition-5"
-                                            className="ms-2 text-gray-500 dark:text-gray-400"
-                                        >
-                                            {' '}
-                                            The product was not delivered{' '}
-                                        </label>
-                                    </div>
+                                    {feedbacks.map(renderFeedback)}
                                 </div>
 
                                 <button
@@ -684,48 +782,13 @@ function RefundReason({ next }: { next: () => void }) {
                                     data-modal-target="productConditionModal"
                                     data-modal-toggle="productConditionModal"
                                     className="w-full rounded-lg  border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto"
+                                    onClick={() =>
+                                        setShowOtherFeedback((old) => !old)
+                                    }
                                 >
                                     Other condition
                                 </button>
-                                <div
-                                    id="productConditionModal"
-                                    tabIndex={-1}
-                                    aria-hidden="true"
-                                    className="fixed left-0 right-0 top-0 z-50 hidden h-modal w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0 md:h-full"
-                                >
-                                    <div className="relative h-full w-full max-w-md p-4 md:h-auto">
-                                        <div className="relative rounded-lg bg-white p-4 shadow dark:bg-gray-800 sm:p-5">
-                                            <label
-                                                htmlFor="reason-message"
-                                                className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                                            >
-                                                Write here the condition of the
-                                                product
-                                            </label>
-                                            <textarea
-                                                id="reason-message"
-                                                rows={4}
-                                                className="mb-4 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:mb-5"
-                                                placeholder="e.g. I used the product for 10 months and it has fine scratches"
-                                            ></textarea>
-                                            <div className="flex items-center justify-center space-x-4">
-                                                <button
-                                                    type="button"
-                                                    className="flex w-full items-center justify-center rounded-lg border border-primary-700 bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:border-primary-800 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:border-primary-600 dark:bg-primary-600 dark:hover:border-primary-700  dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                                >
-                                                    Add condition
-                                                </button>
-                                                <button
-                                                    data-modal-toggle="productConditionModal"
-                                                    type="button"
-                                                    className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
-                                                >
-                                                    Close
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {showOtherFeedback ? <OtherFeedback /> : null}
                             </div>
 
                             <div className="space-y-6 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-8">
@@ -735,95 +798,17 @@ function RefundReason({ next }: { next: () => void }) {
                                 </p>
 
                                 <div className="space-y-4">
-                                    <div className="mb-4 flex items-center">
-                                        <input
-                                            id="reason-1"
-                                            type="checkbox"
-                                            value=""
-                                            className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                                        />
-                                        <label
-                                            htmlFor="reason-1"
-                                            className="ms-2 text-gray-500 dark:text-gray-400"
-                                        >
-                                            {' '}
-                                            Defective or Damaged Product{' '}
-                                        </label>
-                                    </div>
-
-                                    <div className="flex items-center">
-                                        <input
-                                            checked
-                                            id="reason-2"
-                                            type="checkbox"
-                                            value=""
-                                            className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                                        />
-                                        <label
-                                            htmlFor="reason-2"
-                                            className="ms-2 text-gray-500 dark:text-gray-400"
-                                        >
-                                            {' '}
-                                            Incorrect Product Received{' '}
-                                        </label>
-                                    </div>
-
-                                    <div className="flex items-center">
-                                        <input
-                                            checked
-                                            id="reason-3"
-                                            type="checkbox"
-                                            value=""
-                                            className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                                        />
-                                        <label
-                                            htmlFor="reason-3"
-                                            className="ms-2 text-gray-500 dark:text-gray-400"
-                                        >
-                                            {' '}
-                                            Unsatisfactory Quality{' '}
-                                        </label>
-                                    </div>
-
-                                    <div className="flex items-center">
-                                        <input
-                                            id="reason-4"
-                                            type="checkbox"
-                                            value=""
-                                            className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                                        />
-                                        <label
-                                            htmlFor="reason-4"
-                                            className="ms-2 text-gray-500 dark:text-gray-400"
-                                        >
-                                            {' '}
-                                            Changed Mind/Not as Expected{' '}
-                                        </label>
-                                    </div>
-
-                                    <div className="flex items-center">
-                                        <input
-                                            id="reason-5"
-                                            type="checkbox"
-                                            value=""
-                                            className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                                        />
-                                        <label
-                                            htmlFor="reason-5"
-                                            className="ms-2 text-gray-500 dark:text-gray-400"
-                                        >
-                                            {' '}
-                                            Misleading Product Information{' '}
-                                        </label>
-                                    </div>
+                                    {reasons.map(renderReason)}
                                 </div>
-
                                 <button
                                     id="refundReasonButton"
                                     data-modal-target="refundReasonModal"
                                     data-modal-toggle="refundReasonModal"
                                     type="button"
                                     className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto"
+                                    onClick={() =>
+                                        setShowOtherReason((old) => !old)
+                                    }
                                 >
                                     <svg
                                         className="h-4 w-4"
@@ -847,45 +832,7 @@ function RefundReason({ next }: { next: () => void }) {
                                     </svg>
                                     I have another reason
                                 </button>
-                            </div>
-                            <div
-                                id="refundReasonModal"
-                                tabIndex={-1}
-                                aria-hidden="true"
-                                className="fixed left-0 right-0 top-0 z-50 hidden h-modal w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0 md:h-full"
-                            >
-                                <div className="relative h-full w-full max-w-md p-4 md:h-auto">
-                                    <div className="relative rounded-lg bg-white p-4 shadow dark:bg-gray-800 sm:p-5">
-                                        <label
-                                            htmlFor="reason-message"
-                                            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                                        >
-                                            Write the reason why you want the
-                                            refund
-                                        </label>
-                                        <textarea
-                                            id="reason-message"
-                                            rows={4}
-                                            className="mb-4 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:mb-5"
-                                            placeholder="e.g. Product malfunction"
-                                        ></textarea>
-                                        <div className="flex items-center justify-center space-x-4">
-                                            <button
-                                                type="button"
-                                                className="flex w-full items-center justify-center rounded-lg border border-primary-700 bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:border-primary-800 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:border-primary-600 dark:bg-primary-600 dark:hover:border-primary-700  dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                            >
-                                                Add your reason
-                                            </button>
-                                            <button
-                                                data-modal-toggle="refundReasonModal"
-                                                type="button"
-                                                className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
-                                            >
-                                                Close
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                                {showOtherReason ? <OtherReason /> : null}
                             </div>
                         </div>
 
@@ -901,7 +848,7 @@ function RefundReason({ next }: { next: () => void }) {
 
                         <div className="gap-4 sm:flex sm:items-center">
                             <button
-                                onClick={next}
+                                onClick={nextw}
                                 className="mt-4 flex w-full items-center justify-center rounded-lg border border-primary-700 bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:border-primary-800 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:border-primary-600 dark:bg-primary-600 dark:hover:border-primary-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:mt-0 sm:w-auto"
                             >
                                 Next: Phương thức hoàn tiền
@@ -914,7 +861,59 @@ function RefundReason({ next }: { next: () => void }) {
     );
 }
 
-function RefundMethod({ next, prev }: { next: () => void; prev: () => void }) {
+function RefundMethod({
+    next,
+    prev
+}: {
+    next: (_: string) => void;
+    prev: () => void;
+}) {
+    const [method, setMethod] = useState('');
+    const methods = [
+        'Tôi muốn được hoàn tiền về tài khoản tôi',
+        'Tôi muốn đóng băng tài khoản đến khi Thinkmay giải quyết được vấn đề',
+        'Tôi muốn được hỗ trợ trước khi hoàn tiền'
+    ];
+
+    const nextw = () => next(method);
+
+    const renderMethod = (method: string, index: number) => (
+        <div
+            key={index}
+            className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800"
+        >
+            <div className="flex items-start">
+                <div className="flex h-5 items-center">
+                    <input
+                        id="shopping-voucher"
+                        aria-describedby="shopping-voucher-text"
+                        type="radio"
+                        name="delivery-method"
+                        value=""
+                        className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                        onClick={() => setMethod(method)}
+                    />
+                </div>
+
+                <div className="ms-4 text-sm">
+                    <label
+                        htmlFor="shopping-voucher"
+                        className="font-medium leading-none text-gray-900 dark:text-white"
+                    >
+                        {method}
+                    </label>
+                    <p
+                        id="shopping-voucher-text"
+                        className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
+                    >
+                        {/* Receive an instant voucher that you can use for new
+                        orders. */}
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+
     return (
         <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
             <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -929,103 +928,7 @@ function RefundMethod({ next, prev }: { next: () => void; prev: () => void }) {
                         </div>
 
                         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-                            <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
-                                <div className="flex items-start">
-                                    <div className="flex h-5 items-center">
-                                        <input
-                                            id="shopping-voucher"
-                                            aria-describedby="shopping-voucher-text"
-                                            type="radio"
-                                            name="delivery-method"
-                                            value=""
-                                            className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                                            checked
-                                        />
-                                    </div>
-
-                                    <div className="ms-4 text-sm">
-                                        <label
-                                            htmlFor="shopping-voucher"
-                                            className="font-medium leading-none text-gray-900 dark:text-white"
-                                        >
-                                            {' '}
-                                            I want a Shopping Voucher{' '}
-                                        </label>
-                                        <p
-                                            id="shopping-voucher-text"
-                                            className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                                        >
-                                            Receive an instant voucher that you
-                                            can use for new orders.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
-                                <div className="flex items-start">
-                                    <div className="flex h-5 items-center">
-                                        <input
-                                            id="money-back"
-                                            aria-describedby="money-back-text"
-                                            type="radio"
-                                            name="delivery-method"
-                                            value=""
-                                            className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                                        />
-                                    </div>
-
-                                    <div className="ms-4 text-sm">
-                                        <label
-                                            htmlFor="money-back"
-                                            className="font-medium leading-none text-gray-900 dark:text-white"
-                                        >
-                                            {' '}
-                                            I want my money back{' '}
-                                        </label>
-                                        <p
-                                            id="money-back-text"
-                                            className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                                        >
-                                            We will transfer the money to your
-                                            account. This can take up to 5 days.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
-                                <div className="flex items-start">
-                                    <div className="flex h-5 items-center">
-                                        <input
-                                            id="another-product"
-                                            aria-describedby="another-product-text"
-                                            type="radio"
-                                            name="delivery-method"
-                                            value=""
-                                            className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                                        />
-                                    </div>
-
-                                    <div className="ms-4 text-sm">
-                                        <label
-                                            htmlFor="another-product"
-                                            className="font-medium leading-none text-gray-900 dark:text-white"
-                                        >
-                                            {' '}
-                                            I want another product{' '}
-                                        </label>
-                                        <p
-                                            id="another-product-text"
-                                            className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                                        >
-                                            We will replace your product with a
-                                            new one or one close to the one you
-                                            returned
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            {methods.map(renderMethod)}
                         </div>
 
                         <div className="gap-4 sm:flex sm:items-center">
@@ -1038,7 +941,7 @@ function RefundMethod({ next, prev }: { next: () => void; prev: () => void }) {
                             </button>
                             <button
                                 type="submit"
-                                onClick={next}
+                                onClick={nextw}
                                 className="mt-4 flex w-full items-center justify-center rounded-lg border border-primary-700 bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:border-primary-800 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:border-primary-600 dark:bg-primary-600 dark:hover:border-primary-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:mt-0 sm:w-auto"
                             >
                                 Next: Confirmation
