@@ -68,6 +68,7 @@ const fetchApps = async (): Promise<App[]> => {
         .select('code_name,name,metadata,management->>kickey')
         .not('metadata', 'is', null)
         .eq('management->>landingpage', 'true')
+        .order('management->>priority')
         .limit(9);
     if (error) throw new Error(error.message);
     if (error) throw error;
