@@ -77,7 +77,7 @@ export const Header = ({ openLogin }: { openLogin?: () => void }) => {
                     <a href="/play/index.html" className="flex items-center">
                         <img
                             src="/img/logo_white.png"
-                            className="mr-3 h-6 sm:h-9 hidden dark:!hidden"
+                            className="mr-3 h-6 sm:h-9 hidden dark:block"
                             alt="thinkmay logo"
                         ></img>
                         <img

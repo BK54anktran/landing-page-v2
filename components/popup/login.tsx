@@ -66,7 +66,7 @@ export function LoginModal({ action: close }: { action: () => void }) {
                         >
                             <img
                                 src="logo_white.png"
-                                className="h-12 mr-4 hidden dark:!hidden"
+                                className="h-12 mr-4 hidden dark:hidden"
                                 alt="thinkmay logo"
                             ></img>
                             <img

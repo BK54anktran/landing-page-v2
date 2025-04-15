@@ -400,10 +400,15 @@ export const Footer = () => {
                             className="flex items-center mb-2 text-2xl font-semibold text-gray-900 sm:mb-0 dark:text-white"
                         >
                             <img
-                                alt="thinkmay logo"
                                 src="/img/logo_white.png"
-                                className="h-12"
-                            />
+                                className="mr-3 h-6 sm:h-9 hidden dark:block"
+                                alt="thinkmay logo"
+                            ></img>
+                            <img
+                                src="/img/logo.png"
+                                className="mr-3 h-6 sm:h-9 dark:hidden"
+                                alt="thinkmay logo"
+                            ></img>
                             Thinkmay
                         </a>
                         <p className="my-4 font-light text-gray-500 dark:text-gray-400">
