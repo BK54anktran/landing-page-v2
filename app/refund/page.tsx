@@ -83,7 +83,8 @@ function RefundStatus() {
             <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
                 <div className="mx-auto max-w-lg md:max-w-5xl">
                     <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
-                        Chúng mình đã nhận được yêu cầu refund của bạn, bên mình sẽ liên hệ lại với bạn để xác nhận thông tin nhé
+                        Chúng mình đã nhận được yêu cầu refund của bạn, bên mình
+                        sẽ liên hệ lại với bạn để xác nhận thông tin nhé
                     </h2>
                 </div>
             </div>

@@ -47,7 +47,7 @@ export const Header = ({ openLogin }: { openLogin?: () => void }) => {
         {
             url: '/faq',
             title: 'Questions'
-        },
+        }
         // {
         //     url: '/blog',
         //     title: 'Blog'

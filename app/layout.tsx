@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { StateProvider } from '@/components/providers/stateProvider';
 import { Footer } from '@/components';
+import Script from 'next/script';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -34,6 +35,20 @@ export default function RootLayout({
                     {children}
                     <Footer />
                 </StateProvider>
+                <Script
+                    async
+                    src="https://www.googletagmanager.com/gtag/js?id=G-M7MLPFDFXL"
+                    strategy="afterInteractive"
+                ></Script>
+                <Script strategy="afterInteractive">
+                    {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){window.dataLayer.push(arguments);}
+                    gtag('js', new Date());
+
+                    gtag('config', 'G-M7MLPFDFXL');
+                `}
+                </Script>
             </body>
         </html>
     );
