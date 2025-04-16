@@ -184,8 +184,7 @@ export const FetchPricing = async (): Promise<Plan[]> => {
         )
         .eq('active', true);
 
-    if (error != null)
-        throw new Error(`Failed to query plan table + ${error.message}`);
+    if (error) return [];
     else
         return data.map((e) => ({
             name: e.name,
@@ -213,7 +212,7 @@ const fetchDomain = async (): Promise<Domain[]> => {
     const { data: domains_v3, error: err } = await supabase.rpc(
         'get_domains_availability_v3'
     );
-    if (err) throw err;
+    if (err) return [];
     else return domains_v3;
 };
 
