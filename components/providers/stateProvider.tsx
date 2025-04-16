@@ -48,14 +48,14 @@ export const Header = ({ openLogin }: { openLogin?: () => void }) => {
             url: '/faq',
             title: 'Questions'
         },
-        {
-            url: '/blog',
-            title: 'Blog'
-        },
-        {
-            url: '/legal',
-            title: 'Legal'
-        }
+        // {
+        //     url: '/blog',
+        //     title: 'Blog'
+        // },
+        // {
+        //     url: '/legal',
+        //     title: 'Legal'
+        // }
     ];
 
     const renderRoute = (item: Route, index: number) => (
