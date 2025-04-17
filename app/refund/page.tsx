@@ -77,21 +77,21 @@ export default function Page() {
     let out_of_day = false;
     let out_of_time = false;
 
-    if (plan_name?.includes('week')) {
-        out_of_day =
-            Date.now() - new Date(last_payment).getTime() >
-            3 * 24 * 3600 * 1000;
-        out_of_time = total_usage > 2;
+    // if (plan_name?.includes('week')) {
+    //     out_of_day =
+    //         Date.now() - new Date(last_payment).getTime() >
+    //         3 * 24 * 3600 * 1000;
+    //     out_of_time = total_usage > 2;
 
-        applicable = subscription != undefined && !out_of_day && !out_of_time;
-    } else if (plan_name?.includes('month')) {
-        out_of_day =
-            Date.now() - new Date(last_payment).getTime() >
-            5 * 24 * 3600 * 1000;
-        out_of_time = total_usage > 12;
+    //     applicable = subscription != undefined && !out_of_day && !out_of_time;
+    // } else if (plan_name?.includes('month')) {
+    //     out_of_day =
+    //         Date.now() - new Date(last_payment).getTime() >
+    //         5 * 24 * 3600 * 1000;
+    //     out_of_time = total_usage > 12;
 
-        applicable = subscription != undefined && !out_of_day && !out_of_time;
-    }
+    //     applicable = subscription != undefined && !out_of_day && !out_of_time;
+    // }
 
     switch (step) {
         case 'condition':
