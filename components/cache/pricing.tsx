@@ -140,7 +140,6 @@ const subcontents = [
             storage_limit: 200,
             storage_credit: 150 * 15,
             no_waiting_line: false,
-            storage_credit: 200 * 30,
             multiple_cluster: false
         }
     },
@@ -152,6 +151,7 @@ const subcontents = [
             time: 120,
             storage_limit: 400,
             no_waiting_line: false,
+            storage_credit: 200 * 30,
             multiple_cluster: false
         }
     },
