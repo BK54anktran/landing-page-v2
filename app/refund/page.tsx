@@ -59,7 +59,7 @@ export default function Page() {
 
     const { total_usage, last_payment, plan_name } = subscription ?? {
         total_usage: 999,
-        last_payment: new Date(),
+        last_payment: '',
         plan_name: 'month'
     };
 
