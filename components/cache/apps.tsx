@@ -70,7 +70,7 @@ const fetchApps = async (): Promise<App[]> => {
         .eq('management->>landingpage', 'true')
         .order('management->>priority')
         .limit(9);
-    if (error) return[];
+    if (error) return [];
     return data.map((x) => ({
         ...x,
         tag: {

@@ -35,7 +35,32 @@ export default function Page() {
             .eq('user', email);
 
         if (err) throw new Error(err.message);
-        else if (data.length > 0) setStep('status');
+        else if (data.length > 0) return setStep('status');
+
+        const { data: sub, error: errr } = await supabase.rpc(
+            'get_subscription_v2',
+            {
+                email
+            }
+        );
+        if (errr) throw new Error(errr.message);
+        else if (sub.length > 0) setSubscription(sub.at(0));
+        setStep('condition');
+    };
+
+    const [subscription, setSubscription] = useState<
+        | {
+              total_usage: number;
+              last_payment: string;
+              plan_name: string;
+          }
+        | undefined
+    >(undefined);
+
+    const { total_usage, last_payment, plan_name } = subscription ?? {
+        total_usage: 999,
+        last_payment: new Date(),
+        plan_name: 'month'
     };
 
     useEffect(() => {
@@ -48,11 +73,45 @@ export default function Page() {
         else if (step == 'signed') fetch();
     }, [step]);
 
+    let applicable = false;
+    let out_of_day = false;
+    let out_of_time = false;
+
+    if (plan_name?.includes('week')) {
+        out_of_day =
+            Date.now() - new Date(last_payment).getTime() >
+            3 * 24 * 3600 * 1000;
+        out_of_time = total_usage > 2;
+
+        applicable = subscription != undefined && !out_of_day && !out_of_time;
+    } else if (plan_name?.includes('month')) {
+        out_of_day =
+            Date.now() - new Date(last_payment).getTime() >
+            5 * 24 * 3600 * 1000;
+        out_of_time = total_usage > 12;
+
+        applicable = subscription != undefined && !out_of_day && !out_of_time;
+    }
+
     switch (step) {
-        case 'status':
-            return <RefundStatus />;
-        case 'complete':
-            return <RefundConfirm next={() => setStep('status')} />;
+        case 'condition':
+            return (
+                <RefundCondition
+                    applicable={applicable}
+                    total_usage={total_usage}
+                    last_payment={new Date(last_payment)}
+                    next={() => setStep('reason')}
+                />
+            );
+        case 'reason':
+            return (
+                <RefundReason
+                    next={(reason) => {
+                        setRefundForm((old) => [...old, reason]);
+                        setStep('method');
+                    }}
+                />
+            );
         case 'method':
             return (
                 <RefundMethod
@@ -63,15 +122,10 @@ export default function Page() {
                     }}
                 />
             );
-        case 'signed':
-            return (
-                <RefundReason
-                    next={(reason) => {
-                        setRefundForm((old) => [...old, reason]);
-                        setStep('method');
-                    }}
-                />
-            );
+        case 'complete':
+            return <RefundConfirm next={() => setStep('status')} />;
+        case 'status':
+            return <RefundStatus />;
         default:
             return <RefundPolicy />;
     }
@@ -161,6 +215,56 @@ function RefundStatus() {
     );
 }
 
+function RefundCondition({
+    next,
+    applicable,
+    total_usage,
+    last_payment
+}: {
+    next: () => void;
+    applicable: boolean;
+    total_usage: number;
+    last_payment: Date;
+}) {
+    return (
+        <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+            <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+                <div className="mx-auto max-w-5xl space-y-6 lg:space-y-8">
+                    <StatusBar />
+
+                    <div className="space-y-6">
+                        <div>
+                            <h3 className="mb-2.5 text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">
+                                Tài khoản của bạn {applicable ? '' : 'không'}{' '}
+                                thỏa mãn điều kiện hoàn tiền
+                            </h3>
+                            {/* <p className="text-base font-normal text-gray-500 dark:text-gray-400">
+                                Để thỏa mãn yêu cầu hoàn tiền, tài khoản của bạn
+                                cần đạt được những yêu cầu sau:
+                            </p> */}
+                        </div>
+                    </div>
+                    <p>Bạn đã sử dụng {total_usage} giờ</p>
+                    <p>
+                        Bạn đã đăng kí từ ngày{' '}
+                        {last_payment.toLocaleDateString()}
+                    </p>
+                    {applicable ? (
+                        <div className="gap-4 sm:flex sm:items-center">
+                            <button
+                                onClick={next}
+                                className="mt-4 flex w-full items-center justify-center rounded-lg border border-primary-700 bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:border-primary-800 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:border-primary-600 dark:bg-primary-600 dark:hover:border-primary-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:mt-0 sm:w-auto"
+                            >
+                                Next: Lý do hoàn tiền
+                            </button>
+                        </div>
+                    ) : null}
+                </div>
+            </div>
+        </section>
+    );
+}
+
 function StatusBar() {
     return (
         <div className="space-y-6 sm:space-y-8">
@@ -169,6 +273,31 @@ function StatusBar() {
             </h2>
 
             <ol className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800 sm:justify-center md:flex-row md:items-center lg:gap-6">
+                <li className="flex items-center gap-2 md:flex-1 md:flex-col md:gap-1.5 lg:flex-none">
+                    <svg
+                        className="h-5 w-5 text-primary-700 dark:text-primary-500"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                        />
+                    </svg>
+                    <p className="text-sm font-medium leading-tight text-primary-700 dark:text-primary-500">
+                        Return requirement
+                    </p>
+                </li>
+
+                <div className="hidden h-px w-4 shrink-0 bg-gray-200 dark:bg-gray-700 md:block lg:w-16"></div>
+
                 <li className="flex items-center gap-2 md:flex-1 md:flex-col md:gap-1.5 lg:flex-none">
                     <svg
                         className="h-5 w-5 text-primary-700 dark:text-primary-500"
