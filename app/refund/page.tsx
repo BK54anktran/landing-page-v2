@@ -4,15 +4,13 @@ import { info, loggedin } from '@/api/auth';
 import { createClient } from '@supabase/supabase-js';
 import { useEffect, useRef, useState } from 'react';
 
-
-
 export default function Page() {
     const [step, setStep] = useState<string>('not_signed');
     const [refundForm, setRefundForm] = useState<any[]>([]);
-    const [now,setNow] = useState<Date>(new Date(0))
+    const [now, setNow] = useState<Date>(new Date(0));
     useEffect(() => {
-        setNow(new Date())
-    },[])
+        setNow(new Date());
+    }, []);
 
     const submit = async () => {
         const supabase = createClient(
