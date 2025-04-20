@@ -20,7 +20,7 @@ export const Hero = () => {
                 </p>
                 <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
                     <a
-                        href="/play/index.html?app=null&ref=landingpage"
+                        href="/play/index.html?app=null&ref=landingpage_heroplay"
                         className="inline-flex items-center justify-center px-5 py-3 text-2xl font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
                     >
                         Sử dụng ngay
@@ -369,7 +369,7 @@ export const CTA = () => {
                         Hoặc nhắn tin hỗ trợ để được trải nghiệm miễn phí
                     </p>
                     <a
-                        href="/play/index.html?app=null&ref=landingpage"
+                        href="/play/index.html?app=null&ref=landingpage_footerplay"
                         className="inline-flex items-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900"
                     >
                         Sử dụng ngay
