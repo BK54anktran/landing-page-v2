@@ -9,7 +9,7 @@ export const StateProvider = ({ children }: { children: ReactNode }) => {
     const [popup, setPopup] = useState<string>('close');
 
     return (
-        <div>
+        <div className="bg-white dark:bg-gray-900 text-black dark:text-white">
             <Header openLogin={() => setPopup('login')}></Header>
             <Modal type={popup} action={() => setPopup('close')}></Modal>
             {children}

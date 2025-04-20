@@ -28,6 +28,11 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
+            <head>
+                <Script>
+                    {`document.documentElement.classList.add('dark');`}
+                </Script>
+            </head>
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
