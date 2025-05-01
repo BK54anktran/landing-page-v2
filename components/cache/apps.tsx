@@ -79,13 +79,13 @@ const fetchApps = async (): Promise<App[]> => {
     }));
 };
 
-export const Applications = async () => {
+export const Applications = async ({ url }: { url: string }) => {
     const apps = await fetchApps();
 
     const renderApp = (app: App, index: number) => {
         const background = app.metadata.screenshots?.[0]?.path_full;
         if (!background) return null;
-        const href = `/play/index.html?app=${app.code_name}&ref=landingpage_game${index}`;
+        const href = `${url}?app=${app.code_name}`;
         return (
             <div key={index}>
                 <img
