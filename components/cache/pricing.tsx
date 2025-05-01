@@ -62,6 +62,42 @@ const Addon = {
             </span>
         </li>
     ),
+    refundday: ({ value }: { value: number }) => (
+        <li className="flex items-center space-x-3">
+            <svg
+                className="flex-shrink-0 w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path>
+                <path
+                    fillRule="evenodd"
+                    d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
+                    clipRule="evenodd"
+                ></path>
+            </svg>
+            <span>Hoàn tiền trong {value} ngày đầu</span>
+        </li>
+    ),
+    refundtime: ({ value }: { value: number }) => (
+        <li className="flex items-center space-x-3">
+            <svg
+                className="flex-shrink-0 w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path>
+                <path
+                    fillRule="evenodd"
+                    d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
+                    clipRule="evenodd"
+                ></path>
+            </svg>
+            <span>Hoàn tiền trong {value}h chơi đầu</span>
+        </li>
+    ),
     time: ({ value }: { value: number }) => (
         <li className="flex items-center space-x-3">
             <svg
@@ -140,7 +176,9 @@ const subcontents = [
             storage_limit: 200,
             storage_credit: 150 * 15,
             no_waiting_line: false,
-            multiple_cluster: false
+            multiple_cluster: false,
+            refundday: 2,
+            refundtime: 3
         }
     },
     {
@@ -150,9 +188,11 @@ const subcontents = [
         bonus: {
             time: 120,
             storage_limit: 400,
-            no_waiting_line: false,
             storage_credit: 200 * 30,
-            multiple_cluster: false
+            no_waiting_line: false,
+            multiple_cluster: false,
+            refundday: 3,
+            refundtime: 5
         }
     },
     {
@@ -164,7 +204,9 @@ const subcontents = [
             storage_limit: 0,
             storage_credit: 0,
             no_waiting_line: true,
-            multiple_cluster: true
+            multiple_cluster: true,
+            refundday: 5,
+            refundtime: 7
         }
     }
 ];
