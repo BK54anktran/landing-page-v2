@@ -13,6 +13,10 @@ export const Hero = () => {
                     Thinkmay CloudPC - chơi game trên mây
                 </h1>
                 <p className="mb-8 text-gray-500 md:text-lg lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400 font-medium">
+                    <span className="font-bold text-white text-2xl">
+                        Cấu hình RTX 3060Ti, 16GB RAM
+                    </span>
+                    <br />
                     Chơi tất cả các game cấu hình cao, đồ họa đẹp trên mọi thiết
                     bị, chỉ với kết nối internet
                     <br />
