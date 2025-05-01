@@ -36,7 +36,10 @@ export default function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
-                <StateProvider>{children}</StateProvider>
+                <StateProvider>
+                    {children}
+                    <Footer />
+                </StateProvider>
                 <Script
                     async
                     src="https://www.googletagmanager.com/gtag/js?id=G-M7MLPFDFXL"

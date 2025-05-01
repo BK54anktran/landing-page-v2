@@ -254,7 +254,7 @@ const DomainSelection = async () => {
     );
 };
 
-export const Pricing = async ({ url }: { url: string }) => {
+export const Pricing = async () => {
     const plans = await FetchPricing();
     const renderPlan = (plan: Plan, index: number) => {
         return (

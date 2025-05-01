@@ -5,9 +5,7 @@ const ExternalURL = {
     tiktok: 'https://www.tiktok.com/@thinkmaycloudpcvn'
 };
 
-const urlwrapper = (url: string, tag: string) => `${url}&tag=${tag}`;
-
-export const Hero = ({ url }: { url: string }) => {
+export const Hero = () => {
     return (
         <section className="bg-white dark:bg-mica ">
             <div className="max-w-screen-xl px-4 pt-8 mx-auto text-center lg:pt-16 lg:px-12">
@@ -22,7 +20,7 @@ export const Hero = ({ url }: { url: string }) => {
                 </p>
                 <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
                     <a
-                        href={urlwrapper(url, 'landingpage_heroplay')}
+                        href="/play/index.html?app=null&ref=landingpage_heroplay"
                         className="inline-flex items-center justify-center px-5 py-3 text-2xl font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
                     >
                         Sử dụng ngay
@@ -349,7 +347,7 @@ export const SocialProof = () => {
     );
 };
 
-export const CTA = ({ url }: { url: string }) => {
+export const CTA = () => {
     return (
         <section className="bg-white dark:bg-mica mt-[128px] mb-[128px]">
             <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
@@ -371,7 +369,7 @@ export const CTA = ({ url }: { url: string }) => {
                         Hoặc nhắn tin hỗ trợ để được trải nghiệm miễn phí
                     </p>
                     <a
-                        href={urlwrapper(url, 'landingpage_footerplay')}
+                        href="/play/index.html?app=null&ref=landingpage_footerplay"
                         className="inline-flex items-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900"
                     >
                         Sử dụng ngay
@@ -394,14 +392,14 @@ export const CTA = ({ url }: { url: string }) => {
     );
 };
 
-export const Footer = ({ url }: { url: string }) => {
+export const Footer = () => {
     return (
         <footer className="bg-gray-50 dark:bg-gray-800">
             <div className="p-4 py-6 mx-auto max-w-screen-xl md:p-8 lg:-10">
                 <div className="grid grid-cols-2 gap-8 lg:grid-cols-6">
                     <div className="col-span-2">
                         <a
-                            href={urlwrapper(url, 'footer')}
+                            href="/play/index.html?app=null&ref=landingpage"
                             className="flex items-center mb-2 text-2xl font-semibold text-gray-900 sm:mb-0 dark:text-white"
                         >
                             <img
@@ -424,7 +422,7 @@ export const Footer = ({ url }: { url: string }) => {
                         <ul className="flex mt-5 space-x-6">
                             <li>
                                 <a
-                                    href={urlwrapper(url, 'footer')}
+                                    href="/play/index.html?app=null&ref=landingpage"
                                     className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
@@ -443,7 +441,7 @@ export const Footer = ({ url }: { url: string }) => {
                             </li>
                             <li>
                                 <a
-                                    href={urlwrapper(url, 'footer')}
+                                    href="/play/index.html?app=null&ref=landingpage"
                                     className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
@@ -462,7 +460,7 @@ export const Footer = ({ url }: { url: string }) => {
                             </li>
                             <li>
                                 <a
-                                    href={urlwrapper(url, 'footer')}
+                                    href="/play/index.html?app=null&ref=landingpage"
                                     className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
@@ -477,7 +475,7 @@ export const Footer = ({ url }: { url: string }) => {
                             </li>
                             <li>
                                 <a
-                                    href={urlwrapper(url, 'footer')}
+                                    href="/play/index.html?app=null&ref=landingpage"
                                     className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
@@ -496,7 +494,7 @@ export const Footer = ({ url }: { url: string }) => {
                             </li>
                             <li>
                                 <a
-                                    href={urlwrapper(url, 'footer')}
+                                    href="/play/index.html?app=null&ref=landingpage"
                                     className="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
                                 >
                                     <svg
@@ -522,7 +520,7 @@ export const Footer = ({ url }: { url: string }) => {
                         <ul className="text-gray-500 dark:text-gray-400">
                             <li className="mb-4">
                                 <a
-                                    href={urlwrapper(url, 'footer')}
+                                    href="/play/index.html?app=null&ref=landingpage"
                                     className=" hover:underline"
                                 >
                                     About
@@ -530,7 +528,7 @@ export const Footer = ({ url }: { url: string }) => {
                             </li>
                             <li className="mb-4">
                                 <a
-                                    href={urlwrapper(url, 'footer')}
+                                    href="/play/index.html?app=null&ref=landingpage"
                                     className="hover:underline"
                                 >
                                     Careers
@@ -538,7 +536,7 @@ export const Footer = ({ url }: { url: string }) => {
                             </li>
                             <li className="mb-4">
                                 <a
-                                    href={urlwrapper(url, 'footer')}
+                                    href="/play/index.html?app=null&ref=landingpage"
                                     className="hover:underline"
                                 >
                                     Brand Center
@@ -546,7 +544,7 @@ export const Footer = ({ url }: { url: string }) => {
                             </li>
                             <li className="mb-4">
                                 <a
-                                    href={urlwrapper(url, 'footer')}
+                                    href="/play/index.html?app=null&ref=landingpage"
                                     className="hover:underline"
                                 >
                                     Blog
@@ -620,7 +618,7 @@ export const Footer = ({ url }: { url: string }) => {
                 <span className="block text-sm text-center text-gray-500 dark:text-gray-400">
                     © 2021-2025
                     <a
-                        href={urlwrapper(url, 'footer')}
+                        href="/play/index.html?app=null&ref=landingpage"
                         className="hover:underline"
                     >
                         Thinkmay
