@@ -196,7 +196,7 @@ const subcontents = [
         }
     },
     {
-        title: 'Gói cao cấp',
+        title: 'Gói tháng cao cấp',
         highlight: false,
         _name: 'month2',
         bonus: {
