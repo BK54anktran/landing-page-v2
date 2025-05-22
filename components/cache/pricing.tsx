@@ -196,7 +196,7 @@ const subcontents = [
         }
     },
     {
-        title: 'Gói cao cấp',
+        title: 'Gói tháng cao cấp',
         highlight: false,
         _name: 'month2',
         bonus: {
@@ -252,14 +252,14 @@ const fetchDomain = async (): Promise<Domain[]> => {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE'
     );
     const { data: domains_v3, error: err } = await supabase.rpc(
-        'get_domains_availability_v3'
+        'get_domains_availability_v4'
     );
     if (err) return [];
     else return domains_v3;
 };
 
 const PaymentButton = ({ plan }: { plan: string }) => {
-    const defaultServer = 'v4.thinkmay.net';
+    const defaultServer = 'saigon2.thinkmay.net';
     const href = `/play/index.html?plan=${plan}&server=${defaultServer}&ref=landingpage_${plan}`;
     return (
         <div className="flex gap-2">
