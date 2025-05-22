@@ -26,7 +26,7 @@ export const login = (
                     metadata: {
                         reference: isNewUser
                             ? (ref ?? 'landingPage')
-                            : POCKETBASE().authStore.model?.metadata.reference
+                            : POCKETBASE().authStore.model?.metadata?.reference
                     }
                 });
         });
