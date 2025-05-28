@@ -222,10 +222,9 @@ export const FetchPricing = async (): Promise<Plan[]> => {
     const { data, error } = await supabase
         .from('plans')
         .select(
-            'name, policy->size, policy->limit_hour, policy->total_days , price->amount, metadata->allow_payment'
+            'name, policy->size, policy->limit_hour, policy->total_days, policy->refund_days, policy->refund_usage, policy->resources->disk, price->amount, metadata->allow_payment, cluster_pool'
         )
         .eq('active', true);
-
     if (error) return [];
     else
         return data.map((e) => ({
@@ -235,7 +234,17 @@ export const FetchPricing = async (): Promise<Plan[]> => {
             total_days: Number(e.total_days),
             amount: Number(e.amount),
             allow_payment: Boolean(e.allow_payment),
-            ...(subcontents.find((x) => x._name == e.name) ?? {})
+            // ...(subcontents.find((x) => x._name == e.name) ?? {}),
+            bonus: {
+                refundtime: Number(e.refund_usage),
+                refundday: Number(e.refund_days),
+                time: Number(e.limit_hour),
+                storage_limit: Number(e.disk),
+                // storage_credit: 0,
+                no_waiting_line: e.cluster_pool.length > 0 ? true : false,
+                multiple_cluster: e.cluster_pool.length > 0 ? true : false,
+
+            },
         }));
 };
 
@@ -284,11 +293,11 @@ const DomainSelection = async () => {
             </label>
             <select
                 id="countries"
-                className="h-12 border bg-gray-200 dark:bg-gray-900 border-gray-300 dark:text-white text-black text-base rounded-lg block w-50 py-2.5 px-4 focus:outline-none justify-self-center cursor-pointer"
+                className="h-12 border bg-gray-200 dark:bg-gray-900 border-gray-300 dark:text-white text-center text-black text-base rounded-lg block w-50 py-2.5 px-4 focus:outline-none justify-self-center cursor-pointer"
             >
                 {domains.map((domain, index) => (
                     <option key={index} value={domain.domain}>
-                        {domain.domain}
+                        {domain.domain.replace('.thinkmay.net', '')}
                     </option>
                 ))}
             </select>
