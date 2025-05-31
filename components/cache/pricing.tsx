@@ -251,6 +251,7 @@ export const FetchPricing = async (): Promise<Plan[]> => {
 type Domain = {
     domain: string;
     free: number;
+    allow_pay: boolean;
 };
 
 const fetchDomain = async (): Promise<Domain[]> => {
@@ -261,7 +262,7 @@ const fetchDomain = async (): Promise<Domain[]> => {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE'
     );
     const { data: domains_v3, error: err } = await supabase.rpc(
-        'get_domains_availability_v4'
+        'get_domains_availability_v5'
     );
     if (err) return [];
     else return domains_v3;
@@ -296,7 +297,7 @@ const DomainSelection = async () => {
                 className="h-12 border bg-gray-200 dark:bg-gray-900 border-gray-300 dark:text-white text-center text-black text-base rounded-lg block w-50 py-2.5 px-4 focus:outline-none justify-self-center cursor-pointer"
             >
                 {domains.map((domain, index) => (
-                    <option key={index} value={domain.domain}>
+                    <option key={index} value={domain.domain} disabled={!domain.allow_pay}>
                         {domain.domain.replace('.thinkmay.net', '')}
                     </option>
                 ))}
