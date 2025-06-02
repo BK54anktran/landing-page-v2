@@ -224,7 +224,8 @@ export const FetchPricing = async (): Promise<Plan[]> => {
         .select(
             'name, policy->size, policy->limit_hour, policy->total_days, policy->refund_days, policy->refund_usage, policy->resources->disk, price->amount, metadata->allow_payment, cluster_pool'
         )
-        .eq('active', true);
+        .eq('active', true)
+        .is('metadata->hide', null);
     if (error) return [];
     else
         return data.map((e) => ({
@@ -359,7 +360,7 @@ export const Pricing = async () => {
                 </div>
                 <div className="grid gap-8 xl:grid-cols-3 xl:gap-10">
                     {plans
-                        .filter((val) => val.title != null)
+                        .filter((val) => val.name != null)
                         .sort((a, b) => a.amount - b.amount)
                         .map(renderPlan)}
                 </div>
