@@ -187,7 +187,7 @@ const subcontents = [
         _name: 'month1',
         bonus: {
             time: 120,
-            storage_limit: 400,
+            storage_limit: 200,
             storage_credit: 200 * 30,
             no_waiting_line: false,
             multiple_cluster: false,
