@@ -237,13 +237,13 @@ export const FetchPricing = async (): Promise<Plan[]> => {
             allow_payment: Boolean(e.allow_payment),
             // ...(subcontents.find((x) => x._name == e.name) ?? {}),
             bonus: {
-                refundtime: Number(e.refund_usage),
-                refundday: Number(e.refund_days),
                 time: Number(e.limit_hour),
                 storage_limit: Number(e.disk),
                 // storage_credit: 0,
                 no_waiting_line: e.cluster_pool.length > 0 ? true : false,
                 multiple_cluster: e.cluster_pool.length > 0 ? true : false,
+                refundtime: Number(e.refund_usage),
+                refundday: Number(e.refund_days),
 
             },
         }));
