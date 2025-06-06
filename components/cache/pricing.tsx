@@ -171,42 +171,48 @@ const subcontents = [
         title: 'Gói 2 tuần',
         highlight: false,
         _name: 'week1',
+        amount: 199000,
+        total_days: 14,
         bonus: {
             time: 50,
             storage_limit: 200,
-            storage_credit: 150 * 15,
+            // storage_credit: 150 * 15,
             no_waiting_line: false,
             multiple_cluster: false,
             refundday: 2,
-            refundtime: 3
+            refundtime: 5
         }
     },
     {
         title: 'Gói tháng',
         highlight: true,
         _name: 'month1',
+        amount: 299000,
+        total_days: 30,
         bonus: {
             time: 120,
             storage_limit: 200,
-            storage_credit: 200 * 30,
+            // storage_credit: 200 * 30,
             no_waiting_line: false,
             multiple_cluster: false,
             refundday: 3,
-            refundtime: 5
+            refundtime: 12
         }
     },
     {
         title: 'Gói tháng cao cấp',
         highlight: false,
         _name: 'month2',
+        amount: 499000,
+        total_days: 30,
         bonus: {
             time: 0,
-            storage_limit: 0,
-            storage_credit: 0,
+            storage_limit: 400,
+            // storage_credit: 0,
             no_waiting_line: true,
             multiple_cluster: true,
-            refundday: 5,
-            refundtime: 7
+            refundday: 3,
+            refundtime: 18
         }
     }
 ];
@@ -226,7 +232,16 @@ export const FetchPricing = async (): Promise<Plan[]> => {
         )
         .eq('active', true)
         .is('metadata->hide', null);
-    if (error) return [];
+    if (error) 
+        return subcontents.map((e) => ({
+            name: e._name,
+            size: Number(e.bonus.storage_limit),
+            limit_hour: Number(e.bonus.time),
+            total_days: Number(e.total_days),
+            amount:     Number(e.amount),
+            allow_payment: true,
+            bonus: e.bonus
+        }));
     else
         return data.map((e) => ({
             name: e.name,
@@ -235,15 +250,14 @@ export const FetchPricing = async (): Promise<Plan[]> => {
             total_days: Number(e.total_days),
             amount: Number(e.amount),
             allow_payment: Boolean(e.allow_payment),
-            // ...(subcontents.find((x) => x._name == e.name) ?? {}),
             bonus: {
-                time: Number(e.limit_hour),
-                storage_limit: Number(e.disk),
+                time: Number(e.limit_hour) ?? subcontents.find((x) => x._name == e.name)?.bonus.time,
+                storage_limit: Number(e.disk) ?? subcontents.find((x) => x._name == e.name)?.bonus.storage_limit ,
                 // storage_credit: 0,
-                no_waiting_line: e.cluster_pool.length > 0 ? true : false,
-                multiple_cluster: e.cluster_pool.length > 0 ? true : false,
-                refundtime: Number(e.refund_usage),
-                refundday: Number(e.refund_days),
+                no_waiting_line: e.cluster_pool.length > 0 ? true : subcontents.find((x) => x._name == e.name)?.bonus.no_waiting_line,
+                multiple_cluster: e.cluster_pool.length > 0 ? true : subcontents.find((x) => x._name == e.name)?.bonus.multiple_cluster,
+                refundtime: Number(e.refund_usage) ?? subcontents.find((x) => x._name == e.name)?.bonus.refundtime,
+                refundday: Number(e.refund_days) ?? subcontents.find((x) => x._name == e.name)?.bonus.refundday,
 
             },
         }));
