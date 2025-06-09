@@ -171,42 +171,48 @@ const subcontents = [
         title: 'Gói 2 tuần',
         highlight: false,
         _name: 'week1',
+        amount: 199000,
+        total_days: 14,
         bonus: {
             time: 50,
             storage_limit: 200,
-            storage_credit: 150 * 15,
+            // storage_credit: 150 * 15,
             no_waiting_line: false,
             multiple_cluster: false,
             refundday: 2,
-            refundtime: 3
+            refundtime: 5
         }
     },
     {
         title: 'Gói tháng',
         highlight: true,
         _name: 'month1',
+        amount: 299000,
+        total_days: 30,
         bonus: {
             time: 120,
             storage_limit: 200,
-            storage_credit: 200 * 30,
+            // storage_credit: 200 * 30,
             no_waiting_line: false,
             multiple_cluster: false,
             refundday: 3,
-            refundtime: 5
+            refundtime: 12
         }
     },
     {
         title: 'Gói tháng cao cấp',
         highlight: false,
         _name: 'month2',
+        amount: 499000,
+        total_days: 30,
         bonus: {
             time: 0,
-            storage_limit: 0,
-            storage_credit: 0,
+            storage_limit: 400,
+            // storage_credit: 0,
             no_waiting_line: true,
             multiple_cluster: true,
-            refundday: 5,
-            refundtime: 7
+            refundday: 3,
+            refundtime: 18
         }
     }
 ];
@@ -222,11 +228,20 @@ export const FetchPricing = async (): Promise<Plan[]> => {
     const { data, error } = await supabase
         .from('plans')
         .select(
-            'name, policy->size, policy->limit_hour, policy->total_days , price->amount, metadata->allow_payment'
+            'name, policy->size, policy->limit_hour, policy->total_days, policy->refund_days, policy->refund_usage, policy->resources->disk, price->amount, metadata->allow_payment, cluster_pool'
         )
-        .eq('active', true);
-
-    if (error) return [];
+        .eq('active', true)
+        .is('metadata->hide', null);
+    if (error) 
+        return subcontents.map((e) => ({
+            name: e._name,
+            size: Number(e.bonus.storage_limit),
+            limit_hour: Number(e.bonus.time),
+            total_days: Number(e.total_days),
+            amount:     Number(e.amount),
+            allow_payment: true,
+            bonus: e.bonus
+        }));
     else
         return data.map((e) => ({
             name: e.name,
@@ -235,13 +250,23 @@ export const FetchPricing = async (): Promise<Plan[]> => {
             total_days: Number(e.total_days),
             amount: Number(e.amount),
             allow_payment: Boolean(e.allow_payment),
-            ...(subcontents.find((x) => x._name == e.name) ?? {})
+            bonus: {
+                time: Number(e.limit_hour) ?? subcontents.find((x) => x._name == e.name)?.bonus.time,
+                storage_limit: Number(e.disk) ?? subcontents.find((x) => x._name == e.name)?.bonus.storage_limit ,
+                // storage_credit: 0,
+                no_waiting_line: e.cluster_pool.length > 0 ? true : subcontents.find((x) => x._name == e.name)?.bonus.no_waiting_line,
+                multiple_cluster: e.cluster_pool.length > 0 ? true : subcontents.find((x) => x._name == e.name)?.bonus.multiple_cluster,
+                refundtime: Number(e.refund_usage) ?? subcontents.find((x) => x._name == e.name)?.bonus.refundtime,
+                refundday: Number(e.refund_days) ?? subcontents.find((x) => x._name == e.name)?.bonus.refundday,
+
+            },
         }));
 };
 
 type Domain = {
     domain: string;
     free: number;
+    allow_pay: boolean;
 };
 
 const fetchDomain = async (): Promise<Domain[]> => {
@@ -252,7 +277,7 @@ const fetchDomain = async (): Promise<Domain[]> => {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE'
     );
     const { data: domains_v3, error: err } = await supabase.rpc(
-        'get_domains_availability_v4'
+        'get_domains_availability_v5'
     );
     if (err) return [];
     else return domains_v3;
@@ -284,11 +309,11 @@ const DomainSelection = async () => {
             </label>
             <select
                 id="countries"
-                className="h-12 border bg-gray-200 dark:bg-gray-900 border-gray-300 dark:text-white text-black text-base rounded-lg block w-50 py-2.5 px-4 focus:outline-none justify-self-center cursor-pointer"
+                className="h-12 border bg-gray-200 dark:bg-gray-900 border-gray-300 dark:text-white text-center text-black text-base rounded-lg block w-50 py-2.5 px-4 focus:outline-none justify-self-center cursor-pointer"
             >
                 {domains.map((domain, index) => (
-                    <option key={index} value={domain.domain}>
-                        {domain.domain}
+                    <option key={index} value={domain.domain} disabled={!domain.allow_pay}>
+                        {domain.domain.replace('.thinkmay.net', '')}
                     </option>
                 ))}
             </select>
@@ -349,7 +374,7 @@ export const Pricing = async () => {
                 </div>
                 <div className="grid gap-8 xl:grid-cols-3 xl:gap-10">
                     {plans
-                        .filter((val) => val.title != null)
+                        .filter((val) => val.name != null)
                         .sort((a, b) => a.amount - b.amount)
                         .map(renderPlan)}
                 </div>
