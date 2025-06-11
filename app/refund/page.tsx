@@ -717,7 +717,7 @@ function RefundMethod({
                     <div className="space-y-6">
                         <div className="space-y-1">
                             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                4. Select the money back option:
+                                Chọn phương thức hoàn tiền:
                             </h3>
                         </div>
 
