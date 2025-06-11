@@ -232,13 +232,13 @@ export const FetchPricing = async (): Promise<Plan[]> => {
         )
         .eq('active', true)
         .is('metadata->hide', null);
-    if (error) 
+    if (error)
         return subcontents.map((e) => ({
             name: e._name,
             size: Number(e.bonus.storage_limit),
             limit_hour: Number(e.bonus.time),
             total_days: Number(e.total_days),
-            amount:     Number(e.amount),
+            amount: Number(e.amount),
             allow_payment: true,
             bonus: e.bonus
         }));
@@ -251,15 +251,32 @@ export const FetchPricing = async (): Promise<Plan[]> => {
             amount: Number(e.amount),
             allow_payment: Boolean(e.allow_payment),
             bonus: {
-                time: Number(e.limit_hour) ?? subcontents.find((x) => x._name == e.name)?.bonus.time,
-                storage_limit: Number(e.disk) ?? subcontents.find((x) => x._name == e.name)?.bonus.storage_limit ,
+                time:
+                    Number(e.limit_hour) ??
+                    subcontents.find((x) => x._name == e.name)?.bonus.time,
+                storage_limit:
+                    Number(e.disk) ??
+                    subcontents.find((x) => x._name == e.name)?.bonus
+                        .storage_limit,
                 // storage_credit: 0,
-                no_waiting_line: e.cluster_pool.length > 0 ? true : subcontents.find((x) => x._name == e.name)?.bonus.no_waiting_line,
-                multiple_cluster: e.cluster_pool.length > 0 ? true : subcontents.find((x) => x._name == e.name)?.bonus.multiple_cluster,
-                refundtime: Number(e.refund_usage) ?? subcontents.find((x) => x._name == e.name)?.bonus.refundtime,
-                refundday: Number(e.refund_days) ?? subcontents.find((x) => x._name == e.name)?.bonus.refundday,
-
-            },
+                no_waiting_line:
+                    e.cluster_pool.length > 0
+                        ? true
+                        : subcontents.find((x) => x._name == e.name)?.bonus
+                              .no_waiting_line,
+                multiple_cluster:
+                    e.cluster_pool.length > 0
+                        ? true
+                        : subcontents.find((x) => x._name == e.name)?.bonus
+                              .multiple_cluster,
+                refundtime:
+                    Number(e.refund_usage) ??
+                    subcontents.find((x) => x._name == e.name)?.bonus
+                        .refundtime,
+                refundday:
+                    Number(e.refund_days) ??
+                    subcontents.find((x) => x._name == e.name)?.bonus.refundday
+            }
         }));
 };
 
@@ -312,7 +329,11 @@ const DomainSelection = async () => {
                 className="h-12 border bg-gray-200 dark:bg-gray-900 border-gray-300 dark:text-white text-center text-black text-base rounded-lg block w-50 py-2.5 px-4 focus:outline-none justify-self-center cursor-pointer"
             >
                 {domains.map((domain, index) => (
-                    <option key={index} value={domain.domain} disabled={!domain.allow_pay}>
+                    <option
+                        key={index}
+                        value={domain.domain}
+                        disabled={!domain.allow_pay}
+                    >
                         {domain.domain.replace('.thinkmay.net', '')}
                     </option>
                 ))}

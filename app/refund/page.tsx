@@ -48,7 +48,17 @@ export default function Page() {
             }
         );
         if (errr) throw new Error(errr.message);
-        else if (sub.length > 0) setSubscription(sub.at(0));
+        else if (sub.length > 0) {
+            setSubscription(sub.at(0));
+            const { data: plan_policy, error: errrr } = await supabase
+                .from('plans')
+                .select('policy->>refund_days, policy->>refund_usage')
+                .eq('name', sub[0].plan_name);
+            if (errrr) throw new Error(errrr.message);
+            else if (plan_policy.length > 0) {
+                setPlanPolicy(plan_policy.at(0));
+            }
+        }
         setStep('condition');
     };
 
@@ -60,6 +70,19 @@ export default function Page() {
           }
         | undefined
     >(undefined);
+
+    const [planPolicy, setPlanPolicy] = useState<
+        | {
+              refund_days: string;
+              refund_usage: string;
+          }
+        | undefined
+    >(undefined);
+
+    const { refund_days, refund_usage } = planPolicy ?? {
+        refund_days: 0,
+        refund_usage: 0
+    };
 
     const { total_usage, last_payment, plan_name } = subscription ?? {
         total_usage: 999,
@@ -81,21 +104,11 @@ export default function Page() {
     let out_of_day = false;
     let out_of_time = false;
 
-    if (plan_name?.includes('week')) {
-        out_of_day =
-            now.getTime() - new Date(last_payment).getTime() >
-            3 * 24 * 3600 * 1000;
-        out_of_time = total_usage > 2;
-
-        applicable = subscription != undefined && !out_of_day && !out_of_time;
-    } else if (plan_name?.includes('month')) {
-        out_of_day =
-            now.getTime() - new Date(last_payment).getTime() >
-            5 * 24 * 3600 * 1000;
-        out_of_time = total_usage > 12;
-
-        applicable = subscription != undefined && !out_of_day && !out_of_time;
-    }
+    out_of_day =
+        now.getTime() - new Date(last_payment).getTime() >
+        Number(refund_days) * 24 * 3600 * 1000;
+    out_of_time = total_usage > Number(refund_usage);
+    applicable = subscription != undefined && !out_of_day && !out_of_time;
 
     switch (step) {
         case 'condition':
@@ -141,9 +154,15 @@ function RefundStatus() {
             <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
                 <div className="mx-auto max-w-lg md:max-w-5xl">
                     <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
-                        Vui lòng gửi lại QR nhận tiền & email vào Fanpage để được hỗ trợ hoàn tiền.
-                        <br/>
-                        <a href='https://fb.com/thinkonmay' className='text-blue-500 underline'>Fanpage Thinkmay</a>
+                        Vui lòng gửi lại QR nhận tiền & email vào Fanpage để
+                        được hỗ trợ hoàn tiền.
+                        <br />
+                        <a
+                            href="https://fb.com/thinkonmay"
+                            className="text-blue-500 underline"
+                        >
+                            Fanpage Thinkmay
+                        </a>
                     </h2>
                 </div>
             </div>
@@ -717,7 +736,7 @@ function RefundMethod({
                                 onClick={nextw}
                                 className="mt-4 flex w-full items-center justify-center rounded-lg border border-primary-700 bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:border-primary-800 hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:border-primary-600 dark:bg-primary-600 dark:hover:border-primary-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:mt-0 sm:w-auto"
                             >
-                                Next: Confirmation
+                                Next: Xác nhận hoàn tiền
                             </button>
                         </div>
                     </div>
