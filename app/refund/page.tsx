@@ -459,7 +459,7 @@ function RefundReason({ next }: { next: (_: ReasonCallback) => void }) {
     };
 
     const reasons = [
-        'Tôi không thể sử dụng Thinkmay do vấn đề giật lagg',
+        'Tôi không thể sử dụng Thinkmay do vấn đề giật lag',
         'Tôi không không thể chơi game mình muốn trên Thinkmay',
         'Tôi không hài lòng với cách hỗ trợ người dùng của Thinkmay',
         'Tôi không biết cách dùng Thinkmay'
@@ -502,13 +502,13 @@ function RefundReason({ next }: { next: (_: ReasonCallback) => void }) {
                         htmlFor="reason-message"
                         className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                     >
-                        Write here the condition of the product
+                        Trải nghiệm sử dụng của bạn
                     </label>
                     <textarea
                         id="reason-message"
                         rows={4}
                         className="mb-4 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:mb-5"
-                        placeholder="e.g. I used the product for 10 months and it has fine scratches"
+                        placeholder="Vd: Nhiều kết nối thiếu ổn định"
                         ref={ofeedback}
                     ></textarea>
                 </div>
@@ -527,13 +527,13 @@ function RefundReason({ next }: { next: (_: ReasonCallback) => void }) {
                         htmlFor="reason-message"
                         className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                     >
-                        Write the reason why you want the refund
+                        Lý do bạn muốn hoàn tiền
                     </label>
                     <textarea
                         id="reason-message"
                         rows={4}
                         className="mb-4 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:mb-5"
-                        placeholder="e.g. Product malfunction"
+                        placeholder="Vd: Thao tác khó sử dụng ở điện thoại"
                         ref={oreason}
                     ></textarea>
                 </div>
@@ -561,7 +561,7 @@ function RefundReason({ next }: { next: (_: ReasonCallback) => void }) {
                         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                             <div className="space-y-6 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-8">
                                 <p className="text-base font-medium text-gray-900 dark:text-white">
-                                    What is the condition of the product?
+                                    Trải nghiệm sử dụng Cloud PC của bạn?
                                 </p>
 
                                 <div className="space-y-4">
@@ -578,15 +578,14 @@ function RefundReason({ next }: { next: (_: ReasonCallback) => void }) {
                                         setShowOtherFeedback((old) => !old)
                                     }
                                 >
-                                    Other condition
+                                    Khác
                                 </button>
                                 {showOtherFeedback ? <OtherFeedback /> : null}
                             </div>
 
                             <div className="space-y-6 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-8">
                                 <p className="font-medium text-gray-900 dark:text-white">
-                                    What is the main reason for returning the
-                                    product?
+                                    Lý do muốn hoàn tiền dịch vụ?
                                 </p>
 
                                 <div className="space-y-4">
@@ -622,7 +621,7 @@ function RefundReason({ next }: { next: (_: ReasonCallback) => void }) {
                                             clipRule="evenodd"
                                         />
                                     </svg>
-                                    I have another reason
+                                    Lý do khác
                                 </button>
                                 {showOtherReason ? <OtherReason /> : null}
                             </div>
@@ -632,12 +631,15 @@ function RefundReason({ next }: { next: (_: ReasonCallback) => void }) {
                             className="mb-4 rounded-lg bg-primary-50 p-4 text-sm text-primary-800 dark:bg-gray-800 dark:text-primary-400 sm:text-base"
                             role="alert"
                         >
-                            Kindly select your reasons for returning the product
+                            Vui lòng viết trải nghiệm thật sự của bạn với dịch
+                            vụ, vì điều này sẽ giúp Thinkmay đẩy nhanh quá trình
+                            giải quyết vấn đề của bạn và đảm bảo bạn sẽ một trải
+                            nghiệm sử dụng hài lòng nhất!
+                            {/* Kindly select your reasons for returning the product
                             thoughtfully, as this will aid us in expediting your
                             request resolution and ensuring your utmost
-                            satisfaction with the overall purchase experience.
+                            satisfaction with the overall purchase experience. */}
                         </div>
-
                         <div className="gap-4 sm:flex sm:items-center">
                             <button
                                 onClick={nextw}
@@ -774,12 +776,12 @@ function RefundConfirm({ next }: { next: () => void }) {
 
                         <div>
                             <h3 className="mb-2.5 text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">
-                                Your request has been successfully registered
+                                Yêu cầu hoàn tiền của bạn đã được gửi thành công
                             </h3>
                             <p className="text-base font-normal text-gray-500 dark:text-gray-400">
-                                I have successfully received your request to
-                                return this product, until we resolve this case
-                                you can track the status of your order.
+                                Chúng tôi đã nhận được thông tin yêu cầu hoàn
+                                tiền của bạn. Vui lòng liên hệ Fanpage Thinkmay
+                                để biết thêm thông tin!
                             </p>
                         </div>
 
@@ -802,7 +804,7 @@ function RefundConfirm({ next }: { next: () => void }) {
                                     clipRule="evenodd"
                                 />
                             </svg>
-                            View status
+                            Thông tin thêm
                         </a>
                     </div>
                 </div>
