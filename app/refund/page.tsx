@@ -274,7 +274,7 @@ function StatusBar() {
     return (
         <div className="space-y-6 sm:space-y-8">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
-                Product return form
+                Quy trình hoàn tiền
             </h2>
 
             <ol className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800 sm:justify-center md:flex-row md:items-center lg:gap-6">
@@ -297,7 +297,7 @@ function StatusBar() {
                         />
                     </svg>
                     <p className="text-sm font-medium leading-tight text-primary-700 dark:text-primary-500">
-                        Return requirement
+                        Yêu cầu hoàn tiền
                     </p>
                 </li>
 
@@ -322,7 +322,7 @@ function StatusBar() {
                         />
                     </svg>
                     <p className="text-sm font-medium leading-tight text-primary-700 dark:text-primary-500">
-                        Return reason
+                        Lý do hoàn tiền
                     </p>
                 </li>
 
@@ -347,7 +347,7 @@ function StatusBar() {
                         />
                     </svg>
                     <p className="text-sm font-medium leading-tight text-gray-500 dark:text-gray-400">
-                        Delivery option
+                        Phương thức hoàn tiền
                     </p>
                 </li>
 
@@ -372,7 +372,7 @@ function StatusBar() {
                         />
                     </svg>
                     <p className="text-sm font-medium leading-tight text-gray-500 dark:text-gray-400">
-                        Confirmation
+                        Xác nhận hoàn tiền
                     </p>
                 </li>
             </ol>
