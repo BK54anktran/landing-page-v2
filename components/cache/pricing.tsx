@@ -228,12 +228,13 @@ export const FetchPricing = async (): Promise<Plan[]> => {
     const { data, error } = await supabase
         .from('plans')
         .select(
-            'name, policy->size, policy->limit_hour, policy->total_days, policy->refund_days, policy->refund_usage, policy->resources->disk, price->amount, metadata->allow_payment, cluster_pool'
+            'name, policy->size, policy->limit_hour, policy->total_days, policy->refund_days, policy->refund_usage, policy->resources->disk, policy->>title, price->amount, metadata->allow_payment, cluster_pool'
         )
         .eq('active', true)
         .is('metadata->hide', null);
     if (error)
         return subcontents.map((e) => ({
+            title: e.title,
             name: e._name,
             size: Number(e.bonus.storage_limit),
             limit_hour: Number(e.bonus.time),
@@ -245,6 +246,7 @@ export const FetchPricing = async (): Promise<Plan[]> => {
     else
         return data.map((e) => ({
             name: e.name,
+            title: e.title,
             size: Number(e.size),
             limit_hour: Number(e.limit_hour),
             total_days: Number(e.total_days),
@@ -350,7 +352,7 @@ export const Pricing = async () => {
                 key={index}
                 className="flex flex-col p-6 mx-auto max-w-xl text-center  rounded-lg border shadow xl:max-w-lg border-primary-600 bg-gray-200 dark:bg-gray-800 xl:p-8"
             >
-                {plan.highlight ? (
+                {plan.total_days == 30 ? (
                     <div className="mb-2">
                         <span className="py-1 px-3 text-sm text-primary-800 bg-primary-100 rounded dark:bg-primary-200 dark:text-primary-800">
                             Most popular
