@@ -206,7 +206,7 @@ const subcontents = [
         amount: 499000,
         total_days: 30,
         bonus: {
-            time: 0,
+            time: 9999,
             storage_limit: 400,
             // storage_credit: 0,
             no_waiting_line: true,
