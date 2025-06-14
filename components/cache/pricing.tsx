@@ -113,7 +113,7 @@ const Addon = {
                     clipRule="evenodd"
                 ></path>
             </svg>
-            {value == 0 ? (
+            {value == 9999 ? (
                 <span className="line-through">Giới hạn giờ chơi</span>
             ) : (
                 <span>Tối đa {value}h chơi</span>
