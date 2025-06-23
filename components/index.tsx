@@ -1,3 +1,8 @@
+'use client'
+
+import { Contents } from "./locales";
+import { useLanguage } from "./providers/stateProvider";
+
 const ExternalURL = {
     facebook: 'https://www.facebook.com/thinkonmay',
     discord:
@@ -6,11 +11,13 @@ const ExternalURL = {
 };
 
 export const Hero = () => {
+    const { t } = useLanguage(); 
+
     return (
         <section className="bg-white dark:bg-mica ">
             <div className="max-w-screen-xl px-4 pt-8 mx-auto text-center lg:pt-16 lg:px-12">
                 <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-                    Thinkmay CloudPC - chơi game trên mây
+                    {t(Contents.HERO_H1)}
                 </h1>
                 <p className="mb-8 text-gray-500 md:text-lg lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400 font-medium">
                     <span className="font-bold text-white text-2xl">
