@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { Contents } from "./locales";
-import { useLanguage } from "./providers/stateProvider";
+import { Contents } from './locales';
+import { useLanguage } from './providers/stateProvider';
 
 const ExternalURL = {
     facebook: 'https://www.facebook.com/thinkonmay',
@@ -11,7 +11,7 @@ const ExternalURL = {
 };
 
 export const Hero = () => {
-    const { t } = useLanguage(); 
+    const { t } = useLanguage();
 
     return (
         <section className="bg-white dark:bg-mica ">
@@ -21,20 +21,19 @@ export const Hero = () => {
                 </h1>
                 <p className="mb-8 text-gray-500 md:text-lg lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400 font-medium">
                     <span className="font-bold text-white text-2xl">
-                        Cấu hình RTX 3060Ti, 16GB RAM
+                        {t(Contents.HERO_MAIN_P1)}
                     </span>
                     <br />
-                    Chơi tất cả các game cấu hình cao, đồ họa đẹp trên mọi thiết
-                    bị, chỉ với kết nối internet
+                    {t(Contents.HERO_MAIN_P2)}
                     <br />
-                    Sử dụng hoàn toàn trên trình duyệt
+                    {t(Contents.HERO_MAIN_P3)}
                 </p>
                 <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
                     <a
                         href="/play/index.html?app=null&ref=landingpage_heroplay"
                         className="inline-flex items-center justify-center px-5 py-3 text-2xl font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
                     >
-                        Sử dụng ngay
+                        {t(Contents.HERO_MAIN_BUTTON)}
                     </a>
                     {/* <a
                         href="/pricing"

@@ -1,6 +1,12 @@
 'use client';
 
-import { useEffect, useState, ReactNode, createContext, useContext } from 'react';
+import {
+    useEffect,
+    useState,
+    ReactNode,
+    createContext,
+    useContext
+} from 'react';
 import { Modal } from '../popup';
 import { loggedin, logout } from '@/api/auth';
 import { usePathname } from 'next/navigation';
@@ -8,73 +14,81 @@ import { Contents, language, Languages, Translation } from '../locales';
 
 // Language Context
 interface LanguageContextType {
-  currentLanguage: Languages;
-  setLanguage: (lang: Languages) => void;
-  translations: Translation;
-  t: (key: Contents) => string;
+    currentLanguage: Languages;
+    setLanguage: (lang: Languages) => void;
+    translations: Translation;
+    t: (key: Contents) => string;
 }
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+const LanguageContext = createContext<LanguageContextType | undefined>(
+    undefined
+);
 
 // Language Provider
 const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [currentLanguage, setCurrentLanguage] = useState<Languages>('VI');
-  const translations = language();
+    const [currentLanguage, setCurrentLanguage] = useState<Languages>('VI');
+    const translations = language();
 
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem('language') as Languages;
-    if (savedLanguage && ['VI', 'EN', 'ID'].includes(savedLanguage)) {
-      setCurrentLanguage(savedLanguage);
-    }
-  }, []);
+    useEffect(() => {
+        const savedLanguage = localStorage.getItem('language') as Languages;
+        if (savedLanguage && ['VI', 'EN', 'ID'].includes(savedLanguage)) {
+            setCurrentLanguage(savedLanguage);
+        }
+    }, []);
 
-  const setLanguage = (lang: Languages) => {
-    setCurrentLanguage(lang);
-    localStorage.setItem('language', lang);
-  };
+    const setLanguage = (lang: Languages) => {
+        setCurrentLanguage(lang);
+        localStorage.setItem('language', lang);
+    };
 
-  const t = (key: Contents): string => {
-    const langMap = translations.get(currentLanguage);
-    return langMap?.get(key) || `Missing: ${Contents[key]}`;
-  };
+    const t = (key: Contents): string => {
+        const langMap = translations.get(currentLanguage);
+        return langMap?.get(key) || `Missing: ${Contents[key]}`;
+    };
 
-  return (
-    <LanguageContext.Provider value={{ currentLanguage, setLanguage, translations, t }}>
-      {children}
-    </LanguageContext.Provider>
-  );
+    return (
+        <LanguageContext.Provider
+            value={{ currentLanguage, setLanguage, translations, t }}
+        >
+            {children}
+        </LanguageContext.Provider>
+    );
 };
 
 export const useLanguage = () => {
-  const context = useContext(LanguageContext);
-  if (!context) {
-    throw new Error('useLanguage must be used within LanguageProvider');
-  }
-  return context;
+    const context = useContext(LanguageContext);
+    if (!context) {
+        throw new Error('useLanguage must be used within LanguageProvider');
+    }
+    return context;
 };
 
 const LanguageSwitcher = () => {
-  const { currentLanguage, setLanguage } = useLanguage();
+    const { currentLanguage, setLanguage } = useLanguage();
 
-  const languageLabels: Record<Languages, string> = {
-    'VI': 'VI',
-    'EN': 'EN', 
-    'ID': 'ID'
-  };
+    const languageLabels: Record<Languages, string> = {
+        VI: 'VI',
+        EN: 'EN',
+        ID: 'ID'
+    };
 
-  return (
-    <select 
-      value={currentLanguage} 
-      onChange={(e) => setLanguage(e.target.value as Languages)}
-      className="text-black dark:text-white bg-transparent border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm mr-2"
-    >
-      {Object.entries(languageLabels).map(([code, label]) => (
-        <option key={code} value={code} className="text-black dark:text-white bg-white dark:bg-gray-800">
-          {label}
-        </option>
-      ))}
-    </select>
-  );
+    return (
+        <select
+            value={currentLanguage}
+            onChange={(e) => setLanguage(e.target.value as Languages)}
+            className="text-black dark:text-white bg-transparent border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm mr-2"
+        >
+            {Object.entries(languageLabels).map(([code, label]) => (
+                <option
+                    key={code}
+                    value={code}
+                    className="text-black dark:text-white bg-white dark:bg-gray-800"
+                >
+                    {label}
+                </option>
+            ))}
+        </select>
+    );
 };
 
 export const StateProvider = ({ children }: { children: ReactNode }) => {
@@ -107,7 +121,7 @@ export const Header = ({ openLogin }: { openLogin?: () => void }) => {
 
     type Route = {
         url: string;
-        titleKey: Contents; 
+        titleKey: Contents;
     };
 
     const routes: Route[] = [
@@ -121,7 +135,7 @@ export const Header = ({ openLogin }: { openLogin?: () => void }) => {
         },
         {
             url: '/faq',
-            titleKey: Contents.FAQ_TITLE 
+            titleKey: Contents.FAQ_TITLE
         }
     ];
 
@@ -164,13 +178,13 @@ export const Header = ({ openLogin }: { openLogin?: () => void }) => {
                                     className="text-black dark:text-white hover:bg-blue-800 hover:text-white focus:ring-4 font-medium rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 focus:outline-none cursor-pointer"
                                     onClick={logout}
                                 >
-                                    Logout
+                                    {t(Contents.LOGOUT)}
                                 </a>
                                 <a
                                     className="text-white font-bold bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 cursor-pointer"
                                     href="/play/index.html?ref=landingpage_navplay"
                                 >
-                                    Play now
+                                    {t(Contents.PLAYNOW)}
                                 </a>
                             </>
                         ) : (
@@ -178,7 +192,7 @@ export const Header = ({ openLogin }: { openLogin?: () => void }) => {
                                 className="text-white bg-gray-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 cursor-pointer"
                                 onClick={openLogin}
                             >
-                                Login
+                                {t(Contents.LOGIN)}
                             </a>
                         )}
                         <button
