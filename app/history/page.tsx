@@ -290,11 +290,6 @@ export default function Page() {
                             d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
                         />
                     </svg>
-                    <span className="sr-only">Info</span>
-                    <div>
-                        Expected delivery on{' '}
-                        <span className="font-medium">Monday 16 Jul 2024</span>
-                    </div>
                 </div>
             </div>
         );
@@ -495,7 +490,7 @@ export default function Page() {
                                     <span className="ml-3">My orders</span>
                                 </a>
                             </li>
-                            <li>
+                            {/* <li>
                                 <a
                                     href="#"
                                     className="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -546,8 +541,8 @@ export default function Page() {
                                         Delivery addresses
                                     </span>
                                 </a>
-                            </li>
-                            <li>
+                            </li> */}
+                            {/* <li>
                                 <a
                                     href="#"
                                     className="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -603,10 +598,10 @@ export default function Page() {
                                         Favourite items
                                     </span>
                                 </a>
-                            </li>
+                            </li> */}
                         </ul>
                         <ul className="mt-5 space-y-2 border-t border-gray-100 pt-5 dark:border-gray-700">
-                            <li>
+                            {/* <li>
                                 <a
                                     href="#"
                                     className="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -639,7 +634,7 @@ export default function Page() {
                                         Settings
                                     </span>
                                 </a>
-                            </li>
+                            </li> */}
                             <li>
                                 <a
                                     href="#"
