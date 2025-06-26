@@ -229,7 +229,7 @@ export function language(): Translation {
     en.set(Contents.SOCIALPROOF_4_DESC, 'Up to the first 5 days, if the product does not meet expectations.');
     id.set(Contents.SOCIALPROOF_4_DESC, 'Hingga 5 hari pertama, jika produk tidak memenuhi harapan.');
 
-    // Applications
+    //TODO: FIX ERRORS Applications 
     vi.set(Contents.APPLICATIONS_TITLE, 'Những game được chơi nhiều trên Thinkmay');
     en.set(Contents.APPLICATIONS_TITLE, 'Popular Games on Thinkmay');
     id.set(Contents.APPLICATIONS_TITLE, 'Game Populer di Thinkmay');
