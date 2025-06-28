@@ -74,13 +74,27 @@ export enum Contents {
     FOOTER_LEGAL,
     ALL_RIGHTS_RESERVED,
 
-    //FAQ
-    FAQ_HEADING,
-    FAQ_SUBHEADING,
-    FAQ_QA_0_0_Q,
-    FAQ_QA_0_0_A,
-    FAQ_QA_0_1_Q,
-    FAQ_QA_0_1_A,
+    // FAQ Section
+     // Tiêu đề chính
+    FAQ_TITLE_1,
+    FAQ_DESC,
+
+    // Nhóm 1: Giới thiệu dịch vụ
+    FAQ_Q1, FAQ_A1,
+    FAQ_Q2, FAQ_A2,
+    FAQ_Q3, FAQ_A3,
+    FAQ_Q4, FAQ_A4,
+
+    // Nhóm 2: Thanh toán, chính sách
+    FAQ_Q5, FAQ_A5,
+    FAQ_Q6, FAQ_A6,
+    FAQ_Q7, FAQ_A7,
+
+    // Nhóm 3: Kỹ thuật & hỗ trợ
+    FAQ_Q8, FAQ_A8,
+    FAQ_Q9, FAQ_A9,
+    FAQ_Q10, FAQ_A10,
+    FAQ_Q11, FAQ_A11,
 }
 
 export function language(): Translation {
@@ -282,5 +296,96 @@ export function language(): Translation {
     vi.set(Contents.ALL_RIGHTS_RESERVED, 'Đã đăng ký bản quyền.');
     en.set(Contents.ALL_RIGHTS_RESERVED, 'All Rights Reserved.');
     id.set(Contents.ALL_RIGHTS_RESERVED, 'Seluruh Hak Dilindungi.');
+
+    // FAQ
+    // Tiêu đề chính
+vi.set(Contents.FAQ_TITLE_1, 'Những câu hỏi thường gặp');
+en.set(Contents.FAQ_TITLE_1, 'Frequently Asked Questions');
+id.set(Contents.FAQ_TITLE_1, 'Pertanyaan yang Sering Diajukan');
+
+vi.set(Contents.FAQ_DESC, 'Bạn có thể nhắn tin trong phần hỗ trợ người dùng nếu bạn có những câu hỏi khác');
+en.set(Contents.FAQ_DESC, 'You can message our customer support if you have other questions');
+id.set(Contents.FAQ_DESC, 'Kamu dapat menghubungi dukungan pengguna jika memiliki pertanyaan lain');
+
+// Group 1: Giới thiệu
+vi.set(Contents.FAQ_Q1, 'Thinkmay Cloud PC là gì?');
+vi.set(Contents.FAQ_A1, 'Thinkmay Cloud PC là một dịch vụ máy tính cá nhân ảo được cung cấp qua đám mây...');
+en.set(Contents.FAQ_Q1, 'What is Thinkmay Cloud PC?');
+en.set(Contents.FAQ_A1, 'Thinkmay Cloud PC is a virtual personal computer service provided via the cloud...');
+id.set(Contents.FAQ_Q1, 'Apa itu Thinkmay Cloud PC?');
+id.set(Contents.FAQ_A1, 'Thinkmay Cloud PC adalah layanan komputer pribadi virtual yang disediakan melalui cloud...');
+
+vi.set(Contents.FAQ_Q2, 'Tôi có thể cài đặt các phần mềm trên Thinkmay Cloud PC không?');
+vi.set(Contents.FAQ_A2, 'Có, bạn hoàn toàn có thể cài đặt và sử dụng các phần mềm trên Thinkmay Cloud PC giống như máy tính thông thường...');
+en.set(Contents.FAQ_Q2, 'Can I install software on Thinkmay Cloud PC?');
+en.set(Contents.FAQ_A2, 'Yes, you can install and use software on Thinkmay Cloud PC just like a regular computer...');
+id.set(Contents.FAQ_Q2, 'Bisakah saya menginstal perangkat lunak di Thinkmay Cloud PC?');
+id.set(Contents.FAQ_A2, 'Ya, kamu bisa menginstal dan menggunakan perangkat lunak di Thinkmay Cloud PC seperti komputer biasa...');
+
+vi.set(Contents.FAQ_Q3, 'Các thiết bị nào thì dùng được Cloud PC? Tôi có cần đầu tư thiết bị gì không?');
+vi.set(Contents.FAQ_A3, 'Mọi thiết bị thông minh với kết nối Internet đều có thể sử dụng Cloud PC...');
+en.set(Contents.FAQ_Q3, 'Which devices can use Cloud PC? Do I need special hardware?');
+en.set(Contents.FAQ_A3, 'Any smart device with an internet connection can use Cloud PC...');
+id.set(Contents.FAQ_Q3, 'Perangkat apa saja yang dapat menggunakan Cloud PC? Apakah saya perlu perangkat khusus?');
+id.set(Contents.FAQ_A3, 'Semua perangkat pintar dengan koneksi internet dapat menggunakan Cloud PC...');
+
+vi.set(Contents.FAQ_Q4, 'Trên Thinkmay có thể chơi những game nào?');
+vi.set(Contents.FAQ_A4, 'Hầu hết các game đều chơi được trên Thinkmay, trừ một số game online như LOL, PUBG, Valorant...');
+en.set(Contents.FAQ_Q4, 'Which games can be played on Thinkmay?');
+en.set(Contents.FAQ_A4, 'Most games are playable on Thinkmay, except for some online games like LOL, PUBG, Valorant...');
+id.set(Contents.FAQ_Q4, 'Game apa saja yang bisa dimainkan di Thinkmay?');
+id.set(Contents.FAQ_A4, 'Sebagian besar game bisa dimainkan di Thinkmay, kecuali beberapa game online seperti LOL, PUBG, Valorant...');
+
+// Group 2: Thanh toán, chính sách
+vi.set(Contents.FAQ_Q5, 'Có được chơi thử không? Chơi thử như thế nào?');
+vi.set(Contents.FAQ_A5, 'Bạn có thể truy cập website và liên hệ hỗ trợ để yêu cầu chơi thử hoặc đăng ký demo...');
+en.set(Contents.FAQ_Q5, 'Can I try it first? How?');
+en.set(Contents.FAQ_A5, 'You can visit the website and contact support to request a trial or demo...');
+id.set(Contents.FAQ_Q5, 'Bisakah saya mencoba terlebih dahulu? Bagaimana caranya?');
+id.set(Contents.FAQ_A5, 'Kamu bisa mengunjungi situs web dan menghubungi dukungan untuk meminta demo atau uji coba...');
+
+vi.set(Contents.FAQ_Q6, 'Mất bao lâu sau khi thanh toán thì tôi có thể sử dụng Thinkmay CloudPC?');
+vi.set(Contents.FAQ_A6, 'Hệ thống xác nhận tự động, thông thường chỉ mất 3–5 phút sau khi thanh toán thành công...');
+en.set(Contents.FAQ_Q6, 'How long after payment can I use Thinkmay CloudPC?');
+en.set(Contents.FAQ_A6, 'The system confirms automatically, usually within 3–5 minutes after successful payment...');
+id.set(Contents.FAQ_Q6, 'Berapa lama setelah pembayaran saya bisa menggunakan Thinkmay CloudPC?');
+id.set(Contents.FAQ_A6, 'Sistem akan mengonfirmasi secara otomatis, biasanya dalam waktu 3–5 menit setelah pembayaran...');
+
+vi.set(Contents.FAQ_Q7, 'Chính sách hoàn tiền của Thinkmay nếu người dùng gặp lỗi là gì?');
+vi.set(Contents.FAQ_A7, 'Thinkmay hỗ trợ hoàn tiền tối đa 80%, trong vòng 5 ngày và 3 giờ chơi đầu tiên nếu lỗi từ phía Thinkmay...');
+en.set(Contents.FAQ_Q7, 'What is Thinkmay’s refund policy if there are errors?');
+en.set(Contents.FAQ_A7, 'Thinkmay offers up to 80% refund within 5 days and 3 hours of usage if the error is from Thinkmay...');
+id.set(Contents.FAQ_Q7, 'Apa kebijakan pengembalian dana Thinkmay jika terjadi kesalahan?');
+id.set(Contents.FAQ_A7, 'Thinkmay menawarkan pengembalian dana hingga 80% dalam 5 hari dan 3 jam pertama jika kesalahan berasal dari Thinkmay...');
+
+// Group 3: Hỗ trợ kỹ thuật
+vi.set(Contents.FAQ_Q8, 'Tôi phải làm gì nếu gặp lỗi và bị giật/lag?');
+vi.set(Contents.FAQ_A8, 'Kiểm tra lại kết nối mạng. Nếu được, hãy dùng cáp Ethernet thay vì Wi-Fi để giảm độ trễ...');
+en.set(Contents.FAQ_Q8, 'What should I do if I experience lag or errors?');
+en.set(Contents.FAQ_A8, 'Check your internet connection. Use Ethernet instead of Wi-Fi for lower latency...');
+id.set(Contents.FAQ_Q8, 'Apa yang harus saya lakukan jika mengalami lag atau error?');
+id.set(Contents.FAQ_A8, 'Periksa koneksi internetmu. Gunakan kabel Ethernet jika memungkinkan untuk mengurangi lag...');
+
+vi.set(Contents.FAQ_Q9, 'Làm sao để tối ưu đường truyền mạng?');
+vi.set(Contents.FAQ_A9, 'Hãy chọn máy chủ gần vị trí của bạn nhất để giảm độ trễ và tăng hiệu suất...');
+en.set(Contents.FAQ_Q9, 'How to optimize network performance?');
+en.set(Contents.FAQ_A9, 'Choose the server closest to your location to reduce latency...');
+id.set(Contents.FAQ_Q9, 'Bagaimana cara mengoptimalkan koneksi jaringan?');
+id.set(Contents.FAQ_A9, 'Pilih server yang paling dekat dengan lokasi kamu untuk mengurangi latency...');
+
+vi.set(Contents.FAQ_Q10, 'Làm sao để tối ưu fps trong game?');
+vi.set(Contents.FAQ_A10, 'Hãy giảm cấu hình đồ họa và tắt các hiệu ứng không cần thiết trong game...');
+en.set(Contents.FAQ_Q10, 'How to optimize FPS in games?');
+en.set(Contents.FAQ_A10, 'Lower graphics settings and disable unnecessary effects in the game...');
+id.set(Contents.FAQ_Q10, 'Bagaimana cara mengoptimalkan FPS dalam game?');
+id.set(Contents.FAQ_A10, 'Turunkan pengaturan grafis dan matikan efek yang tidak perlu dalam game...');
+
+vi.set(Contents.FAQ_Q11, 'Làm sao nếu tất cả các cách trên đều không giải quyết được vấn đề?');
+vi.set(Contents.FAQ_A11, 'Cuối cùng, hãy liên hệ bộ phận hỗ trợ của Thinkmay để được kiểm tra lại hệ thống...');
+en.set(Contents.FAQ_Q11, 'What if none of the above methods work?');
+en.set(Contents.FAQ_A11, 'Finally, contact Thinkmay’s support team to check the system...');
+id.set(Contents.FAQ_Q11, 'Bagaimana jika semua cara di atas tidak berhasil?');
+id.set(Contents.FAQ_A11, 'Terakhir, hubungi dukungan Thinkmay untuk memeriksa kembali sistem...');
+
     return t;
 }
