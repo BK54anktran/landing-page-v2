@@ -136,6 +136,10 @@ export const Header = ({ openLogin }: { openLogin?: () => void }) => {
         {
             url: '/faq',
             titleKey: Contents.FAQ_TITLE
+        },
+        {
+            url: '/refund/policy',
+            titleKey: Contents.REFUND_POLICY
         }
     ];
 
