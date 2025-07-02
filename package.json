@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack && cd webapp && npm run build",
+    "dev": "cd webapp && npm run build && cd .. && next dev --turbopack ",
     "format": "prettier --write \"./**/*.{jsx,ts,js,tsx}\"",
     "build": "cd webapp && npm i && npm run build && cd .. && next build",
     "start": "next start",
