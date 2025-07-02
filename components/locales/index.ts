@@ -130,15 +130,7 @@ export enum Contents {
     REFUND_STEP_1 = 'REFUND_STEP_1',
     REFUND_STEP_2 = 'REFUND_STEP_2',
     REFUND_STEP_3 = 'REFUND_STEP_3',
-    REFUND_NOTE = 'REFUND,
-  
-    //FAQ
-    FAQ_HEADING,
-    FAQ_SUBHEADING,
-    FAQ_QA_0_0_Q,
-    FAQ_QA_0_0_A,
-    FAQ_QA_0_1_Q,
-    FAQ_QA_0_1_A,
+    REFUND_NOTE = 'REFUND',
 }
 
 export function language(): Translation {
