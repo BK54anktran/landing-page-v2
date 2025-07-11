@@ -8,6 +8,7 @@ export default function Page() {
     const [step, setStep] = useState<string>('not_signed');
     const [refundForm, setRefundForm] = useState<any[]>([]);
     const [now, setNow] = useState<Date>(new Date(0));
+    const [stepNumber, setStepNumber] = useState<any>();
     useEffect(() => {
         setNow(new Date());
     }, []);
@@ -59,6 +60,7 @@ export default function Page() {
                 setPlanPolicy(plan_policy.at(0));
             }
         }
+        else return setStep('not_signed');
         setStep('condition');
     };
 
@@ -254,7 +256,7 @@ function RefundCondition({
         <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
             <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
                 <div className="mx-auto max-w-5xl space-y-6 lg:space-y-8">
-                    <StatusBar />
+                    <StatusBar step={1} />
 
                     <div className="space-y-6">
                         <div>
@@ -289,7 +291,7 @@ function RefundCondition({
     );
 }
 
-function StatusBar() {
+function StatusBar({ step }: { step: number }) {
     return (
         <div className="space-y-6 sm:space-y-8">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
@@ -299,7 +301,7 @@ function StatusBar() {
             <ol className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800 sm:justify-center md:flex-row md:items-center lg:gap-6">
                 <li className="flex items-center gap-2 md:flex-1 md:flex-col md:gap-1.5 lg:flex-none">
                     <svg
-                        className="h-5 w-5 text-primary-700 dark:text-primary-500"
+                        className={"h-5 w-5 " + (step >= 1 ? ' text-primary-700 dark:text-primary-500' : 'text-gray-500 dark:text-gray-400')}
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -315,7 +317,7 @@ function StatusBar() {
                             d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                         />
                     </svg>
-                    <p className="text-sm font-medium leading-tight text-primary-700 dark:text-primary-500">
+                    <p className={"text-sm font-medium leading-tight " + (step >= 1 ? ' text-primary-700 dark:text-primary-500' : 'text-gray-500 dark:text-gray-400')}>
                         Yêu cầu hoàn tiền
                     </p>
                 </li>
@@ -324,7 +326,7 @@ function StatusBar() {
 
                 <li className="flex items-center gap-2 md:flex-1 md:flex-col md:gap-1.5 lg:flex-none">
                     <svg
-                        className="h-5 w-5 text-primary-700 dark:text-primary-500"
+                        className={"h-5 w-5" + (step >= 2 ? ' text-primary-700 dark:text-primary-500' : 'text-gray-500 dark:text-gray-400')}
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -340,7 +342,7 @@ function StatusBar() {
                             d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                         />
                     </svg>
-                    <p className="text-sm font-medium leading-tight text-primary-700 dark:text-primary-500">
+                    <p className={"text-sm font-medium leading-tight " + (step >= 2 ? ' text-primary-700 dark:text-primary-500' : 'text-gray-500 dark:text-gray-400')}>
                         Lý do hoàn tiền
                     </p>
                 </li>
@@ -349,7 +351,7 @@ function StatusBar() {
 
                 <li className="flex items-center gap-2 md:flex-1 md:flex-col md:gap-1.5 lg:flex-none">
                     <svg
-                        className="h-5 w-5 text-gray-500 dark:text-gray-400"
+                        className={"h-5 w-5" + (step >= 3 ? ' text-primary-700 dark:text-primary-500' : 'text-gray-500 dark:text-gray-400')}
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -365,7 +367,7 @@ function StatusBar() {
                             d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                         />
                     </svg>
-                    <p className="text-sm font-medium leading-tight text-gray-500 dark:text-gray-400">
+                    <p className={"text-sm font-medium leading-tight " + (step >= 3 ? ' text-primary-700 dark:text-primary-500' : 'text-gray-500 dark:text-gray-400')}>
                         Phương thức hoàn tiền
                     </p>
                 </li>
@@ -374,7 +376,7 @@ function StatusBar() {
 
                 <li className="flex items-center gap-2 md:flex-1 md:flex-col md:gap-1.5 lg:flex-none">
                     <svg
-                        className="h-5 w-5 text-gray-500 dark:text-gray-400"
+                        className={"h-5 w-5" + (step >= 4 ? ' text-primary-700 dark:text-primary-500' : 'text-gray-500 dark:text-gray-400')}
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -390,7 +392,7 @@ function StatusBar() {
                             d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                         />
                     </svg>
-                    <p className="text-sm font-medium leading-tight text-gray-500 dark:text-gray-400">
+                    <p className={"text-sm font-medium leading-tight " + (step >= 4 ? ' text-primary-700 dark:text-primary-500' : 'text-gray-500 dark:text-gray-400')}>
                         Xác nhận hoàn tiền
                     </p>
                 </li>
@@ -442,14 +444,14 @@ function RefundReason({ next }: { next: (_: ReasonCallback) => void }) {
                                 : old.filter((x) => x != val)
                         )
                     }
-                    id="condition-1"
+                    id={`feedback-${index}`}
                     type="checkbox"
                     value=""
                     name="product-condition"
                     className="h-4 w-4 border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
                 />
                 <label
-                    htmlFor="condition-1"
+                    htmlFor={`feedback-${index}`}
                     className="ms-2 text-gray-500 dark:text-gray-400"
                 >
                     {val}
@@ -469,7 +471,7 @@ function RefundReason({ next }: { next: (_: ReasonCallback) => void }) {
         return (
             <div key={index} className="mb-4 flex items-center">
                 <input
-                    id="reason-1"
+                    id={`reason-${index}`}
                     onChange={(e) =>
                         setReason((old) =>
                             e.target.checked
@@ -482,7 +484,7 @@ function RefundReason({ next }: { next: (_: ReasonCallback) => void }) {
                     className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
                 />
                 <label
-                    htmlFor="reason-1"
+                    htmlFor={`reason-${index}`}
                     className="ms-2 text-gray-500 dark:text-gray-400"
                 >
                     {val}
@@ -499,13 +501,13 @@ function RefundReason({ next }: { next: (_: ReasonCallback) => void }) {
             <div className="relative h-full w-full max-w-md p-4 md:h-auto">
                 <div className="relative rounded-lg bg-white p-4 shadow dark:bg-gray-800 sm:p-5">
                     <label
-                        htmlFor="reason-message"
+                        htmlFor="reason-message-0"
                         className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                     >
                         Trải nghiệm sử dụng của bạn
                     </label>
                     <textarea
-                        id="reason-message"
+                        id="reason-message-0"
                         rows={4}
                         className="mb-4 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:mb-5"
                         placeholder="Vd: Nhiều kết nối thiếu ổn định"
@@ -545,7 +547,7 @@ function RefundReason({ next }: { next: (_: ReasonCallback) => void }) {
         <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
             <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
                 <div className="mx-auto max-w-5xl space-y-6 lg:space-y-8">
-                    <StatusBar />
+                    <StatusBar step={2} />
 
                     <div className="space-y-6">
                         <div className="space-y-1">
@@ -679,7 +681,7 @@ function RefundMethod({
             <div className="flex items-start">
                 <div className="flex h-5 items-center">
                     <input
-                        id="shopping-voucher"
+                        id={"refund-method-" + index}
                         aria-describedby="shopping-voucher-text"
                         type="radio"
                         name="delivery-method"
@@ -691,7 +693,7 @@ function RefundMethod({
 
                 <div className="ms-4 text-sm">
                     <label
-                        htmlFor="shopping-voucher"
+                        htmlFor={"refund-method-" + index}
                         className="font-medium leading-none text-gray-900 dark:text-white"
                     >
                         {method}
@@ -712,7 +714,7 @@ function RefundMethod({
         <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
             <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
                 <div className="mx-auto max-w-5xl space-y-6 lg:space-y-8">
-                    <StatusBar />
+                    <StatusBar step={3} />
 
                     <div className="space-y-6">
                         <div className="space-y-1">
@@ -753,7 +755,7 @@ function RefundConfirm({ next }: { next: () => void }) {
         <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
             <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
                 <div className="mx-auto max-w-5xl space-y-6 lg:space-y-8">
-                    <StatusBar />
+                    <StatusBar  step={4}/>
 
                     <div className="space-y-6">
                         <svg
@@ -776,12 +778,12 @@ function RefundConfirm({ next }: { next: () => void }) {
 
                         <div>
                             <h3 className="mb-2.5 text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">
-                                Yêu cầu hoàn tiền của bạn đã được gửi thành công
+                                Liên hệ với Thinkmay
                             </h3>
                             <p className="text-base font-normal text-gray-500 dark:text-gray-400">
                                 Chúng tôi đã nhận được thông tin yêu cầu hoàn
                                 tiền của bạn. Vui lòng liên hệ Fanpage Thinkmay
-                                để biết thêm thông tin!
+                                để hoàn tất thủ tục!
                             </p>
                         </div>
 
@@ -804,7 +806,7 @@ function RefundConfirm({ next }: { next: () => void }) {
                                     clipRule="evenodd"
                                 />
                             </svg>
-                            Thông tin thêm
+                            next: Liên hệ Fanpage
                         </a>
                     </div>
                 </div>
