@@ -4,6 +4,7 @@ import './globals.css';
 import { StateProvider } from '@/components/providers/stateProvider';
 import { Footer } from '@/components';
 import Script from 'next/script';
+import { Header } from '@/components/header/header';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -41,6 +42,7 @@ export default async function RootLayout({
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
                 <StateProvider locale={locale}>
+                    <Header/>
                     {children}
                     <Footer />
                 </StateProvider>

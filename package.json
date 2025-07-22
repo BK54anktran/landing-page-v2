@@ -6,6 +6,7 @@
     "dev": "next dev --turbopack && cd webapp && npm run build",
     "format": "prettier --write \"./**/*.{jsx,ts,js,tsx}\"",
     "build": "cd webapp && npm i && npm run build && cd .. && next build",
+    "nbuild": "next build",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "flowbite-react patch"
@@ -13,7 +14,9 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.49.4",
     "flowbite-react": "^0.11.7",
+    "jotai": "^2.12.5",
     "next": "^15.3.0-canary.45",
+    "next-intl": "^4.3.4",
     "pocketbase": "^0.21.1",
     "prettier": "^3.5.3",
     "react": "^19.0.0",

@@ -20,7 +20,7 @@ export const signUpWithEmail = async (
         .create({ email, password, passwordConfirm });
 };
 
-export function LoginModal({ action: close }: { action: () => void }) {
+export function LoginModal({ close }: { close: () => void }) {
     const params = useSearchParams();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
