@@ -32,6 +32,12 @@ export default function RootLayout({
                 <Script>
                     {`document.documentElement.classList.add('dark');`}
                 </Script>
+                {/* Rybbit Analytics */}
+                <Script
+                    src="https://app.rybbit.io/api/script.js"
+                    data-site-id="1990"
+                    strategy="afterInteractive"
+                />
             </head>
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
