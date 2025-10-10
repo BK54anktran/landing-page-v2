@@ -106,12 +106,12 @@ export const StateProvider = ({
     
 
     return (
-        <LanguageProvider locale={locale as Languages}>
+        // <LanguageProvider locale={locale as Languages}>
             <div className="bg-white dark:bg-gray-900 text-black dark:text-white">
                 <PopupProvider popup={popup} close={() => setPopup(undefined)}>
                     {children}
                 </PopupProvider>
             </div>
-        </LanguageProvider>
+        // </LanguageProvider>
     );
 };

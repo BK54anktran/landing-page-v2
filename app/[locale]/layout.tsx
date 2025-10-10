@@ -4,7 +4,11 @@ import './globals.css';
 import { StateProvider } from '@/components/providers/stateProvider';
 import { Footer } from '@/components';
 import Script from 'next/script';
-import { Header } from '@/components/header/header';
+import Header from '@/components/Header';
+import { routing } from '@/i18n/routing';
+import { notFound } from 'next/navigation';
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
+import { setRequestLocale } from 'next-intl/server';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -22,6 +26,10 @@ export const metadata: Metadata = {
         'Work and game on cloud PC - no need to download anything, games on any devices, work from anywhere'
 };
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({locale}));
+}
+
 export default async function RootLayout({
     children,
     params
@@ -31,8 +39,14 @@ export default async function RootLayout({
 }>) {
     const { locale } = await params;
 
+    if (!hasLocale(routing.locales, locale)) {
+        notFound();
+    }
+
+    setRequestLocale(locale);
+
     return (
-        <html lang={locale}>
+        <html lang={locale} className='dark'>
             <head>
                 <Script>
                     {`document.documentElement.classList.add('dark');`}
@@ -41,25 +55,27 @@ export default async function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
-                <StateProvider locale={locale}>
-                    <Header/>
-                    {children}
-                    <Footer />
-                </StateProvider>
-                <Script
-                    async
-                    src="https://www.googletagmanager.com/gtag/js?id=G-M7MLPFDFXL"
-                    strategy="afterInteractive"
-                ></Script>
-                <Script strategy="afterInteractive">
-                    {`
+                <NextIntlClientProvider>
+                    <StateProvider locale={locale}>
+                        <Header />
+                        {children}
+                        <Footer />
+                    </StateProvider>
+                    <Script
+                        async
+                        src="https://www.googletagmanager.com/gtag/js?id=G-M7MLPFDFXL"
+                        strategy="afterInteractive"
+                    ></Script>
+                    <Script strategy="afterInteractive">
+                        {`
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){window.dataLayer.push(arguments);}
                     gtag('js', new Date());
 
                     gtag('config', 'G-M7MLPFDFXL');
                 `}
-                </Script>
+                    </Script>
+                </NextIntlClientProvider>
             </body>
         </html>
     );

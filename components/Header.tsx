@@ -1,46 +1,20 @@
-'use client'
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useLanguage } from "../providers/stateProvider";
-import { loggedin, logout } from "@/api/auth";
-import { Contents, Languages } from "../locales";
-import { useAtom } from "jotai";
-import { modalData } from "@/data/popup";
+'use client';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { loggedin, logout } from '@/api/auth';
+import { useAtom } from 'jotai';
+import { modalData } from '@/data/popup';
+import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
-const LanguageSwitcher = () => {
-    const { currentLanguage, setLanguage } = useLanguage();
+export default function Header (){
+    const t = useTranslations('Header');
 
-    const languageLabels: Record<Languages, string> = {
-        vi: 'vi',
-        en: 'en',
-        id: 'id'
-    };
-
-    return (
-        <select
-            value={currentLanguage}
-            onChange={(e) => setLanguage(e.target.value as Languages)}
-            className="text-black dark:text-white bg-transparent border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm mr-2"
-        >
-            {Object.entries(languageLabels).map(([code, label]) => (
-                <option
-                    key={code}
-                    value={code}
-                    className="text-black dark:text-white bg-white dark:bg-gray-800"
-                >
-                    {label}
-                </option>
-            ))}
-        </select>
-    );
-};
-
-export const Header = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const route = usePathname();
-    const { t } = useLanguage();
-    const [,setModal] = useAtom(modalData)
-    const openLogin = () => setModal({ type: 'login' })
+    const [, setModal] = useAtom(modalData);
+    const openLogin = () => setModal({ type: 'login' });
 
     useEffect(() => {
         const i = setInterval(() => {
@@ -53,37 +27,37 @@ export const Header = () => {
 
     type Route = {
         url: string;
-        titleKey: Contents;
+        titleKey: string;
     };
 
     const routes: Route[] = [
         {
             url: '/',
-            titleKey: Contents.HOME_TITLE
+            titleKey: 'homeTitle'
         },
         {
             url: '/pricing',
-            titleKey: Contents.PRICING_TITLE
+            titleKey: 'pricingTitle'
         },
         {
             url: '/faq',
-            titleKey: Contents.FAQ_TITLE
+            titleKey: 'faqTitle'
         },
         {
             url: '/refund/policy',
-            titleKey: Contents.REFUND_POLICY
+            titleKey: 'refundPolicy'
         }
     ];
 
     const renderRoute = (item: Route, index: number) => (
         <li key={index}>
-            <a
+            <Link
                 href={item.url}
                 className={`block py-2 pr-4 pl-3 border-b border-gray-100 ${route == item.url ? 'text-primary-600' : ''} hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-400 lg:p-0 lg:dark:hover:text-primary-500 dark:hover:bg-gray-700 dark:hover:text-primary-500 lg:dark:hover:bg-transparent dark:border-gray-700`}
                 aria-current="page"
             >
                 {t(item.titleKey)}
-            </a>
+            </Link>
         </li>
     );
 
@@ -91,7 +65,7 @@ export const Header = () => {
         <header>
             <nav className="bg-slate-300 border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-                    <a href="/play/" className="flex items-center">
+                    <Link href="/play/" className="flex items-center">
                         <img
                             src="/img/logo_white.png"
                             className="mr-3 h-12 sm:h-20 hidden dark:block"
@@ -105,8 +79,8 @@ export const Header = () => {
                         <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
                             Thinkmay
                         </span>
-                    </a>
-                    <div className="flex items-center lg:order-2">
+                    </Link>
+                    <div className="flex gap-2 lg:order-2">
                         <LanguageSwitcher />
                         {loggedIn ? (
                             <>
@@ -114,21 +88,21 @@ export const Header = () => {
                                     className="text-black dark:text-white hover:bg-blue-800 hover:text-white focus:ring-4 font-medium rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 focus:outline-none cursor-pointer"
                                     onClick={logout}
                                 >
-                                    {t(Contents.LOGOUT)}
+                                    {t('logout')}{' '}
                                 </a>
-                                <a
+                                <Link
                                     className="text-white font-bold bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 cursor-pointer"
                                     href="/play/?ref=landingpage_navplay"
                                 >
-                                    {t(Contents.PLAYNOW)}
-                                </a>
+                                    {t('playNow')}{' '}
+                                </Link>
                             </>
                         ) : (
                             <a
                                 className="text-white bg-gray-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 cursor-pointer"
                                 onClick={openLogin}
                             >
-                                {t(Contents.LOGIN)}
+                                {t('login')}
                             </a>
                         )}
                         <button

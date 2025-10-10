@@ -4,6 +4,8 @@ import { info, loggedin } from '@/api/auth';
 import { createClient } from '@supabase/supabase-js';
 import { useEffect, useRef, useState } from 'react';
 import RefundPolicy_page from './policy/page';
+import { Link } from '@/i18n/navigation';
+
 export default function Page() {
     const [step, setStep] = useState<string>('not_signed');
     const [refundForm, setRefundForm] = useState<any[]>([]);
@@ -155,12 +157,12 @@ function RefundStatus() {
                         Vui lòng gửi lại QR nhận tiền & email vào Fanpage để
                         được hỗ trợ hoàn tiền.
                         <br />
-                        <a
+                        <Link
                             href="https://fb.com/thinkonmay"
                             className="text-blue-500 underline"
                         >
                             Fanpage Thinkmay
-                        </a>
+                        </Link>
                     </h2>
                 </div>
             </div>

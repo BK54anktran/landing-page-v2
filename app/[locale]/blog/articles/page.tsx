@@ -1,3 +1,5 @@
+import { Link } from "@/i18n/navigation";
+
 export default function Article() {
     return (
         <>
@@ -315,7 +317,7 @@ export default function Article() {
                                 <nav className="p-6 mb-6 font-medium text-gray-500 rounded-lg border border-gray-200 dark:border-gray-700 dark:text-gray-400">
                                     <ul className="mb-6 space-y-4">
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="flex items-center text-primary-700 dark:text-primary-500"
                                             >
@@ -329,10 +331,10 @@ export default function Article() {
                                                     <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
                                                 </svg>
                                                 Home
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="flex items-center hover:text-primary-600 dark:hover-text-primary-500"
                                             >
@@ -346,10 +348,10 @@ export default function Article() {
                                                     <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2ZM7 2h4v2H7V2ZM5 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm0-4a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm8 4H8a1 1 0 0 1 0-2h5a1 1 0 0 1 0 2Zm0-4H8a1 1 0 0 1 0-2h5a1 1 0 1 1 0 2Z" />
                                                 </svg>
                                                 Reading list
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="flex items-center hover:text-primary-600 dark:hover-text-primary-500"
                                             >
@@ -363,10 +365,10 @@ export default function Article() {
                                                     <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
                                                 </svg>
                                                 Listings
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="flex items-center hover:text-primary-600 dark:hover-text-primary-500"
                                             >
@@ -381,10 +383,10 @@ export default function Article() {
                                                     <path d="M9 0H7a3 3 0 0 0-3 3v5a3 3 0 0 0 3 3h2a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3Z" />
                                                 </svg>
                                                 Podcasts
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="flex items-center hover:text-primary-600 dark:hover-text-primary-500"
                                             >
@@ -399,10 +401,10 @@ export default function Article() {
                                                     <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM9 13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2Zm4 .382a1 1 0 0 1-1.447.894L10 13v-2l1.553-1.276a1 1 0 0 1 1.447.894v2.764Z" />
                                                 </svg>{' '}
                                                 Videos
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="flex items-center hover:text-primary-600 dark:hover-text-primary-500"
                                             >
@@ -416,10 +418,10 @@ export default function Article() {
                                                     <path d="M15.045.007 9.31 0a1.965 1.965 0 0 0-1.4.585L.58 7.979a2 2 0 0 0 0 2.805l6.573 6.631a1.956 1.956 0 0 0 1.4.585 1.965 1.965 0 0 0 1.4-.585l7.409-7.477A2 2 0 0 0 18 8.479v-5.5A2.972 2.972 0 0 0 15.045.007Zm-2.452 6.438a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
                                                 </svg>
                                                 Tags
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="flex items-center hover:text-primary-600 dark:hover-text-primary-500"
                                             >
@@ -433,10 +435,10 @@ export default function Article() {
                                                     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm0 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm1-5.034V12a1 1 0 0 1-2 0v-1.418a1 1 0 0 1 1.038-.999 1.436 1.436 0 0 0 1.488-1.441 1.501 1.501 0 1 0-3-.116.986.986 0 0 1-1.037.961 1 1 0 0 1-.96-1.037A3.5 3.5 0 1 1 11 11.466Z" />
                                                 </svg>
                                                 FAQ
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="flex items-center hover:text-primary-600 dark:hover-text-primary-500"
                                             >
@@ -450,10 +452,10 @@ export default function Article() {
                                                     <path d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
                                                 </svg>
                                                 Sponsors
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="flex items-center hover:text-primary-600 dark:hover-text-primary-500"
                                             >
@@ -467,7 +469,7 @@ export default function Article() {
                                                     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                                                 </svg>
                                                 About
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                     <h4 className="mb-4 text-gray-900 dark:text-white">
@@ -475,7 +477,7 @@ export default function Article() {
                                     </h4>
                                     <ul className="space-y-4">
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="flex items-center hover:text-primary-600 dark:hover-text-primary-500"
                                             >
@@ -489,10 +491,10 @@ export default function Article() {
                                                     <path d="M14 7h-1.5V4.5a4.5 4.5 0 1 0-9 0V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Zm-5 8a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Zm1.5-8h-5V4.5a2.5 2.5 0 1 1 5 0V7Z" />
                                                 </svg>
                                                 Privacy policy
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="flex items-center hover:text-primary-600 dark:hover-text-primary-500"
                                             >
@@ -506,10 +508,10 @@ export default function Article() {
                                                     <path d="M10 .5a9.5 9.5 0 1 0 0 19 9.5 9.5 0 0 0 0-19ZM8.374 17.4a7.6 7.6 0 0 1-5.9-7.4c0-.83.137-1.655.406-2.441l.239.019a3.887 3.887 0 0 1 2.082 2.5 4.1 4.1 0 0 0 2.441 2.8c1.148.522 1.389 2.007.732 4.522Zm3.6-8.829a.997.997 0 0 0-.027-.225 5.456 5.456 0 0 0-2.811-3.662c-.832-.527-1.347-.854-1.486-1.89a7.584 7.584 0 0 1 8.364 2.47c-1.387.208-2.14 2.237-2.14 3.307a1.187 1.187 0 0 1-1.9 0Zm1.626 8.053-.671-2.013a1.9 1.9 0 0 1 1.771-1.757l2.032.619a7.553 7.553 0 0 1-3.132 3.151Z" />
                                                 </svg>
                                                 Terms of use
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="flex items-center hover:text-primary-600 dark:hover-text-primary-500"
                                             >
@@ -523,7 +525,7 @@ export default function Article() {
                                                     <path d="M16 0H4a2 2 0 0 0-2 2v1H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4.5a3 3 0 1 1 0 6 3 3 0 0 1 0-6ZM13.929 17H7.071a.5.5 0 0 1-.5-.5 3.935 3.935 0 1 1 7.858 0 .5.5 0 0 1-.5.5Z" />
                                                 </svg>
                                                 Contact
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </nav>
@@ -563,21 +565,21 @@ export default function Article() {
                             <div className="text-base">
                                 <address className="inline">
                                     By{' '}
-                                    <a
+                                    <Link
                                         rel="author"
                                         className="text-gray-900 no-underline dark:text-white hover:underline"
                                         href="#"
                                     >
                                         Jese Leos
-                                    </a>
+                                    </Link>
                                 </address>{' '}
                                 in{' '}
-                                <a
+                                <Link
                                     href="#"
                                     className="text-gray-900 no-underline dark:text-white hover:underline"
                                 >
                                     Design
-                                </a>
+                                </Link>
                                 on{' '}
                                 <time
                                     className="uppercase"
@@ -590,7 +592,7 @@ export default function Article() {
                         </header>
                         <div className="flex justify-between items-center">
                             <aside aria-label="Share social media">
-                                <a
+                                <Link
                                     href="#"
                                     className="inline-flex items-center py-2 px-3 mr-2 text-xs font-medium text-gray-900 no-underline bg-white rounded-lg border border-gray-200 focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                 >
@@ -608,8 +610,8 @@ export default function Article() {
                                         />
                                     </svg>
                                     Share
-                                </a>
-                                <a
+                                </Link>
+                                <Link
                                     href="#"
                                     className="inline-flex items-center py-2 px-3 mr-2 text-xs font-medium text-gray-900 no-underline bg-white rounded-lg border border-gray-200 focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                 >
@@ -626,8 +628,8 @@ export default function Article() {
                                         />
                                     </svg>
                                     Tweet
-                                </a>
-                                <a
+                                </Link>
+                                <Link
                                     href="#"
                                     className="inline-flex items-center py-2 px-3 text-xs font-medium text-gray-900 no-underline bg-white rounded-lg border border-gray-200 focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                 >
@@ -647,7 +649,7 @@ export default function Article() {
                                         />
                                     </svg>
                                     Copy link
-                                </a>
+                                </Link>
                             </aside>
                             <button
                                 data-tooltip-target="tooltip-save"
@@ -690,16 +692,16 @@ export default function Article() {
                         </p>
                         <p>
                             Before going digital, you might benefit from
-                            scribbling down some ideas in a sketchbook. This
+                            scribbling down some ideas in Link sketchbook. This
                             way, you can think things through before committing
                             to an actual design project.
                         </p>
                         <p>
-                            But then I found a{' '}
-                            <a href="https://flowbite.com">
+                            But then I found Link{' '}
+                            <Link href="https://flowbite.com">
                                 component library based on Tailwind CSS called
                                 Flowbite
-                            </a>
+                            </Link>
                             . It comes with the most commonly used UI
                             components, such as buttons, navigation bars, cards,
                             form elements, and more which are conveniently built
@@ -716,41 +718,41 @@ export default function Article() {
                         <p>
                             First of all you need to understand how Flowbite
                             works. This library is not another framework.
-                            Rather, it is a set of components based on Tailwind
+                            Rather, it is Link set of components based on Tailwind
                             CSS that you can just copy-paste from the
                             documentation.
                         </p>
                         <p>
-                            It also includes a JavaScript file that enables
+                            It also includes Link JavaScript file that enables
                             interactive components, such as modals, dropdowns,
                             and datepickers which you can optionally include
                             into your project via CDN or NPM.
                         </p>
                         <p>
                             You can check out the{' '}
-                            <a href="https://flowbite.com/docs/getting-started/quickstart/">
+                            <Link href="https://flowbite.com/docs/getting-started/quickstart/">
                                 quickstart guide
-                            </a>{' '}
+                            </Link>{' '}
                             to explore the elements by including the CDN files
-                            into your project. But if you want to build a
+                            into your project. But if you want to build Link
                             project with Flowbite I recommend you to follow the
                             build tools steps so that you can purge and minify
                             the generated CSS.
                         </p>
                         <p>
-                            You'll also receive a lot of useful application UI,
+                            You'll also receive Link lot of useful application UI,
                             marketing UI, and e-commerce pages that can help you
                             get started with your projects even faster. You can
                             check out this{' '}
-                            <a href="https://flowbite.com/docs/components/tables/">
+                            <Link href="https://flowbite.com/docs/components/tables/">
                                 comparison table
-                            </a>{' '}
+                            </Link>{' '}
                             to better understand the differences between the
                             open-source and pro version of Flowbite.
                         </p>
                         <h2>When does design come in handy?</h2>
                         <p>
-                            While it might seem like extra work at a first
+                            While it might seem like extra work at Link first
                             glance, here are some key moments in which
                             prototyping will come in handy:
                         </p>
@@ -760,7 +762,7 @@ export default function Article() {
                                 user know how to exit out of screens? Can they
                                 follow your intended user journey and buy
                                 something from the site you’ve designed? By
-                                running a usability test, you’ll be able to see
+                                running Link usability test, you’ll be able to see
                                 how users will interact with your design once
                                 it’s live;
                             </li>
@@ -771,9 +773,9 @@ export default function Article() {
                                 protection team and they can test it for real;
                             </li>
                             <li>
-                                <strong>Impressing a client</strong>. Prototypes
+                                <strong>Impressing Link client</strong>. Prototypes
                                 can help explain or even sell your idea by
-                                providing your client with a hands-on
+                                providing your client with Link hands-on
                                 experience;
                             </li>
                             <li>
@@ -787,7 +789,7 @@ export default function Article() {
                         <h3>Laying the groundwork for best design</h3>
                         <p>
                             Before going digital, you might benefit from
-                            scribbling down some ideas in a sketchbook. This
+                            scribbling down some ideas in Link sketchbook. This
                             way, you can think things through before committing
                             to an actual design project.
                         </p>
@@ -798,30 +800,30 @@ export default function Article() {
                         <h3>Understanding typography</h3>
                         <h4>Type properties</h4>
                         <p>
-                            A typeface is a collection of letters. While each
+                            A typeface is Link collection of letters. While each
                             letter is unique, certain shapes are shared across
                             letters. A typeface represents shared patterns
-                            across a collection of letters.
+                            across Link collection of letters.
                         </p>
                         <h4>Baseline</h4>
                         <p>
-                            A typeface is a collection of letters. While each
+                            A typeface is Link collection of letters. While each
                             letter is unique, certain shapes are shared across
                             letters. A typeface represents shared patterns
-                            across a collection of letters.
+                            across Link collection of letters.
                         </p>
                         <h4>Measurement from the baseline</h4>
                         <p>
-                            A typeface is a collection of letters. While each
+                            A typeface is Link collection of letters. While each
                             letter is unique, certain shapes are shared across
                             letters. A typeface represents shared patterns
-                            across a collection of letters.
+                            across Link collection of letters.
                         </p>
                         <h3>Type classification</h3>
                         <h4>Serif</h4>
                         <p>
-                            A serif is a small shape or projection that appears
-                            at the beginning or end of a stroke on a letter.
+                            A serif is Link small shape or projection that appears
+                            at the beginning or end of Link stroke on Link letter.
                             Typefaces with serifs are called serif typefaces.
                             Serif fonts are classified as one of the following:
                         </p>
@@ -842,7 +844,7 @@ export default function Article() {
                         </ol>
                         <h3>Laying the best for successful prototyping</h3>
                         <p>
-                            A serif is a small shape or projection that appears
+                            A serif is Link small shape or projection that appears
                             at the beginning:
                         </p>
                         <blockquote>
@@ -855,8 +857,8 @@ export default function Article() {
                         </blockquote>
                         <h4>Code example</h4>
                         <p>
-                            A serif is a small shape or projection that appears
-                            at the beginning or end of a stroke on a letter.
+                            A serif is Link small shape or projection that appears
+                            at the beginning or end of Link stroke on Link letter.
                             Typefaces with serifs are called serif typefaces.
                             Serif fonts are classified as one of the following:
                         </p>
@@ -887,8 +889,8 @@ export default function Article() {
                         </pre>
                         <h4>Table example</h4>
                         <p>
-                            A serif is a small shape or projection that appears
-                            at the beginning or end of a stroke on a letter.
+                            A serif is Link small shape or projection that appears
+                            at the beginning or end of Link stroke on Link letter.
                         </p>
                         <table>
                             <thead>
@@ -946,13 +948,13 @@ export default function Article() {
                         <h3>Best practices for setting up your prototype</h3>
                         <p>
                             <strong>Low fidelity or high fidelity?</strong>{' '}
-                            Fidelity refers to how close a prototype will be to
-                            the real deal. If you’re simply preparing a quick
-                            visual aid for a presentation, a low-fidelity
-                            prototype — like a wireframe with placeholder images
+                            Fidelity refers to how close Link prototype will be to
+                            the real deal. If you’re simply preparing Link quick
+                            visual aid for Link presentation, Link low-fidelity
+                            prototype — like Link wireframe with placeholder images
                             and some basic text — would be more than enough. But
                             if you’re going for more intricate usability
-                            testing, a high-fidelity prototype — with on-brand
+                            testing, Link high-fidelity prototype — with on-brand
                             colors, fonts and imagery — could help get more
                             pointed results.
                         </p>
@@ -969,10 +971,10 @@ export default function Article() {
                             way to both organize your tasks and create more
                             user-friendly prototypes is by building your
                             prototypes ‘inside out’. Start by focusing on what
-                            will be important to your user, like a Buy now
+                            will be important to your user, like Link Buy now
                             button or an image gallery, and list each element by
                             order of priority. This way, you’ll be able to
-                            create a prototype that puts your users’ needs at
+                            create Link prototype that puts your users’ needs at
                             the heart of your design.
                         </p>
                         <p>
@@ -1014,7 +1016,7 @@ export default function Article() {
                                                 id="comment"
                                                 rows={4}
                                                 className="px-0 w-full text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-                                                placeholder="Write a comment..."
+                                                placeholder="Write Link comment..."
                                                 required
                                             ></textarea>
                                         </div>
@@ -1209,7 +1211,7 @@ export default function Article() {
                                         <div className="rounded-lg bg-gray-100 w-9 flex flex-col items-center justify-center font-medium dark:bg-gray-700">
                                             <button
                                                 type="button"
-                                                className="text-gray-500 dark:text-gray-400 py-1 dark:hover:bg-gray-600 rounded-t-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                                className="text-gray-500 dark:text-gray-400 py-1 rounded-t-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                                             >
                                                 +
                                             </button>
@@ -1218,7 +1220,7 @@ export default function Article() {
                                             </span>
                                             <button
                                                 type="button"
-                                                className="text-gray-500  dark:text-gray-400 py-1 dark:hover:bg-gray-600 rounded-b-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                                className="text-gray-500  dark:text-gray-400 py-1 rounded-b-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                                             >
                                                 -
                                             </button>
@@ -1226,7 +1228,7 @@ export default function Article() {
                                     </div>
                                     <div className="w-full">
                                         <footer className="flex justify-between items-center mb-2 w-full">
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="flex items-center"
                                             >
@@ -1245,7 +1247,7 @@ export default function Article() {
                                                         Mar. 15, 2022
                                                     </time>
                                                 </p>
-                                            </a>
+                                            </Link>
                                             <button
                                                 id="dropdownComment1Button"
                                                 data-dropdown-toggle="dropdownComment1"
@@ -1275,28 +1277,28 @@ export default function Article() {
                                                     aria-labelledby="dropdownMenuIconHorizontalButton"
                                                 >
                                                     <li>
-                                                        <a
+                                                        <Link
                                                             href="#"
                                                             className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >
                                                             Edit
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                     <li>
-                                                        <a
+                                                        <Link
                                                             href="#"
                                                             className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >
                                                             Remove
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                     <li>
-                                                        <a
+                                                        <Link
                                                             href="#"
                                                             className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >
                                                             Report
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1333,7 +1335,7 @@ export default function Article() {
                                         <div className="rounded-lg bg-gray-100 w-9 flex flex-col items-center justify-center font-medium dark:bg-gray-700">
                                             <button
                                                 type="button"
-                                                className="text-gray-500 dark:text-gray-400 py-1 dark:hover:bg-gray-600 rounded-t-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                                className="text-gray-500 dark:text-gray-400 py-1 rounded-t-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                                             >
                                                 +
                                             </button>
@@ -1342,7 +1344,7 @@ export default function Article() {
                                             </span>
                                             <button
                                                 type="button"
-                                                className="text-gray-500  dark:text-gray-400 py-1 dark:hover:bg-gray-600 rounded-b-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                                className="text-gray-500  dark:text-gray-400 py-1 rounded-b-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                                             >
                                                 -
                                             </button>
@@ -1350,7 +1352,7 @@ export default function Article() {
                                     </div>
                                     <div className="w-full">
                                         <footer className="flex justify-between items-center mb-2 w-full">
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="flex items-center"
                                             >
@@ -1369,7 +1371,7 @@ export default function Article() {
                                                         Feb. 12, 2022
                                                     </time>
                                                 </p>
-                                            </a>
+                                            </Link>
                                             <button
                                                 id="dropdownComment2Button"
                                                 data-dropdown-toggle="dropdownComment2"
@@ -1399,28 +1401,28 @@ export default function Article() {
                                                     aria-labelledby="dropdownMenuIconHorizontalButton"
                                                 >
                                                     <li>
-                                                        <a
+                                                        <Link
                                                             href="#"
                                                             className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >
                                                             Edit
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                     <li>
-                                                        <a
+                                                        <Link
                                                             href="#"
                                                             className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >
                                                             Remove
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                     <li>
-                                                        <a
+                                                        <Link
                                                             href="#"
                                                             className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >
                                                             Report
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1455,7 +1457,7 @@ export default function Article() {
                                         <div className="rounded-lg bg-gray-100 w-9 flex flex-col items-center justify-center font-medium dark:bg-gray-700">
                                             <button
                                                 type="button"
-                                                className="text-gray-500 dark:text-gray-400 py-1 dark:hover:bg-gray-600 rounded-t-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                                className="text-gray-500 dark:text-gray-400 py-1 rounded-t-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                                             >
                                                 +
                                             </button>
@@ -1464,7 +1466,7 @@ export default function Article() {
                                             </span>
                                             <button
                                                 type="button"
-                                                className="text-gray-500  dark:text-gray-400 py-1 dark:hover:bg-gray-600 rounded-b-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                                className="text-gray-500  dark:text-gray-400 py-1 rounded-b-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                                             >
                                                 -
                                             </button>
@@ -1472,7 +1474,7 @@ export default function Article() {
                                     </div>
                                     <div className="w-full">
                                         <footer className="flex justify-between items-center mb-2 w-full">
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="flex items-center"
                                             >
@@ -1491,7 +1493,7 @@ export default function Article() {
                                                         Feb. 8, 2022
                                                     </time>
                                                 </p>
-                                            </a>
+                                            </Link>
                                             <button
                                                 id="dropdownComment3Button"
                                                 data-dropdown-toggle="dropdownComment3"
@@ -1521,28 +1523,28 @@ export default function Article() {
                                                     aria-labelledby="dropdownMenuIconHorizontalButton"
                                                 >
                                                     <li>
-                                                        <a
+                                                        <Link
                                                             href="#"
                                                             className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >
                                                             Edit
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                     <li>
-                                                        <a
+                                                        <Link
                                                             href="#"
                                                             className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >
                                                             Remove
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                     <li>
-                                                        <a
+                                                        <Link
                                                             href="#"
                                                             className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >
                                                             Report
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1582,7 +1584,7 @@ export default function Article() {
                                         <div className="rounded-lg bg-gray-100 w-9 flex flex-col items-center justify-center font-medium dark:bg-gray-700">
                                             <button
                                                 type="button"
-                                                className="text-gray-500 dark:text-gray-400 py-1 dark:hover:bg-gray-600 rounded-t-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                                className="text-gray-500 dark:text-gray-400 py-1 rounded-t-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                                             >
                                                 +
                                             </button>
@@ -1591,7 +1593,7 @@ export default function Article() {
                                             </span>
                                             <button
                                                 type="button"
-                                                className="text-gray-500  dark:text-gray-400 py-1 dark:hover:bg-gray-600 rounded-b-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                                className="text-gray-500  dark:text-gray-400 py-1 rounded-b-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                                             >
                                                 -
                                             </button>
@@ -1599,7 +1601,7 @@ export default function Article() {
                                     </div>
                                     <div className="w-full">
                                         <footer className="flex justify-between items-center mb-2 w-full">
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="flex items-center"
                                             >
@@ -1618,7 +1620,7 @@ export default function Article() {
                                                         Mar. 15, 2022
                                                     </time>
                                                 </p>
-                                            </a>
+                                            </Link>
                                             <button
                                                 id="dropdownComment4Button"
                                                 data-dropdown-toggle="dropdownComment4"
@@ -1648,28 +1650,28 @@ export default function Article() {
                                                     aria-labelledby="dropdownMenuIconHorizontalButton"
                                                 >
                                                     <li>
-                                                        <a
+                                                        <Link
                                                             href="#"
                                                             className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >
                                                             Edit
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                     <li>
-                                                        <a
+                                                        <Link
                                                             href="#"
                                                             className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >
                                                             Remove
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                     <li>
-                                                        <a
+                                                        <Link
                                                             href="#"
                                                             className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >
                                                             Report
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1706,7 +1708,7 @@ export default function Article() {
                                         <div className="rounded-lg bg-gray-100 w-9 flex flex-col items-center justify-center font-medium dark:bg-gray-700">
                                             <button
                                                 type="button"
-                                                className="text-gray-500 dark:text-gray-400 py-1 dark:hover:bg-gray-600 rounded-t-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                                className="text-gray-500 dark:text-gray-400 py-1 rounded-t-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                                             >
                                                 +
                                             </button>
@@ -1715,7 +1717,7 @@ export default function Article() {
                                             </span>
                                             <button
                                                 type="button"
-                                                className="text-gray-500  dark:text-gray-400 py-1 dark:hover:bg-gray-600 rounded-b-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                                className="text-gray-500  dark:text-gray-400 py-1 rounded-b-lg hover:bg-gray-200 w-full focus:ring-2 focus:outline-none focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                                             >
                                                 -
                                             </button>
@@ -1723,7 +1725,7 @@ export default function Article() {
                                     </div>
                                     <div className="w-full">
                                         <footer className="flex justify-between items-center mb-2 w-full">
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="flex items-center"
                                             >
@@ -1742,7 +1744,7 @@ export default function Article() {
                                                         Jun. 23, 2022
                                                     </time>
                                                 </p>
-                                            </a>
+                                            </Link>
                                             <button
                                                 id="dropdownComment5Button"
                                                 data-dropdown-toggle="dropdownComment5"
@@ -1772,28 +1774,28 @@ export default function Article() {
                                                     aria-labelledby="dropdownMenuIconHorizontalButton"
                                                 >
                                                     <li>
-                                                        <a
+                                                        <Link
                                                             href="#"
                                                             className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >
                                                             Edit
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                     <li>
-                                                        <a
+                                                        <Link
                                                             href="#"
                                                             className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >
                                                             Remove
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                     <li>
-                                                        <a
+                                                        <Link
                                                             href="#"
                                                             className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                         >
                                                             Report
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1835,7 +1837,7 @@ export default function Article() {
                                 Sidebar
                             </h3>
                             <div className="p-6 mb-6 text-gray-500 rounded-lg border border-gray-200 dark:border-gray-700 dark:text-gray-400">
-                                <a href="#" className="flex items-center mb-4">
+                                <Link href="#" className="flex items-center mb-4">
                                     <div className="mr-3 shrink-0">
                                         <img
                                             className="mt-1 w-8 h-8 rounded-full"
@@ -1851,9 +1853,9 @@ export default function Article() {
                                             34k followers
                                         </span>
                                     </div>
-                                </a>
+                                </Link>
                                 <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
-                                    Hey! I'm Jese Leos. I'm a career-changer.
+                                    Hey! I'm Jese Leos. I'm Link career-changer.
                                     Bootcamp grad & Dev.
                                 </p>
                                 <dl className="mb-5">
@@ -1916,48 +1918,48 @@ export default function Article() {
                                     Recommended topics
                                 </h4>
                                 <div className="flex flex-wrap">
-                                    <a
+                                    <Link
                                         href="#"
                                         className="bg-primary-100 text-primary-800 text-sm font-medium mr-3 px-2.5 py-0.5 rounded-sm dark:bg-primary-900 dark:text-primary-300 mb-3"
                                     >
                                         Technology
-                                    </a>
-                                    <a
+                                    </Link>
+                                    <Link
                                         href="#"
                                         className="bg-primary-100 text-primary-800 text-sm font-medium mr-3 px-2.5 py-0.5 rounded-sm dark:bg-primary-900 dark:text-primary-300 mb-3"
                                     >
                                         Money
-                                    </a>
-                                    <a
+                                    </Link>
+                                    <Link
                                         href="#"
                                         className="bg-primary-100 text-primary-800 text-sm font-medium mr-3 px-2.5 py-0.5 rounded-sm dark:bg-primary-900 dark:text-primary-300 mb-3"
                                     >
                                         Art
-                                    </a>
-                                    <a
+                                    </Link>
+                                    <Link
                                         href="#"
                                         className="bg-primary-100 text-primary-800 text-sm font-medium mr-3 px-2.5 py-0.5 rounded-sm dark:bg-primary-900 dark:text-primary-300 mb-3"
                                     >
                                         Productivity
-                                    </a>
-                                    <a
+                                    </Link>
+                                    <Link
                                         href="#"
                                         className="bg-primary-100 text-primary-800 text-sm font-medium mr-3 px-2.5 py-0.5 rounded-sm dark:bg-primary-900 dark:text-primary-300 mb-3"
                                     >
                                         Psychology
-                                    </a>
-                                    <a
+                                    </Link>
+                                    <Link
                                         href="#"
                                         className="bg-primary-100 text-primary-800 text-sm font-medium mr-3 px-2.5 py-0.5 rounded-sm dark:bg-primary-900 dark:text-primary-300 mb-3"
                                     >
                                         Design
-                                    </a>
-                                    <a
+                                    </Link>
+                                    <Link
                                         href="#"
                                         className="bg-primary-100 text-primary-800 text-sm font-medium mr-3 px-2.5 py-0.5 rounded-sm dark:bg-primary-900 dark:text-primary-300"
                                     >
                                         Mindfulness
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                             <div className="p-6 font-medium text-gray-500 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
@@ -2057,92 +2059,92 @@ export default function Article() {
                     </h2>
                     <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
                         <article className="max-w-xs">
-                            <a href="#">
+                            <Link href="#">
                                 <img
                                     src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/article/blog-1.png"
                                     className="mb-5 rounded-lg"
                                     alt="Image 1"
                                 />
-                            </a>
+                            </Link>
                             <h2 className="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
-                                <a href="#">Our first office</a>
+                                <Link href="#">Our first office</Link>
                             </h2>
                             <p className="mb-4 text-gray-500 dark:text-gray-400">
                                 Over the past year, Volosoft has undergone many
                                 changes! After months of preparation.
                             </p>
-                            <a
+                            <Link
                                 href="#"
                                 className="inline-flex items-center font-medium underline underline-offset-4 text-primary-700 dark:text-primary-500 hover:no-underline"
                             >
                                 Read in 2 minutes
-                            </a>
+                            </Link>
                         </article>
                         <article className="max-w-xs">
-                            <a href="#">
+                            <Link href="#">
                                 <img
                                     src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/article/blog-2.png"
                                     className="mb-5 rounded-lg"
                                     alt="Image 2"
                                 />
-                            </a>
+                            </Link>
                             <h2 className="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
-                                <a href="#">Enterprise design tips</a>
+                                <Link href="#">Enterprise design tips</Link>
                             </h2>
                             <p className="mb-4 text-gray-500 dark:text-gray-400">
                                 Over the past year, Volosoft has undergone many
                                 changes! After months of preparation.
                             </p>
-                            <a
+                            <Link
                                 href="#"
                                 className="inline-flex items-center font-medium underline underline-offset-4 text-primary-700 dark:text-primary-500 hover:no-underline"
                             >
                                 Read in 12 minutes
-                            </a>
+                            </Link>
                         </article>
                         <article className="max-w-xs">
-                            <a href="#">
+                            <Link href="#">
                                 <img
                                     src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/article/blog-3.png"
                                     className="mb-5 rounded-lg"
                                     alt="Image 3"
                                 />
-                            </a>
+                            </Link>
                             <h2 className="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
-                                <a href="#">We partnered up with Google</a>
+                                <Link href="#">We partnered up with Google</Link>
                             </h2>
                             <p className="mb-4 text-gray-500 dark:text-gray-400">
                                 Over the past year, Volosoft has undergone many
                                 changes! After months of preparation.
                             </p>
-                            <a
+                            <Link
                                 href="#"
                                 className="inline-flex items-center font-medium underline underline-offset-4 text-primary-700 dark:text-primary-500 hover:no-underline"
                             >
                                 Read in 8 minutes
-                            </a>
+                            </Link>
                         </article>
                         <article className="max-w-xs">
-                            <a href="#">
+                            <Link href="#">
                                 <img
                                     src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/article/blog-4.png"
                                     className="mb-5 rounded-lg"
                                     alt="Image 4"
                                 />
-                            </a>
+                            </Link>
                             <h2 className="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
-                                <a href="#">Our first project with React</a>
+                                <Link href="#">Our first project with React</Link>
                             </h2>
                             <p className="mb-4 text-gray-500 dark:text-gray-400">
                                 Over the past year, Volosoft has undergone many
                                 changes! After months of preparation.
                             </p>
-                            <a
+                            <Link
                                 href="#"
                                 className="inline-flex items-center font-medium underline underline-offset-4 text-primary-700 dark:text-primary-500 hover:no-underline"
                             >
                                 Read in 4 minutes
-                            </a>
+                            </Link>
                         </article>
                     </div>
                 </div>
@@ -2151,18 +2153,18 @@ export default function Article() {
             <section className="bg-white dark:bg-gray-900 antialiased">
                 <div className="p-4 py-12 mx-auto max-w-screen-xl text-center lg:py-24">
                     <h2 className="mx-auto mb-6 max-w-2xl text-2xl font-extrabold leading-tight text-gray-900 lg:text-4xl dark:text-white">
-                        Join a growing community of millions of developers and
+                        Join Link growing community of millions of developers and
                         designers!
                     </h2>
                     <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-500 lg:text-xl dark:text-gray-400">
                         Millions of tech blogs publish on Flowbite daily.{' '}
                     </p>
-                    <a
+                    <Link
                         href="#"
                         className="py-3 px-5 w-full text-sm font-medium text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
                     >
                         Create an account
-                    </a>
+                    </Link>
                 </div>
             </section>
         </>

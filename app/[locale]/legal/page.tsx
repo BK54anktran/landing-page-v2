@@ -1,3 +1,5 @@
+import { Link } from "@/i18n/navigation";
+
 export default function Legal() {
     return (
         <section className="bg-white dark:bg-gray-900">
@@ -12,83 +14,83 @@ export default function Legal() {
 
                                 <ul className="space-y-4">
                                     <li>
-                                        <a
+                                        <Link
                                             href="#"
                                             title=""
                                             className="text-base font-medium text-primary-700 dark:text-primary-500"
                                         >
                                             Flowbite Market Terms
-                                        </a>
+                                        </Link>
                                     </li>
 
                                     <li>
-                                        <a
+                                        <Link
                                             href="#"
                                             title=""
                                             className="text-base font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                                         >
                                             Author Terms
-                                        </a>
+                                        </Link>
                                     </li>
 
                                     <li>
-                                        <a
+                                        <Link
                                             href="#"
                                             title=""
                                             className="text-base font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                                         >
                                             Affiliate Program Terms
-                                        </a>
+                                        </Link>
                                     </li>
 
                                     <li>
-                                        <a
+                                        <Link
                                             href="#"
                                             title=""
                                             className="text-base font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                                         >
                                             Privacy Policy
-                                        </a>
+                                        </Link>
                                     </li>
 
                                     <li>
-                                        <a
+                                        <Link
                                             href="#"
                                             title=""
                                             className="text-base font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                                         >
                                             Terms and Conditions
-                                        </a>
+                                        </Link>
                                     </li>
 
                                     <li>
-                                        <a
+                                        <Link
                                             href="#"
                                             title=""
                                             className="text-base font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                                         >
                                             API Services
-                                        </a>
+                                        </Link>
                                     </li>
 
                                     <li>
-                                        <a
+                                        <Link
                                             href="#"
                                             title=""
                                             className="text-base font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                                         >
                                             Acceptable Use Policy
-                                        </a>
+                                        </Link>
                                     </li>
                                 </ul>
 
-                                <a
+                                <Link
                                     href="#"
                                     title=""
                                     className="w-full text-white items-center justify-center inline-flex bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                                 >
-                                    Got a question? Contact us.
-                                </a>
+                                    Got Link question? Contact us.
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -99,93 +101,93 @@ export default function Legal() {
                         </h3>
                         <ul className="mt-6 space-y-3 text-gray-500 list-disc list-inside dark:text-gray-400">
                             <li>
-                                <a
+                                <Link
                                     href="#"
                                     title=""
                                     className="text-base font-medium text-primary-700 dark:text-primary-500 hover:underline"
                                 >
                                     Welcome to Envato Market
-                                </a>
+                                </Link>
                             </li>
 
                             <li>
-                                <a
+                                <Link
                                     href="#"
                                     title=""
                                     className="text-base font-medium text-primary-700 dark:text-primary-500 hover:underline"
                                 >
                                     How browsing and membership works
-                                </a>
+                                </Link>
                             </li>
 
                             <li>
-                                <a
+                                <Link
                                     href="#"
                                     title=""
                                     className="text-base font-medium text-primary-700 dark:text-primary-500 hover:underline"
                                 >
                                     How buying items works
-                                </a>
+                                </Link>
                             </li>
 
                             <li>
-                                <a
+                                <Link
                                     href="#"
                                     title=""
                                     className="text-base font-medium text-primary-700 dark:text-primary-500 hover:underline"
                                 >
                                     Becoming an author
-                                </a>
+                                </Link>
                             </li>
 
                             <li>
-                                <a
+                                <Link
                                     href="#"
                                     title=""
                                     className="text-base font-medium text-primary-700 dark:text-primary-500 hover:underline"
                                 >
                                     Our use of your information
-                                </a>
+                                </Link>
                             </li>
 
                             <li>
-                                <a
+                                <Link
                                     href="#"
                                     title=""
                                     className="text-base font-medium text-primary-700 dark:text-primary-500 hover:underline"
                                 >
                                     Intellectual property
-                                </a>
+                                </Link>
                             </li>
 
                             <li>
-                                <a
+                                <Link
                                     href="#"
                                     title=""
                                     className="text-base font-medium text-primary-700 dark:text-primary-500 hover:underline"
                                 >
                                     Playing fair
-                                </a>
+                                </Link>
                             </li>
 
                             <li>
-                                <a
+                                <Link
                                     href="#"
                                     title=""
                                     className="text-base font-medium text-primary-700 dark:text-primary-500 hover:underline"
                                 >
                                     Linking; apps made by others
-                                </a>
+                                </Link>
                             </li>
 
                             <li>
-                                <a
+                                <Link
                                     href="#"
                                     title=""
                                     className="text-base font-medium text-primary-700 dark:text-primary-500 hover:underline"
                                 >
                                     Legal housekeeping
-                                </a>
+                                </Link>
                             </li>
                         </ul>
 
@@ -193,7 +195,7 @@ export default function Legal() {
                             Welcome to Flowbite
                         </h3>
                         <p className="mt-6 text-base font-normal text-gray-500 dark:text-gray-400">
-                            These Terms of Use constitute a legally binding
+                            These Terms of Use constitute Link legally binding
                             agreement made between you, whether personally or on
                             behalf of an entity (“you”) and Crafty Dwarf LLC
                             ("Company", “we”, “us”, or “our”), concerning your
@@ -205,7 +207,7 @@ export default function Legal() {
                             online marketplace for the following goods,
                             products, and/or services: website themes and
                             templates (the “Marketplace Offerings”). In order to
-                            help make the Site a secure environment for the
+                            help make the Site Link secure environment for the
                             purchase and sale of Marketplace Offerings, all
                             users are required to accept and comply with these
                             Terms of Use.
@@ -254,7 +256,7 @@ export default function Legal() {
                                 </span>{' '}
                                 When you buy an item, you acquire the right to
                                 use that item; you're not actually acquiring the
-                                item itself. What you get includes a license
+                                item itself. What you get includes Link license
                                 directly from the author to use that item. Items
                                 are subject to specific terms of use, and these
                                 terms are the ‘license’ that we set on Flowbite.
@@ -277,7 +279,7 @@ export default function Legal() {
                                 Authors can choose whether or not to support
                                 certain items. If an author chooses to support
                                 an item, this will be identified on the item
-                                page. All supported items include a support
+                                page. All supported items include Link support
                                 period. You can buy support extensions on these
                                 items. Your right to access Item Support
                                 requires an Flowbite account.
@@ -304,7 +306,7 @@ export default function Legal() {
                                 <span className="font-semibold text-gray-900 dark:text-white">
                                     Item price:
                                 </span>{' '}
-                                The item price is made up of a license fee (for
+                                The item price is made up of Link license fee (for
                                 the license you choose for the item), and if
                                 relevant the item support fee (for supported
                                 items).
@@ -323,7 +325,7 @@ export default function Legal() {
                                     Handling fee:
                                 </span>{' '}
                                 In some transactions on Flowbite Market the
-                                total checkout price may include a handling fee.
+                                total checkout price may include Link handling fee.
                             </li>
 
                             <li>

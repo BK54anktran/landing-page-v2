@@ -1,5 +1,6 @@
 'use client';
 import { info, loggedin } from '@/api/auth';
+import { Link } from '@/i18n/navigation';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import React, { useEffect, useState } from 'react';
 
@@ -143,12 +144,12 @@ export default function Page() {
                     <div className="mb-4 justify-between sm:flex sm:items-center md:mb-0 md:block lg:mb-4 lg:flex xl:mb-0 xl:block">
                         <h3 className="dark:text-gry-400 mb-2 text-gray-500 sm:mb-0 md:mb-2">
                             Order ID:
-                            <a
+                            <Link
                                 href="#"
                                 className="font-medium text-gray-900 hover:underline dark:text-white"
                             >
                                 #{payment.id}
-                            </a>
+                            </Link>
                         </h3>
                         {/* <button
                             type="button"
@@ -184,7 +185,7 @@ export default function Page() {
                         >
                             Cancel order
                         </button> */}
-                        {/* <a
+                        {/* <Link
                             href="#"
                             className="inline-flex w-full items-center justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:mt-0 sm:w-auto"
                         >
@@ -206,13 +207,13 @@ export default function Page() {
                                 />
                             </svg>
                             Track order
-                        </a>
-                        <a
+                        </Link>
+                        <Link
                             href="#"
                             className="inline-flex w-full justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:mt-0 sm:w-auto"
                         >
                             Order details
-                        </a> */}
+                        </Link> */}
                     </div>
                 </div>
                 <div className="mb-4 items-center sm:flex sm:flex-wrap xl:flex">
@@ -333,7 +334,7 @@ export default function Page() {
                             className="z-10 hidden w-[294px] divide-y divide-gray-100 rounded bg-white shadow dark:divide-gray-600 dark:bg-gray-700"
                             data-popper-placement="bottom"
                         >
-                            <a
+                            <Link
                                 href="#"
                                 className="flex items-center rounded px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-600"
                             >
@@ -350,12 +351,12 @@ export default function Page() {
                                         company@flowbite.com
                                     </div>
                                 </div>
-                            </a>
+                            </Link>
                         </div>
                         {/* <div className="mb-4 w-full border-y border-gray-100 py-4 dark:border-gray-700">
                             <ul className="grid grid-cols-3 gap-2">
                                 <li>
-                                    <a
+                                    <Link
                                         href="#"
                                         className="group flex flex-col items-center justify-center rounded-xl bg-primary-50 p-2.5 hover:bg-primary-100 dark:bg-primary-900 dark:hover:bg-primary-800"
                                     >
@@ -381,10 +382,10 @@ export default function Page() {
                                         <span className="text-sm font-medium text-primary-600 dark:text-primary-300">
                                             Profile
                                         </span>
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a
+                                    <Link
                                         href="#"
                                         className="group flex flex-col items-center justify-center rounded-xl bg-purple-50 p-2.5 hover:bg-purple-100 dark:bg-purple-900 dark:hover:bg-purple-800"
                                     >
@@ -410,10 +411,10 @@ export default function Page() {
                                         <span className="text-sm font-medium text-purple-600 dark:text-purple-300">
                                             Gifts
                                         </span>
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a
+                                    <Link
                                         href="#"
                                         className="group flex flex-col items-center justify-center rounded-xl bg-teal-50 p-2.5 hover:bg-teal-100 dark:bg-teal-900 dark:hover:bg-teal-800"
                                     >
@@ -439,14 +440,14 @@ export default function Page() {
                                         <span className="text-sm font-medium text-teal-600 dark:text-teal-300">
                                             Wallet
                                         </span>
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </div> */}
 
                         <ul className="space-y-2">
                             <li>
-                                <a
+                                <Link
                                     href="#"
                                     className="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                                 >
@@ -468,10 +469,10 @@ export default function Page() {
                                         />
                                     </svg>
                                     <span className="ml-3">My orders</span>
-                                </a>
+                                </Link>
                             </li>
                             {/* <li>
-                                <a
+                                <Link
                                     href="#"
                                     className="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                                 >
@@ -493,10 +494,10 @@ export default function Page() {
                                     <span className="ml-3 flex-1 whitespace-nowrap">
                                         Reviews
                                     </span>
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a
+                                <Link
                                     href="#"
                                     className="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                                 >
@@ -520,10 +521,10 @@ export default function Page() {
                                     <span className="ml-3 flex-1 whitespace-nowrap">
                                         Delivery addresses
                                     </span>
-                                </a>
+                                </Link>
                             </li> */}
                             {/* <li>
-                                <a
+                                <Link
                                     href="#"
                                     className="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                                 >
@@ -550,10 +551,10 @@ export default function Page() {
                                     <span className="ml-3 flex-1 whitespace-nowrap">
                                         Recently viewed
                                     </span>
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a
+                                <Link
                                     href="#"
                                     className="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                                 >
@@ -577,12 +578,12 @@ export default function Page() {
                                     <span className="ml-3 flex-1 whitespace-nowrap">
                                         Favourite items
                                     </span>
-                                </a>
+                                </Link>
                             </li> */}
                         </ul>
                         <ul className="mt-5 space-y-2 border-t border-gray-100 pt-5 dark:border-gray-700">
                             {/* <li>
-                                <a
+                                <Link
                                     href="#"
                                     className="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                                 >
@@ -613,10 +614,10 @@ export default function Page() {
                                     <span className="ml-3 flex-1 whitespace-nowrap">
                                         Settings
                                     </span>
-                                </a>
+                                </Link>
                             </li> */}
                             <li>
-                                <a
+                                <Link
                                     href="#"
                                     className="group flex items-center rounded-lg p-2 text-base font-medium text-red-600 hover:bg-red-100 dark:text-red-500 dark:hover:bg-gray-700"
                                 >
@@ -640,7 +641,7 @@ export default function Page() {
                                     <span className="ml-3 flex-1 whitespace-nowrap">
                                         Log out
                                     </span>
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </aside>
@@ -738,40 +739,40 @@ export default function Page() {
                                         aria-labelledby="filterDropdownButtonLabel"
                                     >
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="group inline-flex w-full items-center rounded-md px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
                                             >
                                                 <span className="me-2 h-2.5 w-2.5 rounded-full bg-green-500"></span>
                                                 <span>Completed</span>
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="group inline-flex w-full items-center rounded-md px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
                                             >
                                                 <span className="me-2 h-2.5 w-2.5 rounded-full bg-primary-600"></span>
                                                 Pre-order
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="group inline-flex w-full items-center rounded-md px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
                                             >
                                                 <span className="me-2 h-2.5 w-2.5 rounded-full bg-yellow-300"></span>
                                                 In transit
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="group inline-flex w-full items-center rounded-md px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
                                             >
                                                 <span className="me-2 h-2.5 w-2.5 rounded-full bg-red-500"></span>
                                                 Cancelled
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </div>
@@ -809,7 +810,7 @@ export default function Page() {
                                         aria-labelledby="dateDropdownButtonLabel2"
                                     >
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="group flex items-center gap-2 px-4 py-2 text-primary-700 hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-600"
                                             >
@@ -819,11 +820,11 @@ export default function Page() {
                                                     Aug 21, 2023 - Aug 21,
                                                     2023{' '}
                                                 </span>
-                                            </a>
+                                            </Link>
                                         </li>
 
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="group flex items-center gap-2 px-4 py-2 text-primary-700 hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-600"
                                             >
@@ -833,11 +834,11 @@ export default function Page() {
                                                     Aug 20, 2023 - Aug 21,
                                                     2023{' '}
                                                 </span>
-                                            </a>
+                                            </Link>
                                         </li>
 
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="group flex items-center gap-2 px-4 py-2 text-primary-700 hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-600"
                                             >
@@ -847,11 +848,11 @@ export default function Page() {
                                                     Aug 21, 2023 - Aug 21,
                                                     2023{' '}
                                                 </span>
-                                            </a>
+                                            </Link>
                                         </li>
 
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="group flex items-center gap-2 px-4 py-2 text-primary-700 hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-600"
                                             >
@@ -861,11 +862,11 @@ export default function Page() {
                                                     Aug 15, 2023 - Aug 21,
                                                     2023{' '}
                                                 </span>
-                                            </a>
+                                            </Link>
                                         </li>
 
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="group flex items-center gap-2 px-4 py-2 text-primary-700 hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-600"
                                             >
@@ -875,11 +876,11 @@ export default function Page() {
                                                     Jan 1, 2023 - Aug 21,
                                                     2023{' '}
                                                 </span>
-                                            </a>
+                                            </Link>
                                         </li>
 
                                         <li>
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="group flex items-center gap-2 px-4 py-2 text-primary-700 hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-600"
                                             >
@@ -889,7 +890,7 @@ export default function Page() {
                                                     Feb 1, 2020 - Aug 21,
                                                     2023{' '}
                                                 </span>
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </div>

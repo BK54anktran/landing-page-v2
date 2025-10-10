@@ -1,3 +1,4 @@
+import { Link } from '@/i18n/navigation';
 import { createClient } from '@supabase/supabase-js';
 import { cacheLife } from 'next/dist/server/use-cache/cache-life';
 
@@ -358,13 +359,13 @@ const PaymentButton = ({ plan }: { plan: string }) => {
     const href = `/play/?plan=${plan}&server=${defaultServer}&ref=landingpage_${plan}`;
     return (
         <div className="flex gap-2">
-            <a
+            <Link
                 href={href}
                 type="button"
                 className="py-2.5 px-5 bg-blue-600 shadow-sm rounded-full transition-all duration-500 text-base text-white font-semibold text-center w-fit block mx-auto hover:bg-blue-700  cursor-pointer"
             >
                 Đăng kí
-            </a>
+            </Link>
         </div>
     );
 };
