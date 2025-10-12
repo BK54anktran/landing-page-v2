@@ -5,7 +5,7 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const nextConfig: NextConfig = {
     experimental: {
         useCache: true,
-        dynamicIO: true
+        cacheComponents: true
     }
 };
 
