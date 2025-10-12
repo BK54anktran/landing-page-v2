@@ -68,14 +68,14 @@ export function LoginModal({ action: close }: { action: () => void }) {
                     <div className="flex items-center mb-2">
                         <button className="flex items-center text-xl font-semibold text-gray-900 dark:text-white">
                             <Image
-                                src="/image/logo_white.png"
+                                src="/img/logo_white.png"
                                 className="h-12 mr-4 hidden dark:hidden"
                                 alt="thinkmay logo"
                                 width={48}
                                 height={48}
                             />
                             <Image
-                                src="/image/logo.png"
+                                src="/img/logo.png"
                                 className="h-12 mr-4 dark:hidden"
                                 alt="thinkmay logo"
                                 width={48}
@@ -221,22 +221,22 @@ export function LoginModal({ action: close }: { action: () => void }) {
                     {isSignup ? (
                         <p className="text-sm font-light text-center text-gray-500 dark:text-gray-400">
                             {t('alreadyHaveAccount')}
-                            <button
+                            <a
                                 onClick={() => setIsSignup(false)}
                                 className="font-medium underline text-primary-600 hover:no-underline dark:text-primary-500 hover:text-primary-700 px-2"
                             >
                                 {t('loginButton')}
-                            </button>
+                            </a>
                         </p>
                     ) : (
                         <p className="text-sm font-light text-center text-gray-500 dark:text-gray-400">
                             {t('dontHaveAccount')}
-                            <button
+                            <a
                                 onClick={() => setIsSignup(true)}
                                 className="font-medium underline text-primary-600 hover:no-underline dark:text-primary-500 hover:text-primary-700 px-2"
                             >
                                 {t('signupButton')}
-                            </button>
+                            </a>
                         </p>
                     )}
                 </div>

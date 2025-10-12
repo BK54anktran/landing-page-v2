@@ -1,0 +1,375 @@
+import { ClientResponseError } from 'pocketbase';
+import { v4 as uuidv4 } from 'uuid';
+import { CAUSE, GLOBAL, POCKETBASE } from './database';
+
+export class APIError {
+    code: number;
+    message: string;
+
+    constructor(message?: string, code?: number) {
+        this.message = message ?? 'Unknown error';
+        this.code = code ?? 500;
+    }
+}
+
+type ErrorTrigger = (error?: APIError) => void;
+
+async function internalFetchFile<T>(
+    command: string,
+    body?: Blob
+): Promise<Blob | APIError> {
+    try {
+        let returnBody: Blob = undefined;
+        await POCKETBASE().send<T>(command, {
+            method: body != undefined ? 'POST' : 'GET',
+            fetch: async (url, conf) => {
+                const result = await fetch(url, { ...conf, body });
+                returnBody = await result.clone().blob();
+                return result;
+            }
+        });
+
+        return returnBody;
+    } catch (e) {
+        const cre = e as ClientResponseError;
+        return new APIError(cre.message ?? 'Unknown error', cre.status ?? 500);
+    }
+}
+
+async function internalFetch<T>(
+    command: string,
+    body?: any
+): Promise<T | APIError> {
+    const methodMap = {
+        new: 'POST',
+        reallocate: 'POST',
+        close: 'DELETE',
+        info: 'GET',
+        storage: 'GET',
+        steam: 'GET',
+        resource: 'DELETE',
+        log: 'GET',
+        analytics: 'GET'
+    };
+
+    try {
+        return await POCKETBASE().send<T>(command, {
+            method: methodMap[command] ?? (body != undefined ? 'POST' : 'GET'),
+            body: body
+        });
+    } catch (e) {
+        const cre = e as ClientResponseError;
+        return new APIError(cre.message ?? 'Unknown error', cre.status ?? 500);
+    }
+}
+
+async function internalSSE<T>(
+    command: string,
+    body?: any,
+    feedback?: (data: T) => Promise<void>,
+    callback?: (data: ErrorTrigger) => void
+): Promise<T | APIError | null> {
+    const pb = POCKETBASE();
+
+    const id = await internalFetch<string>(command, body);
+    if (id instanceof APIError) return id;
+
+    const evtSource = new EventSource(`${pb.baseUrl}/${command}/sse?id=${id}`);
+    let error: APIError | null = null;
+    if (callback)
+        callback((err: any) => {
+            error = err;
+            evtSource.close();
+        });
+
+    let result: T | null = null;
+    if (feedback != undefined)
+        evtSource.onopen = () =>
+            (evtSource.onmessage = (ev) => {
+                const data = JSON.parse(ev.data);
+                result = data;
+                feedback(data);
+            });
+
+    while (evtSource.readyState != evtSource.CLOSED)
+        await new Promise((r) => setTimeout(r, 100));
+
+    return error != null ? error : result ;
+}
+
+type Volume = {
+    backing: 'os' | string;
+    node: string;
+    size?: number;
+    name: string;
+    inuse?: boolean;
+    pool: 'user_data' | 'app_data' | 'unified_data' | string;
+};
+
+type Computer = {
+    Hostname?: string;
+    CPU?: string;
+    RAM?: string;
+    BIOS?: string;
+    remoteReady?: boolean;
+    virtReady?: boolean;
+
+    Ndisks?: NDisk[];
+    Volumes?: Volume[];
+    Sessions?: Session[];
+    Interfaces?: {
+        publicIp?: string;
+        privateIp?: string;
+        name: string;
+    }[];
+    GPUs?: {
+        Inuse: boolean;
+        Tained: boolean;
+        Type: string;
+        Id: string;
+    }[];
+};
+
+type ProxyChain = {
+    child?: ProxyChain;
+    token?: string;
+    sendaddress?: string;
+    recvaddress: string;
+};
+
+type Listener = {
+    id: string;
+    content: string;
+    codec: string;
+    proto: string;
+};
+
+type RemoteReqeust = {
+    requestedCodec: string;
+    requestedProtocol: string;
+    listener: Listener[];
+};
+
+type NDisk = {
+    address: string;
+    volume: Volume;
+};
+
+type Steam = {
+    appid: string;
+    type: 'steam';
+    username: string;
+    credential: string;
+};
+
+type S3Credential = {
+    bucket: string;
+    accessId: string;
+    accessKey: string;
+    endpoint: string;
+    token: string;
+    configured: boolean;
+};
+type Backup = {
+    type: 'backup' | 'restore';
+    createdAt?: string;
+};
+
+type Session = {
+    id: string;
+    app?: Steam;
+    s3bucket?: S3Credential;
+    thinkmay?: RemoteReqeust;
+    backup?: Backup;
+    vm?: Computer;
+    ndisk?: NDisk;
+};
+
+type RemoteCredential = {
+    audioUrl: string;
+    videoUrl: string;
+    vncUrl?: string;
+    microUrl?: string;
+    logUrl?: string;
+    hidUrl: string;
+};
+
+type File = {
+    key: string;
+    created?: string;
+    size?: number;
+};
+
+type ReinstallCb = (
+    finished: boolean,
+    percentage?: number,
+    err?: string
+) => Promise<void>;
+type reinstallData = {
+    finished?: boolean;
+    percentage?: number;
+    error?: string;
+};
+const GetInfo = () => internalFetch<Computer>('info');
+const ClaimStorage = () => internalFetch<string>('storage');
+const ClaimSteam = () => internalFetch<string>('steam');
+const ListObjects = (path: string) => internalFetch<File[]>(`files/v1/${path}`);
+const DownloadObject = (path: string) =>
+    internalFetchFile<string>(`file/v1/${path}`);
+const UploadObject = (path: string, data: Blob) =>
+    internalFetchFile<File[]>(`file/v1/${path}`, data);
+const UnclaimResource = () => internalFetch<void>('resource');
+const CloseSession = (req: Session) => internalFetch<Computer>('close', req);
+const ChangeTemplate = async (
+    template: string,
+    volume_id: string,
+    cb: ReinstallCb
+) =>
+    internalSSE<reinstallData>(
+        'reallocate',
+        {
+            source: `${template}.template`,
+            id: volume_id
+        },
+        ({ percentage, finished, error }) =>
+            cb(finished == true, percentage, error)
+    );
+
+let deploymentES: ErrorTrigger | undefined = undefined;
+const CancelDeployment = (reason?: APIError) =>
+    deploymentES != null ? deploymentES(reason) : null;
+async function StartThinkmay(
+    preferred_codec: 'h264' | 'h265',
+    preferred_proto: 'quic' | 'udp',
+    showStatus: (status: string, code?: number) => Promise<void>
+): Promise<Computer | APIError | undefined> {
+    const req = {
+        id: uuidv4(),
+        vm: {},
+        thinkmay: {
+            requestedCodec: preferred_codec,
+            requestedProtocol: preferred_proto
+        }
+    } as Session;
+
+    type newRes = {
+        status: string;
+        code: number;
+        info?: Computer;
+    };
+
+    const res = await internalSSE<newRes>(
+        'new',
+        req,
+        (res) => showStatus(res.status, res.code),
+        (es) => (deploymentES = es)
+    );
+    deploymentES = undefined;
+    if (res instanceof APIError) return res;
+
+    return res?.info;
+}
+
+function ParseRequest(
+    vmid: string,
+    session: Session,
+    option?: {
+        addr_override?: string;
+        high_mtu?: boolean;
+    }
+): RemoteCredential | Error {
+    const pb = new URL(POCKETBASE().baseUrl).host;
+    const address = option?.addr_override ?? pb;
+
+    const {
+        thinkmay: { requestedCodec, listener }
+    } = session;
+    const { high_mtu } = option ?? {
+        high_mtu: false
+    };
+    const opt = `&vmid=${vmid}&mtu=${high_mtu ? 1400 : 1200}`;
+
+    const result: RemoteCredential = {
+        videoUrl: '',
+        audioUrl: '',
+        hidUrl: ''
+    };
+
+    if (listener == undefined) {
+        return new Error('invalid request');
+    }
+
+    listener.forEach(({ id, content }) => {
+        switch (content) {
+            case 'video':
+                result.videoUrl = `wss://${address}:444/broadcasters/webrtc/recvonly?&token=${id}${opt}&codec=${requestedCodec}`;
+                break;
+            case 'audio':
+                result.audioUrl = `wss://${address}:444/broadcasters/webrtc/recvonly?token=${id}${opt}&codec=opus`;
+                break;
+            case 'hid':
+                result.hidUrl = `wss://${pb}:444/broadcasters/webrtc/sendonly?token=${id}${opt}`;
+                break;
+            case 'log':
+                result.logUrl = `wss://${pb}:444/broadcasters/websocket?token=${id}${opt}`;
+                break;
+            case 'vnc':
+                result.vncUrl = `wss://${pb}:444/broadcasters/vnc?token=${id}${opt}`;
+                break;
+            case 'microphone':
+                result.microUrl = `wss://${pb}:444/broadcasters/webrtc/sendonly?token=${id}${opt}`;
+                break;
+            default:
+                break;
+        }
+    });
+
+    return result;
+}
+
+function getVmSession(computer: Computer | undefined): Session | undefined {
+    if (computer?.Sessions == undefined) return undefined;
+    for (const session of computer.Sessions)
+        if (session.vm != undefined) return session;
+
+    return undefined;
+}
+function getRemoteSession(computer: Computer | undefined): Session | undefined {
+    if (computer?.Sessions == undefined) return undefined;
+    for (const session of computer.Sessions) {
+        if (session.ndisk != undefined) continue;
+        if (session.vm != undefined) {
+            const subsession = getRemoteSession(session.vm);
+            if (subsession != undefined) return subsession;
+        }
+
+        if (
+            session.thinkmay != undefined &&
+            session.thinkmay?.listener != undefined
+        )
+            return session;
+    }
+
+    return undefined;
+}
+
+export {
+    CancelDeployment,
+    CAUSE,
+    ChangeTemplate,
+    ClaimSteam,
+    ClaimStorage,
+    CloseSession,
+    GetInfo,
+    getRemoteSession,
+    getVmSession,
+    GLOBAL,
+    ListObjects,
+    ParseRequest,
+    DownloadObject,
+    UploadObject,
+    POCKETBASE,
+    StartThinkmay,
+    UnclaimResource
+};
+export type { Computer, RemoteCredential, S3Credential, Session, Steam };

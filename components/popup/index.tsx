@@ -1,3 +1,4 @@
+'use client';
 import { LoginModal } from './login';
 
 const Modals = [
@@ -9,13 +10,13 @@ const Modals = [
 
 export const Modal = ({
     type,
-    close 
+    action
 }: {
     type?: string;
-    close: () => void;
+    action: () => void;
 }) => {
     const RenderTarget = () =>
-        Modals.find((x) => x.name == type)?.component({ close });
+        Modals.find((x) => x.name == type)?.component({ action });
     return (
         <>
             <RenderTarget />

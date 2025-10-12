@@ -1,6 +1,8 @@
-import { Link } from '@/i18n/navigation';
-import { createClient } from '@supabase/supabase-js';
+'use cache';
+
+import { createSupabaseClient } from '@/utils/supabase';
 import { cacheLife } from 'next/dist/server/use-cache/cache-life';
+import Image from 'next/image';
 
 type App = {
     name: string;
@@ -58,10 +60,7 @@ type App = {
 const fetchApps = async (): Promise<App[]> => {
     'use cache';
     cacheLife('hours');
-    const supabase = createClient(
-        'https://play.2.thinkmay.net:445',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE'
-    );
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
         .from('stores')
         .select('code_name,name,metadata,management->>kickey')
@@ -87,10 +86,12 @@ export const Applications = async () => {
         const href = `/play/?app=${app.code_name}&ref=landingpage_game${index}`;
         return (
             <div key={index}>
-                <img
+                <Image
                     className="object-cover w-full rounded-lg shadow-lg mb-6"
                     src={background}
                     alt={`image of game ${app.name.toLowerCase()}`}
+                    width={400}
+                    height={300}
                 />
                 <div className="space-y-3 mb-6">
                     <span className="bg-indigo-100 text-indigo-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">
@@ -110,25 +111,25 @@ export const Applications = async () => {
                         Game mới
                     </span>
                     <h3 className="text-2xl font-bold leading-tight text-gray-900 dark:text-white">
-                        <Link href={href} className="hover:underline">
+                        <a href={href} className="hover:underline">
                             {app.name}
-                        </Link>
+                        </a>
                     </h3>
                     <p className="text-lg font-normal text-gray-500 dark:text-gray-400">
                         {app.metadata.short_description}
                     </p>
                 </div>
                 <div className="flex items-center gap-4">
-                    <Link
+                    <a
                         href={href}
                         title=""
                         className="text-white bg-primary-700  hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                         role="button"
                     >
                         Chơi ngay
-                    </Link>
+                    </a>
                     {app.metadata?.support_info?.url ? (
-                        <Link
+                        <a
                             href={app.metadata.support_info.url}
                             target="_blank"
                             title=""
@@ -146,7 +147,7 @@ export const Applications = async () => {
                                 <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
                             </svg>
                             Nhà phát hành
-                        </Link>
+                        </a>
                     ) : null}
                 </div>
             </div>

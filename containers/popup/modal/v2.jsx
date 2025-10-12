@@ -1,0 +1,12 @@
+export { discount } from './discount';
+export { share } from './share';
+export { login } from './login';
+export { notify } from './notify';
+export { deployWatch } from './deployWatch';
+export { redirectDomain } from './redirect';
+export { extendService } from './extend';
+export { newGame } from './newgame';
+export { maintainance } from './maintainance';
+export { shareBanner } from './referral';
+export { versionUpdate } from './updates';
+export { vnc } from './vnc';

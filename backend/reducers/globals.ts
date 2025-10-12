@@ -1,0 +1,412 @@
+import { GLOBAL } from '@core/api';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { RootState, store } from '.';
+import { externalLink } from '../utils/constant';
+import { BuilderHelper } from './helper';
+import { Contents, Languages, language } from './locales';
+import { DevEnv } from '@core/api/database';
+import { validate } from 'uuid';
+export type Translation = Map<Languages, Map<Contents, string>>;
+const translation = language();
+
+export type TranslationResult = {
+    [key in Contents]: string;
+};
+
+export type ErrorMessage = {
+    code: number;
+    vi: string;
+    en: string;
+    id: string;
+};
+
+type IGame = {
+    id: number;
+    name: string;
+    code_name: string;
+    publishers: any;
+    short_description: any;
+    path_full: any;
+    tag: {
+        samenode: boolean;
+        hasaccount: boolean;
+    };
+};
+
+interface Maintain {
+    created_at: string;
+    ended_at: string;
+}
+
+type Domain = {
+    domain: string;
+    free: number;
+    allow_pay: boolean;
+};
+
+type ContentStyle = {
+    content: string;
+    style?: 'none' | 'italic' | 'bold' | 'underscore';
+};
+
+type Banner = {
+    image: string;
+    text1: ContentStyle;
+    text2: ContentStyle;
+    text3: ContentStyle;
+    detail: ContentStyle;
+    redirect_link: string;
+    redirect_text: ContentStyle;
+    redirect_app: {
+        app: string;
+        value: {};
+    };
+};
+
+const initialState = {
+    lays: [
+        [
+            {
+                dim: {
+                    width: '50%',
+                    height: '100%',
+                    top: 0,
+                    left: 0
+                },
+                br: 14
+            },
+            {
+                dim: {
+                    width: '50%',
+                    height: '100%',
+                    top: 0,
+                    left: '50%'
+                },
+                br: 15
+            }
+        ],
+        [
+            {
+                dim: {
+                    width: '66%',
+                    height: '100%',
+                    top: 0,
+                    left: 0
+                },
+                br: 14
+            },
+            {
+                dim: {
+                    width: '34%',
+                    height: '100%',
+                    top: 0,
+                    left: '66%'
+                },
+                br: 15
+            }
+        ],
+        [
+            {
+                dim: {
+                    width: '33%',
+                    height: '100%',
+                    top: 0,
+                    left: 0
+                },
+                br: 14
+            },
+            {
+                dim: {
+                    width: '34%',
+                    height: '100%',
+                    top: 0,
+                    left: '33%'
+                },
+                br: 1
+            },
+            {
+                dim: {
+                    width: '33%',
+                    height: '100%',
+                    top: 0,
+                    left: '67%'
+                },
+                br: 15
+            }
+        ],
+        [
+            {
+                dim: {
+                    width: '50%',
+                    height: '100%',
+                    top: 0,
+                    left: 0
+                },
+                br: 14
+            },
+            {
+                dim: {
+                    width: '50%',
+                    height: '50%',
+                    top: 0,
+                    left: '50%'
+                },
+                br: 3
+            },
+            {
+                dim: {
+                    width: '50%',
+                    height: '50%',
+                    top: '50%',
+                    left: '50%'
+                },
+                br: 5
+            }
+        ],
+        [
+            {
+                dim: {
+                    width: '50%',
+                    height: '50%',
+                    top: 0,
+                    left: 0
+                },
+                br: 2
+            },
+            {
+                dim: {
+                    width: '50%',
+                    height: '50%',
+                    top: 0,
+                    left: '50%'
+                },
+                br: 3
+            },
+            {
+                dim: {
+                    width: '50%',
+                    height: '50%',
+                    top: '50%',
+                    left: 0
+                },
+                br: 7
+            },
+            {
+                dim: {
+                    width: '50%',
+                    height: '50%',
+                    top: '50%',
+                    left: '50%'
+                },
+                br: 5
+            }
+        ],
+        [
+            {
+                dim: {
+                    width: '25%',
+                    height: '100%',
+                    top: 0,
+                    left: 0
+                },
+                br: 14
+            },
+            {
+                dim: {
+                    width: '50%',
+                    height: '100%',
+                    top: 0,
+                    left: '25%'
+                },
+                br: 1
+            },
+            {
+                dim: {
+                    width: '25%',
+                    height: '100%',
+                    top: 0,
+                    left: '75%'
+                },
+                br: 15
+            }
+        ]
+    ],
+
+    service_available: false,
+    tutorial: false,
+    translation: {} as TranslationResult,
+    error_messages: [] as ErrorMessage[],
+    maintenance: {} as Maintain,
+    games: [] as IGame[],
+    domains: [] as Domain[],
+    opening: null as IGame | null,
+    chat: false as boolean,
+    banner: [] as Banner[]
+};
+
+type Data = {
+    games: IGame[];
+    domains: Domain[];
+    error_messages: ErrorMessage[];
+    banner: Banner[];
+};
+
+export const globalAsync = {
+    fetch_domain: createAsyncThunk(
+        'fetch_domain',
+        async (): Promise<Domain[]> => {
+            const { data: domains_v5, error: err } = await GLOBAL().rpc(
+                'get_domains_availability_v5'
+            );
+            if (err) throw err;
+            else return domains_v5;
+        }
+    ),
+    update_game_tag: createAsyncThunk(
+        'update_game_tag',
+        async (): Promise<string[]> => {
+            const {
+                data: tree,
+                currentAddress,
+                metadata: { configuration }
+            } = store.getState().worker;
+            const volumes = tree[currentAddress]?.Volumes;
+            if (volumes == undefined || volumes.length == 0) return [];
+            else if (configuration?.transient)
+                return volumes
+                    .filter((x) => x.pool == 'unified_data')
+                    .map((x) => x.name)
+                    .filter((x) => !validate(x));
+            const user_volume = volumes.find((x) => validate(x.name));
+            if (user_volume == undefined) return [];
+            else
+                return volumes
+                    .filter((x) => x.node == user_volume.node)
+                    .map((x) => x.name)
+                    .filter((x) => !validate(x));
+        }
+    ),
+    fetch_store: createAsyncThunk('fetch_store', async (): Promise<IGame[]> => {
+        const { data, error } = await GLOBAL()
+            .from('stores')
+            .select(
+                `id,name,code_name,
+                    metadata->publishers,
+                    metadata->short_description,
+                    metadata->screenshots->0->path_full,
+                    management->>kickey
+                    `,
+                { count: 'exact' }
+            )
+            .order('management->priority', { ascending: true })
+            .range(0, 50);
+        if (error != null)
+            throw new Error('Failed to fetch store' + error.message);
+
+        return data.map((x) => ({
+            ...x,
+            tag: {
+                samenode: false,
+                hasaccount: x.kickey == 'true'
+            }
+        }));
+    }),
+    fetch_error_message: createAsyncThunk(
+        'fetch_error_message',
+        async (): Promise<ErrorMessage[]> => {
+            const { data, error } = await GLOBAL().rpc('get_error_message');
+
+            if (error) throw new Error(error.message);
+
+            return data;
+        }
+    ),
+    fetch_banner: createAsyncThunk(
+        'fetch_banner',
+        async (): Promise<Banner[]> => {
+            const { data, error } = await GLOBAL().rpc('get_banner_v1');
+
+            if (error) throw new Error(error.message);
+
+            return data;
+        }
+    )
+};
+
+export const globalSlice = createSlice({
+    name: 'global',
+    initialState,
+    reducers: {
+        update_language: (state, action: PayloadAction<Languages>) => {
+            translation.forEach((val, key) => {
+                if (key != action.payload) return;
+
+                val.forEach((val, key) => {
+                    state.translation[key] = val;
+                });
+            });
+        },
+        open_game: (state, payload: PayloadAction<IGame>) => {
+            state.opening = payload.payload;
+        },
+        show_chat: (state, payload: PayloadAction<boolean | undefined>) => {
+            window.location.href = externalLink.MESSAGE_LINK;
+        },
+        show_tutorial: (
+            state,
+            action: PayloadAction<'open' | 'close' | undefined>
+        ) => {
+            if (action.payload) state.tutorial = action.payload == 'open';
+            else state.tutorial = !state.tutorial;
+        }
+    },
+    extraReducers: (builder) => {
+        BuilderHelper<Data, any, any>(
+            builder,
+            {
+                fetch: globalAsync.fetch_store,
+                hander: (state, action: PayloadAction<IGame[]>) => {
+                    state.games = action.payload;
+                }
+            },
+            {
+                fetch: globalAsync.update_game_tag,
+                hander: (state, action: PayloadAction<string[]>) => {
+                    state.games = state.games.map((x) => ({
+                        ...x,
+                        tag: {
+                            ...x.tag,
+                            samenode: action.payload.includes(
+                                `${x.code_name}.template`
+                            )
+                        }
+                    }));
+                }
+            },
+            {
+                fetch: globalAsync.fetch_domain,
+                hander: (state, action: PayloadAction<Domain[]>) => {
+                    if (DevEnv)
+                        action.payload.push({
+                            domain: 'dev.thinkmay.net',
+                            free: 0,
+                            allow_pay: false
+                        });
+                    state.domains = action.payload;
+                }
+            },
+            {
+                fetch: globalAsync.fetch_error_message,
+                hander: (state, action: PayloadAction<ErrorMessage[]>) => {
+                    state.error_messages = action.payload;
+                }
+            },
+            {
+                fetch: globalAsync.fetch_banner,
+                hander: (state, action: PayloadAction<Banner[]>) => {
+                    state.banner = action.payload;
+                }
+            }
+        );
+    }
+});

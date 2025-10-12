@@ -1,0 +1,562 @@
+import { APIError, POCKETBASE, RemoteCredential } from '@core/api';
+import { isMobile } from '@core/core';
+import {
+    AuthFailed,
+    ChangeBitrate,
+    ChangeFramerate,
+    CloseStreaming,
+    Connected,
+    GetVideoMetric,
+    MAX_BITRATE,
+    MAX_FRAMERATE,
+    MIN_BITRATE,
+    MIN_FRAMERATE,
+    NotReady,
+    PointerVisible,
+    ready,
+    ResetKeyStuck,
+    set_hq,
+    SetClipboard,
+    SetScancode,
+    Size
+} from '@core/singleton';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
+import {
+    appDispatch,
+    change_bitrate,
+    change_framerate,
+    change_preferred_codec,
+    change_preferred_proto,
+    close_remote,
+    remote_connect,
+    remote_domain,
+    remote_ready,
+    RootState,
+    scancode,
+    store,
+    toggle_high_mtu,
+    toggle_hq,
+    toggle_microphone,
+    toggle_remote,
+    worker_refresh
+} from '.';
+import { originalurl } from '../actions/background';
+import { BuilderHelper } from './helper';
+
+export type Metric = {
+    receivefps: number[];
+    decodefps: number[];
+    packetloss: number[];
+    bandwidth: number[];
+    buffer: number[];
+};
+
+type Data = {
+    tracker_id?: string;
+
+    domain?: string;
+
+    active: boolean;
+    ready: boolean;
+    fullscreen: boolean;
+    pointer_lock: boolean;
+    relative_mouse: boolean;
+    focus: boolean;
+    hq: boolean;
+    prev_hq: boolean;
+    direct_access: boolean;
+    preferred_codec: 'h264' | 'h265';
+    preferred_proto: 'quic' | 'udp';
+    enable_microphone: boolean;
+
+    scancode: boolean;
+    no_strict_timing: boolean;
+    frame_drop: boolean;
+
+    bitrate: number;
+    prev_bitrate: number;
+    framerate: number;
+    prev_framerate: number;
+    prev_size: number;
+
+    packetLoss: number;
+    idrcount: number;
+    realfps: number;
+    realbitrate: number;
+    realdecodetime: number;
+    realdelay: number;
+
+    auth?: RemoteCredential;
+    ref?: string;
+
+    objectFit: 'fill' | 'contain';
+};
+
+const initialState: Data = {
+    hq: false,
+    prev_hq: false,
+    direct_access: false,
+    focus: true,
+    active: false,
+    ready: false,
+    scancode: false,
+    no_strict_timing: false,
+    fullscreen: false,
+    pointer_lock: false,
+    relative_mouse: false,
+    preferred_codec: 'h264',
+    preferred_proto: 'udp',
+    enable_microphone: false,
+
+    frame_drop: false,
+    bitrate: 0,
+    prev_bitrate: 0,
+    framerate: 0,
+    prev_framerate: 0,
+    prev_size: 0,
+    idrcount: 0,
+    realfps: 0,
+    packetLoss: 0,
+    realbitrate: 0,
+    realdelay: 0,
+    realdecodetime: 0,
+    objectFit: 'fill'
+};
+
+export const remoteAsync = {
+    handleClipboard: async () => {
+        const clipboard = await navigator.clipboard.readText();
+        await SetClipboard(clipboard);
+    },
+    check_worker: async () => {
+        const {
+            remote: { active, direct_access }
+        } = store.getState();
+        if (!active || direct_access || Connected()) return;
+
+        await appDispatch(worker_refresh());
+        const {
+            worker: { data, currentAddress }
+        } = store.getState();
+        switch (data[currentAddress].availability) {
+            case 'started':
+            case 'closable':
+                const session = data[currentAddress]?.Sessions?.find(
+                    (x) => x.vm != undefined
+                )?.id;
+                if (session == undefined)
+                    throw new APIError('empty vm sessions');
+                else if (AuthFailed()) {
+                    appDispatch(close_remote());
+                    toast(`Streaming auth failure`, {
+                        icon: 'ℹ️',
+                        duration: 15000,
+                        style: {
+                            borderRadius: '10px',
+                            background: '#333',
+                            color: '#fff'
+                        }
+                    });
+                }
+                break;
+            case 'no_node':
+                appDispatch(close_remote());
+                toast(`Your node is down`, {
+                    icon: 'ℹ️',
+                    duration: 15000,
+                    style: {
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#fff'
+                    }
+                });
+                break;
+            case 'ready':
+                appDispatch(close_remote());
+                toast(`Your PC was shutted down`, {
+                    icon: 'ℹ️',
+                    duration: 15000,
+                    style: {
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#fff'
+                    }
+                });
+                break;
+            default:
+                break;
+        }
+    },
+    sync: () => {
+        const {
+            active,
+            bitrate,
+            framerate,
+            prev_bitrate,
+            prev_framerate,
+            prev_hq,
+            scancode,
+            hq,
+            prev_size
+        } = store.getState().remote;
+        if (!active) return;
+        else if (NotReady()) return;
+        if (isMobile()) PointerVisible(true);
+
+        const metric = GetVideoMetric();
+        appDispatch(
+            remoteSlice.actions.metrics({
+                packetloss: metric?.packetloss.last || 0,
+                idrcount: metric?.idrcount.last || 0,
+                bitrate: metric?.bitrate.persecond || 0,
+                fps: metric?.frame.persecond || 0,
+                decodetime: metric?.frame.decodetime || 0,
+                delay: metric?.frame.delay || 0
+            })
+        );
+
+        if (
+            prev_bitrate != bitrate ||
+            prev_framerate != framerate ||
+            prev_hq != hq ||
+            prev_size != Size()
+        )
+            appDispatch(remoteSlice.actions.internal_sync());
+
+        SetScancode(scancode);
+    },
+    direct_access: createAsyncThunk('direct_access', async (url: URL) => {
+        const codec = url.searchParams.get('codec');
+        const audio = url.searchParams.get('audio');
+        const video = url.searchParams.get('video');
+        const data = url.searchParams.get('data');
+        const vmid = url.searchParams.get('vmid');
+        const high_mtu = store.getState().worker.HighMTU;
+        if (audio == null || video == null || data == null || vmid == null)
+            return false;
+
+        // TODO: add demo ref here
+        const address = new URL(POCKETBASE().baseUrl).host;
+        const opt = `&vmid=${vmid}&mtu=${high_mtu ? 1400 : 1200}`;
+        appDispatch(
+            remote_connect({
+                videoUrl: `wss://${address}:444/broadcasters/webrtc/recvonly?token=${video}${opt}&codec=${codec ?? 'h264'
+                    }`,
+                audioUrl: `wss://${address}:444/broadcasters/webrtc/recvonly?token=${audio}${opt}&codec=opus`,
+                hidUrl: `wss://${address}:444/broadcasters/webrtc/sendonly?token=${data}${opt}`
+            })
+        );
+        if ((await ready()) instanceof Error) appDispatch(close_remote());
+        else appDispatch(remote_ready());
+        return true;
+    }),
+    save_reference: createAsyncThunk(
+        'save_reference',
+        async (info: RemoteCredential): Promise<string> => {
+            const vmid = new URL(info.videoUrl).searchParams.get('vmid') || '';
+            const codec = new URL(info.videoUrl).searchParams.get('codec') || '';
+            const video = new URL(info.videoUrl).searchParams.get('token') || '';
+            const audio = new URL(info.audioUrl).searchParams.get('token') || '';
+            const data = new URL(info.hidUrl).searchParams.get('token') || '';
+
+            const url = new URL(originalurl.toString());
+            url.searchParams.set('audio', audio);
+            url.searchParams.set('codec', codec);
+            url.searchParams.set('video', video);
+            url.searchParams.set('vmid', vmid);
+            url.searchParams.set('data', data);
+            return url.toString();
+        }
+    ),
+    cache_setting: createAsyncThunk(
+        'cache_setting',
+        async (_: {}, { getState }) => {
+            const user = (getState() as RootState).user.id;
+            const HighMTU = (getState() as RootState).worker.HighMTU;
+            const {
+                hq,
+                bitrate,
+                framerate,
+                scancode,
+                preferred_codec,
+                preferred_proto,
+                enable_microphone,
+                domain
+            } = (getState() as RootState).remote;
+
+            const setting = {
+                hq,
+                preferred_codec,
+                preferred_proto,
+                enable_microphone,
+                HighMTU,
+                scancode,
+                bitrate,
+                framerate,
+                domain
+            };
+            const settings = await POCKETBASE()
+                .collection('setting')
+                .getFullList();
+            if (settings.length == 0)
+                await POCKETBASE()
+                    .collection('setting')
+                    .create({ user, setting });
+            else
+                await POCKETBASE()
+                    .collection('setting')
+                    .update(settings[0]?.id, { setting });
+        }
+    ),
+    _load_setting: createAsyncThunk('load_setting', async () => {
+        let bitrateLocal: number = Number(localStorage.getItem('bitrate'));
+        let framerateLocal: number = Number(localStorage.getItem('framerate'));
+        if (
+            bitrateLocal > 100 ||
+            bitrateLocal <= 0 ||
+            framerateLocal > 100 ||
+            framerateLocal <= 0
+        ) {
+            bitrateLocal = 35;
+            framerateLocal = 25;
+        }
+
+        appDispatch(change_bitrate(bitrateLocal));
+        appDispatch(change_framerate(framerateLocal));
+
+        const settings = await POCKETBASE().collection('setting').getFullList<{
+            setting: {
+                hq?: boolean;
+                preferred_codec?: 'h264' | 'h265';
+                preferred_proto?: 'udp' | 'quic';
+                enable_microphone?: boolean;
+                HighMTU?: boolean;
+                scancode?: boolean;
+                bitrate?: number;
+                domain?: string;
+                framerate?: number;
+            };
+        }>();
+        if (settings.length > 0) {
+            const [
+                {
+                    setting: {
+                        hq,
+                        HighMTU,
+                        preferred_codec,
+                        preferred_proto,
+                        domain,
+                        enable_microphone,
+                        scancode: _scancode
+                    }
+                }
+            ] = settings;
+            appDispatch(toggle_high_mtu(HighMTU));
+            appDispatch(toggle_microphone(enable_microphone));
+            appDispatch(remote_domain(domain || ''));
+            appDispatch(toggle_hq(hq));
+            if (['h264', 'h265'].includes(preferred_codec || ''))
+                appDispatch(change_preferred_codec(preferred_codec || 'h265'));
+            if (['quic', 'udp'].includes(preferred_proto || ''))
+                appDispatch(change_preferred_proto(preferred_proto || 'quic'));
+            if (_scancode) appDispatch(scancode(_scancode));
+        }
+    }),
+    get load_setting() {
+        return this._load_setting;
+    },
+    set load_setting(value) {
+        this._load_setting = value;
+    },
+    toggle_remote_async: createAsyncThunk('toggle_remote_async', async () => {
+        appDispatch(toggle_remote());
+    })
+};
+
+export const remoteSlice = createSlice({
+    name: 'remote',
+    initialState,
+    reducers: {
+        remote_connect: (
+            state,
+            { payload: data }: PayloadAction<RemoteCredential>
+        ) => {
+            state.auth = data;
+            if (!state.enable_microphone) state.auth.microUrl = undefined;
+            state.active = true;
+            state.fullscreen = true;
+            state.ready = false;
+        },
+        remote_ready: (state) => {
+            state.ready = true;
+        },
+        toggle_hq: (state, action: PayloadAction<boolean | undefined>) => {
+            const newstate = action.payload ?? !state.hq;
+            set_hq(newstate);
+            state.hq = newstate;
+        },
+        loose_focus: (state) => {
+            state.focus = false;
+            ResetKeyStuck();
+        },
+        have_focus: (state) => {
+            state.focus = true;
+            remoteAsync.handleClipboard();
+        },
+        close_remote: (state) => {
+            state.active = false;
+            state.auth = undefined;
+            state.fullscreen = false;
+            CloseStreaming();
+        },
+        toggle_remote: (state) => {
+            if (!state.active) {
+                state.fullscreen = true;
+            } else {
+                state.fullscreen = false;
+                CloseStreaming();
+            }
+            state.active = !state.active;
+        },
+        strict_timing: (state, action: PayloadAction<boolean>) => {
+            state.no_strict_timing = action.payload;
+        },
+        scancode_toggle: (
+            state,
+            action: PayloadAction<boolean | undefined>
+        ) => {
+            action.payload =
+                typeof action.payload == 'boolean' ? action.payload : undefined;
+            state.scancode = action.payload ?? !state.scancode;
+        },
+        scancode: (state, action: PayloadAction<boolean>) => {
+            state.scancode = action.payload;
+        },
+        framedrop: (state, action: PayloadAction<boolean>) => {
+            if (state.active) state.frame_drop = action.payload;
+        },
+        set_fullscreen: (state, action: PayloadAction<boolean>) => {
+            state.fullscreen = action.payload;
+        },
+        toggle_fullscreen: (state) => {
+            state.fullscreen = !state.fullscreen;
+        },
+        pointer_lock: (state, action: PayloadAction<boolean>) => {
+            state.pointer_lock = action.payload;
+            PointerVisible(action.payload);
+        },
+        relative_mouse: (state) => {
+            state.relative_mouse = !state.relative_mouse;
+        },
+        remote_domain: (state, action: PayloadAction<string>) => {
+            state.domain = action.payload;
+        },
+        metrics: (
+            state,
+            action: PayloadAction<{
+                packetloss: number;
+                idrcount: number;
+                bitrate: number;
+                fps: number;
+                decodetime: number;
+                delay: number;
+            }>
+        ) => {
+            state.idrcount = action.payload.idrcount;
+            state.packetLoss = action.payload.packetloss;
+            state.realbitrate = action.payload.bitrate;
+            state.realfps = action.payload.fps;
+            state.realdecodetime = action.payload.decodetime;
+            state.realdelay = action.payload.delay;
+        },
+        internal_sync: (state) => {
+            if (
+                (state.bitrate != state.prev_bitrate ||
+                    state.prev_size != Size() ||
+                    state.prev_hq != state.hq) &&
+                (Size() ?? 0) > 0
+            ) {
+                ChangeBitrate(
+                    Math.round(
+                        ((MAX_BITRATE() - MIN_BITRATE()) / 100) *
+                        state.bitrate +
+                        MIN_BITRATE()
+                    )
+                );
+                state.prev_bitrate = state.bitrate;
+                state.prev_size = Size() ?? 0;
+                state.prev_hq = state.hq;
+            }
+
+            if (state.framerate != state.prev_framerate) {
+                ChangeFramerate(
+                    Math.round(
+                        ((MAX_FRAMERATE - MIN_FRAMERATE) / 100) *
+                        state.framerate +
+                        MIN_FRAMERATE
+                    )
+                );
+                state.prev_framerate = state.framerate;
+            }
+        },
+        change_framerate: (state, action: PayloadAction<number>) => {
+            state.framerate = action.payload;
+        },
+        change_bitrate: (state, action: PayloadAction<number>) => {
+            state.bitrate = action.payload;
+        },
+        toggle_microphone: (
+            state,
+            action: PayloadAction<boolean | undefined>
+        ) => {
+            state.enable_microphone =
+                action.payload ?? !state.enable_microphone;
+        },
+        change_preferred_proto: (
+            state,
+            action: PayloadAction<'udp' | 'quic'>
+        ) => {
+            state.preferred_proto = action.payload;
+        },
+        change_preferred_codec: (
+            state,
+            action: PayloadAction<'h264' | 'h265'>
+        ) => {
+            state.preferred_codec = action.payload;
+        },
+        toggle_objectfit: (state) => {
+            const currentState = state.objectFit;
+            state.objectFit = currentState == 'fill' ? 'contain' : 'fill';
+        }
+    },
+    extraReducers: (builder) => {
+        BuilderHelper<Data, any, any>(
+            builder,
+            {
+                fetch: remoteAsync.load_setting,
+                hander: (state, action: PayloadAction<any>) => { }
+            },
+            {
+                fetch: remoteAsync.cache_setting,
+                hander: (state, action: PayloadAction<void>) => { }
+            },
+            {
+                fetch: remoteAsync.save_reference,
+                hander: (state, action: PayloadAction<string>) => {
+                    state.ref = action.payload;
+                }
+            },
+            {
+                fetch: remoteAsync.toggle_remote_async,
+                hander: (state, action: PayloadAction<void>) => { }
+            },
+            {
+                fetch: remoteAsync.direct_access,
+                hander: (state, action: PayloadAction<boolean>) => {
+                    state.direct_access = action.payload;
+                }
+            }
+        );
+    }
+});
