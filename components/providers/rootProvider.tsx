@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
-import { ThemeProvider } from '@/components';
+import { ThemeProvider } from '@/components/providers/themeProvider';
 import { store } from '@/backend/reducers';
 import { NextIntlClientProvider } from 'next-intl';
 

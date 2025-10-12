@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import { StateProvider } from '@/components/providers/stateProvider';
+import { RootProvider } from '@/components/providers/rootProvider';
 import { Footer } from '@/components';
 import Script from 'next/script';
 import Header from '@/components/Header';
@@ -9,6 +9,7 @@ import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
+import { getMessages, getTranslations } from 'next-intl/server';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -44,9 +45,10 @@ export default async function RootLayout({
     }
 
     setRequestLocale(locale);
+    const messages = await getMessages();
 
     return (
-        <html lang={locale} className='dark'>
+        <html lang={locale} className='dark' suppressHydrationWarning>
             <head>
                 <Script>
                     {`document.documentElement.classList.add('dark');`}
@@ -56,11 +58,11 @@ export default async function RootLayout({
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
                 <NextIntlClientProvider>
-                    <StateProvider locale={locale}>
-                        <Header />
-                        {children}
-                        <Footer />
-                    </StateProvider>
+                <RootProvider messages={messages}>
+                    <Header />
+                    {children}
+                    <Footer />
+                </RootProvider>
                     <Script
                         async
                         src="https://www.googletagmanager.com/gtag/js?id=G-M7MLPFDFXL"
